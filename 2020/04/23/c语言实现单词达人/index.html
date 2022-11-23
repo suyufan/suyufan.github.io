@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="例2为单词小助手，要求完成以下任务：  1.改写程序为良好程序风格（文档注释，函数注释，语句注释）。  2.将单词测试中的功能完善，可针对做错的单词重复记忆。  3.查询单词的功能添加英文词查询，中文查询的功能完善（考虑如何显示同样中文意义，不同的英文单词）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c语言实现单词达人">
+<meta property="og:url" content="http://suyufan.github.io/2020/04/23/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%95%E8%AF%8D%E8%BE%BE%E4%BA%BA/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="例2为单词小助手，要求完成以下任务：  1.改写程序为良好程序风格（文档注释，函数注释，语句注释）。  2.将单词测试中的功能完善，可针对做错的单词重复记忆。  3.查询单词的功能添加英文词查询，中文查询的功能完善（考虑如何显示同样中文意义，不同的英文单词）">
+<meta property="og:image" content="http://suyufan.github.io/2020/04/23/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%95%E8%AF%8D%E8%BE%BE%E4%BA%BA/%E5%B8%AE%E5%8A%A9.png">
+<meta property="article:published_time" content="2020-04-23T13:52:22.000Z">
+<meta property="article:modified_time" content="2020-04-23T13:56:22.541Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2020/04/23/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%95%E8%AF%8D%E8%BE%BE%E4%BA%BA/%E5%B8%AE%E5%8A%A9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2020/04/23/c语言实现单词达人/"/>
+
+
+
+
+
+  <title>c语言实现单词达人 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2020/04/23/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%95%E8%AF%8D%E8%BE%BE%E4%BA%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">c语言实现单词达人</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-23T21:52:22+08:00">
+                2020-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>例2为单词小助手，要求完成以下任务：<br>  1.改写程序为良好程序风格（文档注释，函数注释，语句注释）。<br>  2.将单词测试中的功能完善，可针对做错的单词重复记忆。<br>  3.查询单词的功能添加英文词查询，中文查询的功能完善（考虑如何显示同样中文意义，不同的英文单词）</p>
+<a id="more"></a>  
+<p>代码  </p>
+<pre><code class="c"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span>
+<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="meta">#<span class="meta-keyword">define</span> MAX_CHAR  20  <span class="comment">// 最大字符</span></span>
+<span class="meta">#<span class="meta-keyword">define</span> MAX_NUM  200  <span class="comment">// 单词的最大个数</span></span>
+
+ <span class="comment">//单词的结构体</span>
+ <span class="class"><span class="keyword">struct</span> <span class="title">word</span></span>
+<span class="class">{</span>
+   <span class="keyword">char</span>  en[MAX_CHAR]; <span class="comment">// 英文形式</span>
+   <span class="keyword">char</span>  ch[MAX_CHAR];   <span class="comment">//中文形式</span>
+}  s[MAX_NUM]; <span class="comment">//单词数组</span>
+<span class="keyword">int</span>   num;           <span class="comment">//单词个数</span>
+<span class="keyword">int</span> select=<span class="number">1</span>;<span class="comment">//select 为是否退出系统的标记</span>
+<span class="keyword">int</span> d=<span class="number">0</span>,c=<span class="number">0</span>;
+
+<span class="comment">//帮助</span>
+<span class="function"><span class="keyword">void</span> <span class="title">help</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="built_in">printf</span>(<span class="string">"\n欢迎来到单词达人"</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n本系统主要实现英语单词学习的功能"</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n词库维护0：用户可对词典文件中的单词进行预览，增删改查。并且中文查询提供显示同样中文意义，不同的英文单词的服务"</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n单词预览1：将词库中的所有单词显示。"</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n单词背诵（中译英）2：用户需要根据随机输出的中文写出正确的英语拼写，系统会根据用户输入情况，对输入错误的单词加强记忆。"</span>); 
+    <span class="built_in">printf</span>(<span class="string">"\n单词背诵（英译中）3：用户需要根据随机输出的英文写出正确的中文拼写，系统会根据用户输入情况，对输入错误的单词加强记忆。"</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n查询成绩4：用户在测试的过程中，输入正确的单词加10分，输入错误的单词扣10分，本功能可以提供用户正确和错误的次数以及最后的总得分。"</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n帮助5：查看本系统的所有功能服务，方便用户使用。"</span>);
+    <span class="built_in">printf</span>(<span class="string">"\n退出系统6：输入6即可退出，欢迎再次使用。"</span>); 
+}
+
+<span class="comment">//从文件中读取单词的信息</span>
+<span class="function"><span class="keyword">void</span>  <span class="title">readfile</span><span class="params">()</span></span>
+<span class="function"></span>{
+   FILE *fp;
+   <span class="keyword">int</span> i=<span class="number">0</span>;
+   fp=fopen(<span class="string">"data.txt"</span>,<span class="string">"r"</span>);<span class="comment">//只读打开文件 </span>
+   <span class="keyword">if</span>(!fp)
+   {
+       <span class="built_in">printf</span>(<span class="string">"\n打开文件data.txt失败!"</span>);
+
+   }
+   <span class="keyword">while</span>(<span class="built_in">fscanf</span>(fp,<span class="string">"%s %s "</span>,s[i].en,s[i].ch)==<span class="number">2</span>)
+   {
+       i++;
+   }
+   num=i;
+   <span class="keyword">if</span>(<span class="number">0</span>==i)
+       <span class="built_in">printf</span>(<span class="string">"\n文件为空，请选择词典维护增加词条！"</span>);
+   <span class="keyword">else</span>
+       <span class="built_in">printf</span>(<span class="string">"\n"</span>);
+   fclose(fp);
+
+}
+
+<span class="comment">//从文件中写单词的信息</span>
+<span class="function"><span class="keyword">void</span>  <span class="title">writefile</span><span class="params">()</span></span>
+<span class="function"></span>{
+   FILE *fp;
+   <span class="keyword">int</span> i=<span class="number">0</span>;
+   fp=fopen(<span class="string">"data.txt"</span>,<span class="string">"w"</span>);<span class="comment">//只写打开文件 </span>
+   <span class="keyword">if</span>(!fp)
+   {
+       <span class="built_in">printf</span>(<span class="string">"\n打开文件data.txt失败!"</span>);
+
+   }
+   <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;num;i++)
+   {
+       <span class="built_in">fprintf</span>(fp,<span class="string">"\n%s %s "</span>,s[i].en,s[i].ch);<span class="comment">//在文件种打印单词的英语及汉语 </span>
+   }
+   <span class="built_in">printf</span>(<span class="string">"\n"</span>);
+   fclose(fp);
+}
+
+<span class="comment">//按字典排序</span>
+<span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="keyword">int</span> i,j;
+    <span class="keyword">char</span> temp[MAX_CHAR];
+    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;num<span class="number">-1</span>;i++)
+    {
+        <span class="keyword">for</span>(j=num<span class="number">-1</span>;j&gt;i;j--)
+            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(s[j<span class="number">-1</span>].en,s[j].en)&gt;<span class="number">0</span>)<span class="comment">//比较最后一个单词与倒数第二个单词，若str1=str2，则返回零；若str1&lt;str2，则返回负数；若str1&gt;str2，则返回正数</span>
+            {    
+                <span class="comment">//当倒数第二个单词的字符串大于最后一个单词的字符串，将2个位置交换 </span>
+                <span class="built_in">strcpy</span>(temp,s[j<span class="number">-1</span>].en);<span class="comment">//复制，将倒数第二个单词复制给temp </span>
+                <span class="built_in">strcpy</span>(s[j<span class="number">-1</span>].en,s[j].en);<span class="comment">//复制，将倒数第一个单词复制给倒数第二个 </span>
+                <span class="built_in">strcpy</span>(s[j].en,temp);<span class="comment">//复制，将temp复制给倒数第一个单词 </span>
+                <span class="built_in">strcpy</span>(temp,s[j<span class="number">-1</span>].ch);
+                <span class="built_in">strcpy</span>(s[j<span class="number">-1</span>].ch,s[j].ch);
+                <span class="built_in">strcpy</span>(s[j].ch,temp);
+
+            }
+    }
+}
+
+<span class="comment">//添加单词信息</span>
+<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>
+<span class="function"></span>{
+   <span class="keyword">int</span> i=num,j,flag=<span class="number">1</span>; 
+   <span class="keyword">while</span>(flag) <span class="comment">//flag为1作为添加单词的标志 </span>
+    {
+        flag=<span class="number">0</span>;
+        <span class="built_in">printf</span>(<span class="string">"\n请输入单词的英文形式:"</span>);
+        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s[i].en);
+        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;i;j++)
+
+            <span class="comment">//检验是否已有这个单词 </span>
+            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(s[i].en,s[j].en)==<span class="number">0</span>)
+            {
+                <span class="built_in">printf</span>(<span class="string">"已有该单词,请检查后重新录入!\n"</span>);
+                flag=<span class="number">1</span>;
+                <span class="keyword">break</span>; <span class="comment">/*如有重复立即退出该层循环,提高判断速度*/</span>
+            }
+
+    }
+   <span class="built_in">printf</span>(<span class="string">"\n请输入单词的中文形式:"</span>);
+   <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s[i].ch);
+   num++;
+   <span class="built_in">printf</span>(<span class="string">"\n您输入的信息为: 英文: %s 中文: %s  "</span>,s[i].en,s[i].ch);
+    sort();<span class="comment">//调用字典排序 </span>
+}
+
+<span class="comment">//删除单词信息</span>
+<span class="function"><span class="keyword">void</span> <span class="title">del</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>;
+    <span class="keyword">char</span>  en[MAX_CHAR];   <span class="comment">//英文形式</span>
+      <span class="built_in">printf</span>(<span class="string">"\n请输入你要删除的单词英文形式:"</span>);    
+    <span class="built_in">scanf</span>(<span class="string">"%s"</span>,en);
+    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;num;i++)<span class="comment">//先找到该英文形式对应的序号</span>
+        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(s[i].en,en)==<span class="number">0</span>)<span class="comment">//找到时删除该单词 </span>
+        {
+            <span class="keyword">for</span>(j=i;j&lt;num<span class="number">-1</span>;j++)
+                 s[j]=s[j+<span class="number">1</span>];
+            num--; <span class="comment">//数量减少 1</span>
+            <span class="keyword">return</span>;
+        }
+    <span class="built_in">printf</span>(<span class="string">"\n没有这个单词!"</span>);
+
+}
+
+<span class="comment">//修改单词信息</span>
+<span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="keyword">int</span> i=<span class="number">0</span>,choose=<span class="number">0</span>,flag=<span class="number">1</span>;<span class="comment">//chooses代表选项标识，flag代表是否找到单词</span>
+    <span class="keyword">char</span>  en[MAX_CHAR];   <span class="comment">//英文形式</span>
+    <span class="keyword">while</span>(flag||choose)
+    {
+        <span class="built_in">printf</span>(<span class="string">"\n请输入你要修改的单词英文形式:"</span>);    
+        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,en);
+        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;num;i++)<span class="comment">//先找到该英文形式对应的序号</span>
+            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(s[i].en,en)==<span class="number">0</span>)
+            {
+                <span class="built_in">printf</span>(<span class="string">"\n请输入单词正确的英文形式:"</span>);
+                <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s[i].en);
+
+                <span class="built_in">printf</span>(<span class="string">"\n请输入此单词正确的的中文形式:"</span>);
+                <span class="built_in">scanf</span>(<span class="string">"%s"</span>,s[i].ch);
+
+                <span class="built_in">printf</span>(<span class="string">"\n继续修改请选1，返回上一级请选0:"</span>);
+                <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;choose);
+                <span class="keyword">if</span>(choose==<span class="number">0</span>) 
+                <span class="keyword">return</span>;    
+            }
+        flag=<span class="number">0</span>;<span class="comment">//找不到单词时，将flag变为0 </span>
+    }
+    <span class="comment">//找不到单词的处理 </span>
+   <span class="keyword">if</span>(!flag)     
+   <span class="built_in">printf</span>(<span class="string">"\n没有这个单词!"</span>);
+}
+
+<span class="comment">//单词预览</span>
+<span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="keyword">int</span>  i=<span class="number">0</span>;
+    <span class="built_in">printf</span>(<span class="string">"\n单词：英文   中文 "</span>);
+    <span class="comment">//循环输出单词 </span>
+    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;num;i++)
+    <span class="built_in">printf</span>(<span class="string">"\n%-12s%-12s"</span>,s[i].en,s[i].ch);
+}
+
+<span class="comment">//查询单词</span>
+<span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="keyword">int</span> i=<span class="number">0</span>,choose=<span class="number">0</span>,flag=<span class="number">1</span>;
+    <span class="keyword">char</span>  ch[MAX_CHAR];   <span class="comment">//中文形式</span>
+    <span class="keyword">while</span>(choose||flag)
+    {
+        <span class="built_in">printf</span>(<span class="string">"\n请输入你要查询的单词中文形式:"</span>);    
+        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,ch);
+        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;num;i++)
+        <span class="comment">//先找到该中文形式对应的序号</span>
+        {
+            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(s[i].ch,ch)==<span class="number">0</span>)
+            {        
+                <span class="built_in">printf</span>(<span class="string">"\n英文形式       中文形式"</span>);
+                <span class="built_in">printf</span>(<span class="string">"\n%-12s%12s"</span>,s[i].en,s[i].ch);
+            }
+       }
+           <span class="built_in">printf</span>(<span class="string">"\n继续查询请选1，返回上一级请选0:"</span>);
+        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;choose);
+        <span class="keyword">if</span>(choose==<span class="number">0</span>) 
+        <span class="keyword">return</span>;    
+        flag=<span class="number">0</span>;
+    }
+    <span class="comment">//没有单词的处理 </span>
+   <span class="keyword">if</span>(!flag)     
+   <span class="built_in">printf</span>(<span class="string">"\n没有这个单词!"</span>);
+}
+
+<span class="comment">//中译英测试</span>
+<span class="function"><span class="keyword">void</span> <span class="title">zytest</span><span class="params">()</span></span>
+<span class="function"></span>{    
+    <span class="keyword">int</span> ifwrong=<span class="number">0</span>;<span class="comment">//1表示错误过，0表示一遍即正确测试通过 </span>
+    <span class="keyword">char</span> b1[<span class="number">20</span>];<span class="comment">//输入英语单词答案的数组 </span>
+    <span class="keyword">int</span> z;
+    <span class="keyword">int</span> choose=<span class="number">1</span>;
+    <span class="keyword">int</span> tip;<span class="comment">//作为复习错误单词，提示还是再输的标志 </span>
+    <span class="keyword">int</span>  i;
+    <span class="keyword">while</span>(choose)
+    { 
+        i = rand()%num;<span class="comment">//调用随机函数，随机取中文词 </span>
+        <span class="built_in">printf</span>(<span class="string">"\n【%s】请输入该词的英文形式:"</span>,s[i].ch);<span class="comment">//针对显示随机选择的中文词 </span>
+        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;b1);<span class="comment">//对于选择的单词的中文意思，写自己的答案 </span>
+        <span class="comment">//输入错误处理 </span>
+        <span class="keyword">for</span>(z=<span class="number">0</span>;<span class="built_in">strcmp</span>(b1,s[i].en)!=<span class="number">0</span>;z=z)
+        {
+        <span class="built_in">printf</span>(<span class="string">"输入错误！！请重新输入:"</span>);
+        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;b1);
+        ifwrong=<span class="number">1</span>;
+        }
+        <span class="comment">//输入错误计分处理 </span>
+        <span class="keyword">if</span>(ifwrong)
+        {
+            c++;
+            ifwrong=<span class="number">0</span>;
+        }     
+        <span class="built_in">printf</span>(<span class="string">"\n恭喜你，回答正确，加10分!\n\n"</span>);
+        <span class="built_in">printf</span>(<span class="string">"\n进行错误单词复习请选2，继续测试请选1，返回上一级请选0:"</span>);
+        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;choose);
+        <span class="keyword">if</span>(choose==<span class="number">0</span>||choose==<span class="number">2</span>) 
+        {
+            <span class="keyword">if</span>(choose==<span class="number">2</span>)<span class="comment">//选择了单词复习 </span>
+            {
+                <span class="built_in">printf</span>(<span class="string">"\n【%s】请输入该词的英文形式:"</span>,s[i].ch);<span class="comment">//针对显示随机选择的中文词 </span>
+                <span class="built_in">scanf</span>(<span class="string">"%s"</span>,b1);<span class="comment">//对于选择的单词的中文意思，写自己的答案</span>
+                <span class="comment">//再次写错 </span>
+                <span class="keyword">if</span>(<span class="built_in">strcmp</span>(b1,s[i].en)!=<span class="number">0</span>)
+                {
+                    <span class="built_in">printf</span>(<span class="string">"\n又错了/(ㄒoㄒ)/~~\n不扣分了，告诉你吧\n正确的形式是【%s】\n同学要好好背单词呀"</span>,s[i].en);
+                }
+                <span class="keyword">if</span>(<span class="built_in">strcmp</span>(b1,s[i].en)==<span class="number">0</span>)<span class="comment">//答对了</span>
+                {
+                    <span class="built_in">printf</span>(<span class="string">"\n第一次为什么没有答对呢"</span>);                 
+                 } 
+            }
+            <span class="keyword">if</span>(choose==<span class="number">0</span>)<span class="comment">//返回上一级            </span>
+            <span class="keyword">return</span>;
+        }
+        zytest();        
+    }
+}
+
+<span class="comment">//英译中测试</span>
+<span class="function"><span class="keyword">void</span> <span class="title">yztest</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="keyword">int</span> ifwrong=<span class="number">0</span>;<span class="comment">//1表示错误过，0表示一遍即正确测试通过 </span>
+    <span class="keyword">char</span> b1[<span class="number">20</span>];<span class="comment">//输入英语单词答案的数组 </span>
+    <span class="keyword">int</span> z;
+    <span class="keyword">int</span> choose=<span class="number">1</span>;
+    <span class="keyword">int</span> tip;<span class="comment">//作为复习错误单词，提示还是再输的标志 </span>
+    <span class="keyword">int</span>  i;
+    <span class="keyword">while</span>(choose)
+    { 
+        i = rand()%num;<span class="comment">//调用随机函数，随机取中文词 </span>
+        <span class="built_in">printf</span>(<span class="string">"\n【%s】请输入该词的中文形式:"</span>,s[i].en);<span class="comment">//针对显示随机选择的中文词 </span>
+        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;b1);<span class="comment">//对于选择的单词的中文意思，写自己的答案 </span>
+        <span class="comment">//输入错误处理 </span>
+        <span class="keyword">for</span>(z=<span class="number">0</span>;<span class="built_in">strcmp</span>(b1,s[i].ch)!=<span class="number">0</span>;z=z)
+        {
+        <span class="built_in">printf</span>(<span class="string">"输入错误！！请重新输入:"</span>);
+        <span class="built_in">scanf</span>(<span class="string">"%s"</span>,&amp;b1);
+        ifwrong=<span class="number">1</span>;
+        }
+        <span class="comment">//输入错误计分处理 </span>
+        <span class="keyword">if</span>(ifwrong)
+        {
+            c++;
+            ifwrong=<span class="number">0</span>;
+        }     
+        <span class="built_in">printf</span>(<span class="string">"\n恭喜你，回答正确，加10分!\n\n"</span>);
+        <span class="built_in">printf</span>(<span class="string">"\n进行错误单词复习请选2，继续测试请选1，返回上一级请选0:"</span>);
+        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;choose);
+        <span class="keyword">if</span>(choose==<span class="number">0</span>||choose==<span class="number">2</span>) 
+        {
+            <span class="keyword">if</span>(choose==<span class="number">2</span>)<span class="comment">//选择了单词复习 </span>
+            {
+                <span class="built_in">printf</span>(<span class="string">"\n【%s】请输入该词的英文形式:"</span>,s[i].ch);<span class="comment">//针对显示随机选择的中文词 </span>
+                <span class="built_in">scanf</span>(<span class="string">"%s"</span>,b1);<span class="comment">//对于选择的单词的中文意思，写自己的答案</span>
+                <span class="comment">//再次写错 </span>
+                <span class="keyword">if</span>(<span class="built_in">strcmp</span>(b1,s[i].ch)!=<span class="number">0</span>)
+                {
+                    <span class="built_in">printf</span>(<span class="string">"\n又错了/(ㄒoㄒ)/~~\n不扣分了，告诉你吧\n正确的形式是【%s】\n同学要好好背单词呀"</span>,s[i].ch);
+                }
+                <span class="keyword">if</span>(<span class="built_in">strcmp</span>(b1,s[i].ch)==<span class="number">0</span>)<span class="comment">//答对了</span>
+                {
+                    <span class="built_in">printf</span>(<span class="string">"\n第一次为什么没有答对呢"</span>);                 
+                 } 
+            }
+            <span class="keyword">if</span>(choose==<span class="number">0</span>)<span class="comment">//返回上一级            </span>
+            <span class="keyword">return</span>;
+        }
+        yztest();        
+    }
+}
+<span class="comment">//成绩列表</span>
+<span class="function"><span class="keyword">void</span> <span class="title">list</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="built_in">printf</span>(<span class="string">"\n    共计输入错误:%d次    **每次扣10分**\n"</span>,c);
+    <span class="built_in">printf</span>(<span class="string">"    共计输入正确:%d次    **每次加10分**\n"</span>,d);
+    <span class="built_in">printf</span>(<span class="string">"    你的总得分为:%d分\n\n"</span>,<span class="number">10</span>*d<span class="number">-10</span>*c);
+
+}
+<span class="comment">//词典维护</span>
+<span class="function"><span class="keyword">void</span> <span class="title">maintain</span><span class="params">()</span></span>
+<span class="function"></span>{
+    <span class="keyword">int</span> choose;<span class="comment">//维护功能选择</span>
+    <span class="built_in">printf</span>(<span class="string">"   ------------------\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"   1.增加单词\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"   2.修改单词\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"   3.删除单词\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"   4.查询单词\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"   5.退出本菜单\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"   ------------------\n"</span>);
+       <span class="keyword">while</span>(<span class="number">1</span>)
+    {   
+
+        <span class="built_in">printf</span>(<span class="string">" \n请输入维护功能编号:"</span>);
+        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;choose);
+
+        <span class="keyword">switch</span>(choose)
+        {
+         <span class="keyword">case</span> <span class="number">1</span>:
+                 add();writefile();<span class="keyword">break</span>;<span class="comment">//增 </span>
+         <span class="keyword">case</span> <span class="number">2</span>:
+                 modify();writefile();<span class="keyword">break</span>;<span class="comment">//改 </span>
+         <span class="keyword">case</span> <span class="number">3</span>:
+                 del();writefile();<span class="keyword">break</span>;<span class="comment">//删 </span>
+         <span class="keyword">case</span> <span class="number">4</span>:
+                 search();<span class="keyword">break</span>;<span class="comment">//查 </span>
+         <span class="keyword">case</span> <span class="number">5</span>:  <span class="keyword">return</span>;
+        <span class="keyword">default</span>: <span class="built_in">printf</span>(<span class="string">"\n请在1-5之间选择"</span>);
+        }
+    }
+}
+<span class="comment">//用户界面</span>
+<span class="function"><span class="keyword">void</span> <span class="title">menu</span><span class="params">()</span></span>
+<span class="function"></span>{  
+    <span class="keyword">int</span> item;
+    <span class="built_in">printf</span>(<span class="string">"\n"</span>);    
+    <span class="built_in">printf</span>(<span class="string">"      *********************************************************\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                 英语单词小助手                        #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#              版本 ： v1.0                          #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">" *********************************************************\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#       0.词库维护          1.单词预览                  #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#       2.单词背诵(中英)    3.单词背诵(英中)            #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#       4.查询成绩          5.帮助                      #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#       6.退出系统                                      #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"#                                                       #\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">" **********************************************************\n"</span>);  
+    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
+    <span class="built_in">printf</span>(<span class="string">"       请选择您需要的操作序号(0-5)按回车确认:"</span>);
+
+    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;item);
+    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
+    readfile();
+    <span class="keyword">switch</span>(item)
+    {
+     <span class="keyword">case</span> <span class="number">0</span>:
+              <span class="built_in">maintain</span>();<span class="keyword">break</span>;
+     <span class="keyword">case</span> <span class="number">1</span>:
+              show();<span class="keyword">break</span>; 
+     <span class="keyword">case</span> <span class="number">2</span>:
+              zytest();<span class="keyword">break</span>;
+     <span class="keyword">case</span> <span class="number">3</span>:
+              yztest(); <span class="keyword">break</span>;
+     <span class="keyword">case</span> <span class="number">4</span>:
+              <span class="built_in">list</span>();<span class="keyword">break</span>;
+     <span class="keyword">case</span> <span class="number">5</span>:
+              help();<span class="keyword">break</span>;
+       <span class="keyword">case</span> <span class="number">6</span>:
+              select =<span class="number">0</span>;<span class="keyword">break</span>;
+     <span class="keyword">default</span>:
+        <span class="built_in">printf</span>(<span class="string">"请在0-6之间选择\n"</span>);
+     }
+}
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>
+<span class="function"></span>{ 
+      <span class="keyword">while</span>(select)
+    {
+        menu();
+    }
+    system(<span class="string">"pause"</span>);
+    <span class="keyword">return</span> <span class="number">0</span>;
+} </code></pre>
+<p>运行结果<br><img src="/2020/04/23/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%95%E8%AF%8D%E8%BE%BE%E4%BA%BA/%E5%B8%AE%E5%8A%A9.png" alt="帮助"> </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/08/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%AD%90%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/" rel="next" title="如何获取子函数运行时间">
+                <i class="fa fa-chevron-left"></i> 如何获取子函数运行时间
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/26/Java%E5%8C%85%E8%A3%85%E7%B1%BB%E4%B9%8BInteger/" rel="prev" title="Java包装类之Integer">
+                Java包装类之Integer <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">134</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共141k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

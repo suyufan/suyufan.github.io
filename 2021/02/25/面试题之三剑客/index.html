@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,CSS,HTML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一.HTML篇1.HTML5 drag api   dragstart 事件主体为被拖放元素 开始时触放    drag 事件主体为被拖放元素 正在拖   dragenter 事件主体为目标元素 进入   dragover 事件主体为目标元素 被拖元素在某元素内移动   dragleave 事件主体为目标元素 被拖元素离开某元素   drop 事件主体为目标元素 目标元素完全接受被拖放元素   d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题之三剑客">
+<meta property="og:url" content="http://suyufan.github.io/2021/02/25/%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E4%B8%89%E5%89%91%E5%AE%A2/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="一.HTML篇1.HTML5 drag api   dragstart 事件主体为被拖放元素 开始时触放    drag 事件主体为被拖放元素 正在拖   dragenter 事件主体为目标元素 进入   dragover 事件主体为目标元素 被拖元素在某元素内移动   dragleave 事件主体为目标元素 被拖元素离开某元素   drop 事件主体为目标元素 目标元素完全接受被拖放元素   d">
+<meta property="article:published_time" content="2021-02-25T09:54:08.000Z">
+<meta property="article:modified_time" content="2021-05-13T16:13:53.409Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2021/02/25/面试题之三剑客/"/>
+
+
+
+
+
+  <title>面试题之三剑客 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2021/02/25/%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E4%B8%89%E5%89%91%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试题之三剑客</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-25T17:54:08+08:00">
+                2021-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一-HTML篇"><a href="#一-HTML篇" class="headerlink" title="一.HTML篇"></a>一.HTML篇</h1><h3 id="1-HTML5-drag-api"><a href="#1-HTML5-drag-api" class="headerlink" title="1.HTML5 drag api"></a>1.HTML5 drag api</h3><table>
+<thead>
+<tr>
+<th>dragstart</th>
+<th>事件主体为被拖放元素</th>
+<th>开始时触放</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>drag</td>
+<td>事件主体为被拖放元素</td>
+<td>正在拖</td>
+</tr>
+<tr>
+<td>dragenter</td>
+<td>事件主体为目标元素</td>
+<td>进入</td>
+</tr>
+<tr>
+<td>dragover</td>
+<td>事件主体为目标元素</td>
+<td>被拖元素在某元素内移动</td>
+</tr>
+<tr>
+<td>dragleave</td>
+<td>事件主体为目标元素</td>
+<td>被拖元素离开某元素</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>事件主体为目标元素</td>
+<td>目标元素完全接受被拖放元素</td>
+</tr>
+<tr>
+<td>dragend</td>
+<td>事件主体为被拖元素</td>
+<td>整个拖放操作结束</td>
+</tr>
+<tr>
+<td><a id="more"></a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="2-语义化标签"><a href="#2-语义化标签" class="headerlink" title="2.语义化标签"></a>2.语义化标签</h3><ul>
+<li>hgroup用来标题分组，将一组相关的标题同时放入到hgroup </li>
+<li>blockquote用来表示引用别人的话,长引用。q表示短引用</li>
+<li>注意：p元素里不能写块元素<br>块级：h,p,blockquote,<br>行内：em,strong,q<br>替换元素：img</li>
+<li>结构化语义标签<ul>
+<li>header 网页头部</li>
+<li>main 主体（一个网页只有一个）</li>
+<li>footer 底部</li>
+<li>nav 导航</li>
+<li>aside 和主体相关（常用于侧边栏）</li>
+<li>articel 文章</li>
+<li>section 一个独立的区块</li>
+</ul>
+</li>
+<li>dl,dt（一级）,dd（二级） 定义列表</li>
+<li>a可以嵌套除了他自身以外的任意元素</li>
+<li>快捷生成任意英语lorem</li>
+<li>图片格式：jpg色彩丰富不支持透明和动图，gif颜色少支持透明动图，png颜色丰富支持透明不支持动图，webp谷歌新推表示网页中的图片有所有优点，base64将图片使用base64进行编码将图片转化为字符通过字符来引入（当网页和图片一起加载的时候用）<br>其实主要用div，span</li>
+</ul>
+<h3 id="3-meta"><a href="#3-meta" class="headerlink" title="3.meta"></a>3.meta</h3><p>meta 主要用于设置网页中的一些元数据（不给用户看）<br>    - charset 指定网页的字符集<br>    - name 数据名称<br>                 - keywords 表示网站的关键字<br>                 - description 用于指定网站的描述<br>                 - title 作为搜素结果上的文字显示<br>    - content 指定的数据内容<br>    - 重定向</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SEO会爬取到</span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"keywords"</span> <span class="attr">content</span>=<span class="string">"网上购物,家电,手机,计算机,服装,国际,海外,居家,母婴,美妆,个护,食品,京东,集运,全球"</span> /&gt;</span> </span><br><span class="line"></span><br><span class="line">3秒后跳到百度</span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"3;url=https://www.baidu.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-SEO"><a href="#4-SEO" class="headerlink" title="4.SEO"></a>4.SEO</h3><p>原理：<br>    - 页面抓取：蜘蛛向服务器请求页面，获取页面的线程编程的web worker,web socket协议内容<br>    - 分析入库：对获取到的内容进行分析，优质收录<br>    - 检索排序：当用户输关键词，从收录中按一定规则排序返回  </p>
+<p>蜘蛛：爬取页面的程序<br>工作方式：<br>    - 深度优先<br>    - 广度优先  </p>
+<p>如何利用蜘蛛优化？<br>    - 在更有名的网站放自己的外链<br>    - 经常更新<br>    - 增加外链<br>    - 首页做好导航  </p>
+<p>前端怎么做SEO优化？<br>    - url<br>        规范 简单 有描述性 在建站前想好<br>        不要把id之类用户信息，放到url中<br>        不同形式，防止用户输错的备用域名<br>        扁平化网络结构，层次越少，越利于爬取<br>    - title<br>        清晰，关键<br>    - meta<br>        - description<br>        - keywords<br>    - html<br>        纯粹和高质量，使html,css,js三者分离<br>    - alt<br>    - 设<code>rel=&#39;nofollow&#39;</code><br>        给不需要的a标签加忽略跟踪<br>    - 减少使用的元素<br>        - 图片，视频里的文本无法爬要写的静态页面<br>        - flash：无法处理文本要用，给object标签加注释<br>        - frame,iframe：内容可能被蜘蛛丢弃<br>        重要内容不应该由JavaScript或iframe输出，蜘蛛没有办法读取js，故不会读iframe<br>    - 小优化<br>        404页面，重要内容放前面，关键词，语义化元素  </p>
+<h3 id="5-web-socket和web-worker"><a href="#5-web-socket和web-worker" class="headerlink" title="5.web socket和web worker"></a>5.web socket和web worker</h3><p>web socket 和 worker 的作用：为构建高效能的web应用提供了新的参考方案。<br>web socket提供更高效的传输协议，web worker提供多线程提高web应用计算效率。 </p>
+<ul>
+<li><p>web socket<br>是一种协议，本质上和http,tcp一样。</p>
+<ul>
+<li>前缀：<br>  ① ws:// 不可加密<br>  ② wss:// 加密  </li>
+<li>客户端和服务端进行web socket交互的方式也可以理解为<code>http握手+tcp数据传输</code>  </li>
+<li>websocket的数据传输形式是：frame。比如会将一条消息分为几个frame，按照先后顺序传输出去。  </li>
+<li>可以实现跨域。利用origin字段。</li>
+</ul>
+</li>
+<li><p>web worker<br>在html页面中，如果执行脚本时，页面状态是不可响应的，直到脚本执行完成，才变成可响应<br>web worker是运行在后台的独立的js，通过post message 将结果传到主线程，在进行复杂操作的时候不会阻碍主线程  </p>
+<ul>
+<li>如何创建？  <ul>
+<li>检测浏览器对于web worker的支持性  </li>
+<li>创建web worker文件  </li>
+<li>创建web worker对象  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-HTML的async和defer"><a href="#6-HTML的async和defer" class="headerlink" title="6.HTML的async和defer"></a>6.HTML的async和defer</h3><p>async和defer对于<strong>内联JavaScript都是无效的</strong><br>使得script都不会阻塞DOM的渲染  </p>
+<ul>
+<li><p>defer<br>  等js下载完毕时若HTML还没解析完毕，js会等到HTML文档解析完毕后再执行。<br>  浏览器会异步的下载，该文件并且不会影响到后续DOM的渲染  </p>
+<ul>
+<li>多个按顺序<br>  defer脚本会在文档渲染完毕后，DOMContentLoaded事件调用前执行  </li>
+</ul>
+</li>
+<li><p>async<br>  在下载js文件期间不会阻塞HTML的解析，但是js下载完毕之后就会立即执行，无论现在HTML是否正在解析。<br>  async的执行不会按着script在页面的顺序来执行，而是谁先加载完成谁先执行<br>  DOMContentLoaded事件的触发并不受async脚本加载的影响  </p>
+</li>
+</ul>
+<p>defer(脚本代码依赖页面中的DOM)评论框，代码语法高亮<br>async(脚本并不关心页面中的DOM)百度统计　　<br>defer更稳定  </p>
+<h3 id="7-css为什么要放在html文档的-lt-head-gt-标签内"><a href="#7-css为什么要放在html文档的-lt-head-gt-标签内" class="headerlink" title="7.css为什么要放在html文档的&lt;head&gt;标签内"></a>7.css为什么要放在html文档的<code>&lt;head&gt;</code>标签内</h3><p>如果把css文件引用放在HTML文档的底部，浏览器为了防止无样式,内容闪烁，会在css文件下载并解析完毕之前什么都不显示，这也就会造成白屏现象。<br>当css文件放在<head>中时，虽然css解析也会阻塞后续dom的渲染，但是在解析css的同时也在解析dom，所以等到css解析完毕就会逐步的渲染页面了。</head></p>
+<ul>
+<li>怎么优化？<br>  因为Css的解析会阻塞页面的渲染，为了让页面尽早的呈现处理，那么就要避免一些无用的css文件。<br>  使用媒体查询可以让css文件只在必要的时候解析，进而避免不必需的渲染阻塞，加快页面呈现时间。<h3 id="8-H5引入了哪些新特性？"><a href="#8-H5引入了哪些新特性？" class="headerlink" title="8.H5引入了哪些新特性？"></a>8.H5引入了哪些新特性？</h3></li>
+</ul>
+<p>（1）8个语义元素 hearder section footer aside nav main article figure<br>内容元素 mark高亮，progress进度<br>新的表单控件 calander,date,time,email,url,search<br>新的input类型 color，date，datetime，datetime-local,email<br>移除过时标签 big font frame frameset  </p>
+<p>(2)canvas绘图，支持内联svg  </p>
+<p>(3)多媒体audio,video,source,embed,track  </p>
+<p>(4)本地离线存储，将文件列在一个配置文件  </p>
+<p>(5)web存储。localstorage,sessionstorage</p>
+<h1 id="二-CSS篇"><a href="#二-CSS篇" class="headerlink" title="二.CSS篇"></a>二.CSS篇</h1><h3 id="1-CSS3新特性"><a href="#1-CSS3新特性" class="headerlink" title="1.CSS3新特性"></a>1.CSS3新特性</h3><p>css边框：border-radius，border-shadow<br>css背景：background-origin，background-size<br>css 2D 3D转换，动画：transform，animation</p>
+<p><a href="https://suyufan.github.io/2021/02/19/css%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2/">css媒体查询</a></p>
+<h3 id="2-box-sizing的语法和基本用处"><a href="#2-box-sizing的语法和基本用处" class="headerlink" title="2.box-sizing的语法和基本用处"></a>2.box-sizing的语法和基本用处</h3><p>box-sizing规定两个并排的带边框的框<br>    ：content-box / border-box /inherit  </p>
+<ul>
+<li>content-box：宽度和高度分别应用到元素的内容框，在宽度和高度之外绘制元素的内边距和边框  </li>
+<li>border-box：为元素设定的高和宽决定了元素的边框值  </li>
+<li>inherit：继承父元素的box-sizing</li>
+</ul>
+<h3 id="3-如何让一个元素消失？"><a href="#3-如何让一个元素消失？" class="headerlink" title="3.如何让一个元素消失？"></a>3.如何让一个元素消失？</h3><ul>
+<li><code>display: none</code>  改变布局。在页面将元素删除了</li>
+<li><code>visibility: hidden</code>  不改变布局，不触发事件</li>
+<li><code>opacity: 0</code> 该元素隐藏起来了，不会改变布局，如果绑定了事件如click，点击仍会触发  </li>
+</ul>
+<h3 id="4-重排和重绘"><a href="#4-重排和重绘" class="headerlink" title="4.重排和重绘"></a>4.重排和重绘</h3><p>浏览器渲染页面默认采用的是流式布局模型，某一个DOM节点信息更改了，就要对DOM结构重新计算，重新布局界面。全局范围是从根节点html开始，局部从渲染树的某部分或某一个渲染对象进行重新布局。  </p>
+<p>引起重排的操作（DOM对象位置和大小）<br>    - 1.页面首次渲染<br>    - 2.浏览器窗口大小改变<br>    - 3.元素尺寸或位置改变<br>    - 4.元素内容变化（图片大小）<br>    - 5.元素字体大小的改变<br>    - 6.添加或删除可见的DOM元素<br><code>width,display,clientwidth,scrollwidth,offsettop</code>  </p>
+<p>重绘（页面中元素的样式）<br><code>color,border-style,outline,background</code></p>
+<h3 id="5-position属性"><a href="#5-position属性" class="headerlink" title="5.position属性"></a>5.position属性</h3><p>取值：static，relative，absolute，fixed，sticky  </p>
+<h3 id="6-像素"><a href="#6-像素" class="headerlink" title="6.像素"></a>6.像素</h3><ul>
+<li>css像素</li>
+<li>物理像素</li>
+</ul>
+<p>可以通过改变视口的大小来改变css像素和物理像素的比值  </p>
+<p>在不同屏幕下，单位像素是不同的，像素越小屏幕越清晰  </p>
+<p>默认情况下，移动端网页都会将视口设置为980像素（css像素），确保pc端可在移动端正常访问</p>
+<p>将网页视口设置为完美视口<code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></p>
+<p>vw表示的是视口宽度（100vw == 1个视口宽度）</p>
+<h3 id="7-字体"><a href="#7-字体" class="headerlink" title="7.字体"></a>7.字体</h3><p>不会失真，是矢量<br>对于电脑中没有的字体，下载字体到font  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    //指定字体名字</span><br><span class="line">    font-family: 'myFont';</span><br><span class="line">    src: url('路径')；</span><br></pre></td></tr></table></figure>
+
+<p>font-face可以将服务器中的字体直接提供给用户去使用<br>问题：1.加载速度   2.版权 3.格式   </p>
+<ul>
+<li><p>图标字体</p>
+<ul>
+<li>问题：图片本身比较大，且非常不灵活</li>
+<li>使用font-face的样式来引入</li>
+</ul>
+<p>fontawesome使用<br>  下载，解压，将css和webfonts移动到项目中，将all.css引入，使用</p>
+<pre><code>- 直接通过类名使用`&lt;i class=&quot;类名&quot;&gt;&lt;/i&gt;`fas/fab
+        - 通过伪元素（到all.css中查content,font-family,font-weight）
+        - 通过实体（&amp;#x图片的编码）</code></pre></li>
+</ul>
+<h3 id="8-link-与-import"><a href="#8-link-与-import" class="headerlink" title="8.link 与 @import"></a>8.link 与 @import</h3><ul>
+<li>link属于xhtml标签，而@import是由css提供  </li>
+<li>加载顺序：  <ul>
+<li>link引用的css会在页面加载时，同时加载。</li>
+<li>@import引用的css会等页面全部被下载完再加载  </li>
+</ul>
+</li>
+<li>兼容性  <ul>
+<li>@import有兼容性限制  </li>
+</ul>
+</li>
+<li>只能使用link标签去控制dom样式  </li>
+</ul>
+<h3 id="9-px，em，rem-，vw-vh"><a href="#9-px，em，rem-，vw-vh" class="headerlink" title="9.px，em，rem ，vw ,vh"></a>9.px，em，rem ，vw ,vh</h3><p>都是css中的单位长度  </p>
+<p>px 是固定像素，一旦设置就无法改变<br>em 和 rem 都是相对长度单位，是适应于响应式布局<br>em相对父元素  rem相对于html元素  </p>
+<p>vw视口宽度，100vw是视口的总宽度   vh 视口高度</p>
+<h1 id="三-JavaScript篇"><a href="#三-JavaScript篇" class="headerlink" title="三.JavaScript篇"></a>三.JavaScript篇</h1><h3 id="1-为什么JS执行的时候要阻塞HTML解析"><a href="#1-为什么JS执行的时候要阻塞HTML解析" class="headerlink" title="1.为什么JS执行的时候要阻塞HTML解析"></a>1.为什么JS执行的时候要阻塞HTML解析</h3><p>如果把JavaScript放在页面顶部，下载和解析JavaScript的时间里面，dom迟迟得不到解析和渲染，浏览器一直处于白屏，所以把JavaScript文件放在页面底部更有利于页面快速呈现。</p>
+<h3 id="2-BOM"><a href="#2-BOM" class="headerlink" title="2.BOM"></a>2.BOM</h3><p>浏览器对象：<br>    - location<br>    - history<br>    - navigator</p>
+<p>(1)location<br>.href – url<br>.host – 域名<br>.pathname – 域名后的部分<br>.replace(url) – 在history对象中移除这个url<br>.reload – 重载   </p>
+<p>(2)history<br>.go() – 前进/后退的页面数<br>.back()<br>.forwoard()  </p>
+<p>(3)navigator<br>.userAgent – 用户代理头的字符串表示<br>.cookieEnabled – 浏览器支持cookie吗  </p>
+<h3 id="3-Cookie，SessionStorage，LocalStorage的区别-前端四大存储方式"><a href="#3-Cookie，SessionStorage，LocalStorage的区别-前端四大存储方式" class="headerlink" title="3.Cookie，SessionStorage，LocalStorage的区别/前端四大存储方式"></a>3.Cookie，SessionStorage，LocalStorage的区别/前端四大存储方式</h3><p>共同：保存在浏览器前端<br>区别：<br>    cookie数据在同源的http请求中携带，过期前时间有效。可以在浏览器和服务器来回传递，存储容量小，大约为4kb<br>    SessionStorage：仅在当前窗口关闭前有效<br>    LocalStorage：始终有效  </p>
+<p><strong>IndexedDB：</strong>被纳入HTML5标准的数据库存储方案，它是一个NoSql数据库，用<strong>键值对</strong>进行存储，可以快速读取操作，适合web场景和JavaScript操作   </p>
+<p>cookie的作用<br>    - 保存用户登录状态<br>    - 跟踪用户行为</p>
+<h3 id="4-cookie与session"><a href="#4-cookie与session" class="headerlink" title="4.cookie与session"></a>4.cookie与session</h3><p>  - 工作原理：</p>
+<p>  <strong><em>\</em>cookie的工作原理**</strong>：浏览器第一次发送请求到服务器，服务器创建cookie，将cookie发送到浏览器；如果浏览器再次访问服务器，会携带着cookie；服务器根据浏览器发送过来的cookie，区分不同的用户、权限等</p>
+<p>  <strong><em>\</em>session的工作原理**</strong>：浏览器首次发送请求到服务器，服务器端创建一个session，同时创建一个cookie，发送到浏览器；浏览器再次访问服务器，会携带带有特殊id的cookie，服务器根据cookie中的sessionid，查看对应的session对象，区别用户</p>
+<p>  - 存储位置： </p>
+<p>  cookie和session都是会话技术，cookie数据是存储到客户端，而session是存储到服务端</p>
+<p>  - 数据大小限制 </p>
+<p>  cookie存储的数据大小有限 ；而session没有大小限制，跟服务端的内存有关</p>
+<p>  - 安全 </p>
+<p>  cookie安全性差，可以通过拦截或本地文件可以对cookie进行攻击；而session运行在服务端，安全性高 </p>
+<p>  - 禁用 </p>
+<p>  如果浏览器禁用了cookie，那么cookie就不能使用，而session不能禁用 </p>
+<h3 id="9-css动画与js动画"><a href="#9-css动画与js动画" class="headerlink" title="9.css动画与js动画"></a>9.css动画与js动画</h3><ul>
+<li>功能涵盖面 js比css大  </li>
+<li>css 3 比 js 简单  </li>
+<li>低版本的浏览器css 3自然释放  </li>
+<li>css存在兼容性问题  </li>
+<li>js在主线程中运行易丢帧  </li>
+<li>css更流畅（因为在合成器线程中进行动画处理）  </li>
+</ul>
+<h3 id="10-乐观锁和悲观锁"><a href="#10-乐观锁和悲观锁" class="headerlink" title="10.乐观锁和悲观锁"></a>10.乐观锁和悲观锁</h3><p>DBMS中的并发控制的任务是确保在多个事务同时存取数据库中的一个数据时，不破坏隔离性和统一性  </p>
+<p><strong>悲观锁：</strong>假定会发生冲突，屏蔽一切可能违反数据完整性的操作。在<strong>查询完</strong>数据的时候把事务锁起来，直到提交事务<br>    - 实现方法：使用数据库中的锁机制  </p>
+<p><strong>乐观锁：</strong>假定不会冲突，只在提交操作时检查是否违反数据库的完整性。在<strong>修改</strong>数据时把事务锁起来<br>    - 实现方法：版本号机制  </p>
+<h3 id="11-死锁"><a href="#11-死锁" class="headerlink" title="11.死锁"></a>11.死锁</h3><p>多个事务在同一个资源上相互占用，并请求锁定对方的资源<br>解决：回滚  </p>
+<p><strong>共享锁</strong>读锁<br><strong>排他锁</strong>写锁</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/25/%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E8%AE%A1%E6%93%8D/" rel="next" title="面试题之计操">
+                <i class="fa fa-chevron-left"></i> 面试题之计操
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/01/Node%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Node学习笔记">
+                Node学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">134</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-HTML篇"><span class="nav-number">1.</span> <span class="nav-text">一.HTML篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HTML5-drag-api"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.HTML5 drag api</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-语义化标签"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.语义化标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-meta"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.meta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-SEO"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.SEO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-web-socket和web-worker"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.web socket和web worker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-HTML的async和defer"><span class="nav-number">1.0.6.</span> <span class="nav-text">6.HTML的async和defer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-css为什么要放在html文档的-lt-head-gt-标签内"><span class="nav-number">1.0.7.</span> <span class="nav-text">7.css为什么要放在html文档的&lt;head&gt;标签内</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-H5引入了哪些新特性？"><span class="nav-number">1.0.8.</span> <span class="nav-text">8.H5引入了哪些新特性？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-CSS篇"><span class="nav-number">2.</span> <span class="nav-text">二.CSS篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CSS3新特性"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.CSS3新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-box-sizing的语法和基本用处"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.box-sizing的语法和基本用处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-如何让一个元素消失？"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.如何让一个元素消失？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-重排和重绘"><span class="nav-number">2.0.4.</span> <span class="nav-text">4.重排和重绘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-position属性"><span class="nav-number">2.0.5.</span> <span class="nav-text">5.position属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-像素"><span class="nav-number">2.0.6.</span> <span class="nav-text">6.像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-字体"><span class="nav-number">2.0.7.</span> <span class="nav-text">7.字体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-link-与-import"><span class="nav-number">2.0.8.</span> <span class="nav-text">8.link 与 @import</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-px，em，rem-，vw-vh"><span class="nav-number">2.0.9.</span> <span class="nav-text">9.px，em，rem ，vw ,vh</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-JavaScript篇"><span class="nav-number">3.</span> <span class="nav-text">三.JavaScript篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-为什么JS执行的时候要阻塞HTML解析"><span class="nav-number">3.0.1.</span> <span class="nav-text">1.为什么JS执行的时候要阻塞HTML解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-BOM"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.BOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Cookie，SessionStorage，LocalStorage的区别-前端四大存储方式"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.Cookie，SessionStorage，LocalStorage的区别&#x2F;前端四大存储方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-cookie与session"><span class="nav-number">3.0.4.</span> <span class="nav-text">4.cookie与session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-css动画与js动画"><span class="nav-number">3.0.5.</span> <span class="nav-text">9.css动画与js动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-乐观锁和悲观锁"><span class="nav-number">3.0.6.</span> <span class="nav-text">10.乐观锁和悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-死锁"><span class="nav-number">3.0.7.</span> <span class="nav-text">11.死锁</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共141k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS,HTML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言 HTML,CSS这些技术是实现网页开发的基本技术，通常情况下，设计师、WEB前端(HTML5开发)工程师、后台(PHP、JAVA)开发工程师的人员需要掌握，属于工作的必备技能。HTML（ HyperText Markup Language ）超文本标记语言，是一种告诉浏览器每个网页组成是什么的程式语言。你可以利用它来定义网站中的文章内容、标题、连结、图片等，让浏览器知道网站整个架构的呈现。C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网页开发基础知识">
+<meta property="og:url" content="http://suyufan.github.io/2020/02/11/%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="前言 HTML,CSS这些技术是实现网页开发的基本技术，通常情况下，设计师、WEB前端(HTML5开发)工程师、后台(PHP、JAVA)开发工程师的人员需要掌握，属于工作的必备技能。HTML（ HyperText Markup Language ）超文本标记语言，是一种告诉浏览器每个网页组成是什么的程式语言。你可以利用它来定义网站中的文章内容、标题、连结、图片等，让浏览器知道网站整个架构的呈现。C">
+<meta property="article:published_time" content="2020-02-11T03:01:28.000Z">
+<meta property="article:modified_time" content="2020-09-10T08:08:08.034Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2020/02/11/网页开发基础知识/"/>
+
+
+
+
+
+  <title>网页开发基础知识 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2020/02/11/%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">网页开发基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-11T11:01:28+08:00">
+                2020-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>HTML,CSS这些技术是实现网页开发的基本技术，通常情况下，设计师、WEB前端(HTML5开发)工程师、后台(PHP、JAVA)开发工程师的人员需要掌握，属于<strong>工作的必备技能</strong>。<br>HTML（ HyperText Markup Language ）超文本标记语言，是一种告诉浏览器每个网页组成是什么的程式语言。你可以利用它来定义网站中的文章内容、标题、连结、图片等，让浏览器知道网站整个架构的呈现。<br>CSS （Cascading Style Sheets）层叠样式表，是一种能为网页增添样式的电脑语言。换句话说，它就是能为你的网站修改字体样式、颜色、网页背景、甚至是华丽的动画与 3D 效果、让你增添设计感的工具。<br>响应国家号召，认真学习教育部写给全国大学生的信，好好待在家学习，不聚餐不串门不去公共场所，为抗击新型冠状病毒奉献自己的力量     </p>
+</blockquote>
+<a id="more"></a>  
+<h2 id="一-组成结构"><a href="#一-组成结构" class="headerlink" title="一.组成结构"></a>一.组成结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">doctype...</span>&gt;</span> 说明文档类型分strict.dtd  transitional.dtd </span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>     给机器 搜素引擎看</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>     给人看，主要写东西的地方</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-布局"><a href="#1-布局" class="headerlink" title="1.布局"></a>1.布局</h3><p>用div划分布局 用css来控制显示，控制id用#idname,控制class用.classname<br>div可以通过声明id和class来控制，id不能重复，class可重复。<br>float为漂浮标签，在需要并排显示的时候使用<br><strong>田字格布局实现</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//W3C//DTD XHTML 1.0 Transitional//EN"</span> <span class="meta-string">"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>划分布局<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">	<span class="selector-id">#main</span>&#123;</span></span><br><span class="line">		width: 200px;</span><br><span class="line">		height: 200px;</span><br><span class="line">		background: red;</span><br><span class="line">		float: left;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="css">	<span class="selector-id">#second</span>&#123;</span></span><br><span class="line">		width: 200px;</span><br><span class="line">		height: 200px;</span><br><span class="line">		background: green;</span><br><span class="line">		float: left;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="css">	<span class="selector-id">#third</span>&#123;</span></span><br><span class="line">		width: 200px;</span><br><span class="line">		height: 200px;</span><br><span class="line">		background: blue;</span><br><span class="line">		float: left;</span><br><span class="line">		clear: left;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="css">	<span class="selector-id">#forth</span>&#123;</span></span><br><span class="line">		width: 200px;</span><br><span class="line">		height: 200px;</span><br><span class="line">		background: pink;</span><br><span class="line">		float: left;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"main"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"second"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"third"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"forth"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-新手易犯错误"><a href="#2-新手易犯错误" class="headerlink" title="2.新手易犯错误"></a>2.新手易犯错误</h3><ul>
+<li>不加doctype.低版本的IE解析出错  </li>
+<li>id用数字声明.页面不显示  </li>
+<li>文件编码与charset声明不一致  </li>
+</ul>
+<h2 id="二-盒模型"><a href="#二-盒模型" class="headerlink" title="二.盒模型"></a>二.盒模型</h2><p>盒模型分为3个概念，分别为外边距（margin）,边框（border）以及内边距（padding）  </p>
+<h3 id="1-margin"><a href="#1-margin" class="headerlink" title="1.margin"></a>1.margin</h3><p>margin可实现div四周的外边距设定，如果<code>margin: 10px;</code>那么所在div模块的上下左右与其他模块或者网页总边框将有10px的距离。如果想要上下左右的外边距各不相同，可以使用<code>margin-top;margin-bottom;margin-left;margin-right;</code>来分别定义给值，或者你还可以使用一种更加便捷的方式，可以通过<code>margin:10px 20px 30px 40px;</code>即给margin四个不同的值来实现，此时注意margin将从上开始以顺时针的方向旋转给值，所以此时的上右下左的外边距分别为10px,20px,30px,40px.如果margin没有给四个不同的值，那么对应没有设定值的方向的外边距将以它的对边外边距为准。<br>要使边框变透明<code>background:rgba(200,200,200,0.5)</code>运用RGBA，红色和绿色和蓝色三个百分比都为200，a为参数，可以设置成0到1之间的数字，但是千万不要为负值<br><strong>margin重叠问题</strong>：相邻的上下<u>普通</u>元素，其距离不是简单的边距相加，而是取最大的边距值。</p>
+<h3 id="2-border"><a href="#2-border" class="headerlink" title="2.border"></a>2.border</h3><p>border可实现div四周边框设定。同margin的定义方法类似，不同在于，border有3个要素分别为大小，形状（实线，虚线，双线等），颜色.<br><strong>用CSS画圣诞树</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//W3C//DTD XHTML 1.0 Transitional//EN"</span> <span class="meta-string">"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>CSS画圣诞树<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-id">#first</span>&#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">width</span><span class="selector-pseudo">:0px</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">height</span><span class="selector-pseudo">:0px</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-top</span><span class="selector-pseudo">:70px</span> <span class="selector-tag">solid</span> <span class="selector-tag">white</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-left</span><span class="selector-pseudo">:70px</span> <span class="selector-tag">solid</span> <span class="selector-tag">white</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-bottom</span><span class="selector-pseudo">:70px</span> <span class="selector-tag">solid</span> <span class="selector-tag">green</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-right</span><span class="selector-pseudo">:70px</span> <span class="selector-tag">solid</span> <span class="selector-tag">white</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">float</span><span class="selector-pseudo">:left</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">margin-left</span><span class="selector-pseudo">:30px</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="css"><span class="selector-id">#second</span>&#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">width</span><span class="selector-pseudo">:0px</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">height</span><span class="selector-pseudo">:0px</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-top</span><span class="selector-pseudo">:100px</span> <span class="selector-tag">solid</span> <span class="selector-tag">white</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-left</span><span class="selector-pseudo">:100px</span> <span class="selector-tag">solid</span> <span class="selector-tag">white</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-bottom</span><span class="selector-pseudo">:100px</span> <span class="selector-tag">solid</span> <span class="selector-tag">green</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border-right</span><span class="selector-pseudo">:100px</span> <span class="selector-tag">solid</span> <span class="selector-tag">white</span>;</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="css"><span class="selector-id">#third</span>&#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">width</span><span class="selector-pseudo">:60px</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">height</span><span class="selector-pseudo">:70px</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">background</span>:<span class="selector-id">#393</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">float</span><span class="selector-pseudo">:left</span>;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">margin-left</span><span class="selector-pseudo">:70px</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"first"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"second"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"third"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三-内联元素"><a href="#三-内联元素" class="headerlink" title="三.内联元素"></a>三.内联元素</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>独占一行</th>
+<th>能设宽高</th>
+<th>竖直方向的margin,padding</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>块状元素</td>
+<td>是</td>
+<td>是</td>
+<td>有，可以设置</td>
+</tr>
+<tr>
+<td>内联元素</td>
+<td>否</td>
+<td>否</td>
+<td>没有，也不可以设置</td>
+</tr>
+</tbody></table>
+<p>内联元素又被称为行内元素，可以设置margin-left,但是高不可设置。<br><strong>块状元素div</strong>：address-地址；blockquote-块引用；center-居中对齐；dir-目录列表；dl-定义列表；form-交互表单；fieldset-form控制组；hr-水平分割线；menu-菜单列表；ol-有序表单；p-段落；pre-格式化文本；table-表格；ul-无序列表；<br><strong>内联元素span</strong>：a-锚点；abbr-缩写；acronym-首字；strong-粗体；big-大字体；br-换行；cite-引用；dfn-定义字段；em-强调；i-斜体；img-图片；input-输入框；textarea-多行文本输入框；label-表格标签；q-短引用；strike-中划线；u-下划线；var-定义变量；<br>内联元素与块状元素可以通过<u>display</u>互相转化。<br><strong>display</strong>  </p>
+<ul>
+<li><code>display:block;</code>变为块状元素  </li>
+<li><code>display:inline;</code>变为内联元素  </li>
+<li><code>display:none;</code>设置之后，该元素和该元素的子元素不再显示，等同于这段代码被删除，不占空间。  </li>
+<li><code>display:inline-block</code>行内块元素显示，行内其他元素一行显示，只有这一个元素类支持verical-align，img，input  </li>
+<li><code>display:list-item</code>将元素转成为列表，li的默认类型。  </li>
+</ul>
+<p>在网页的导航栏，常常将内联元素转化为块元素，因为导航栏就是由一个ul多个li做出来的，这样每项都是一个超链接。如果设为内联元素，那么只有鼠标点击文字才会实现跳转；转化为块元素之后，点击对应区域就可以实现跳转。<br><strong>h标签</strong><br>常出现在新闻标题，<code>&lt;h1&gt;&lt;h2&gt;&lt;h3&gt;&lt;h4&gt;</code>包含起来的文字的是标题，每出现一个h标签都会自动换行，他们的字体会被放大和加粗，1、2、3、4，的字体会依次缩小。最小为h6<br><strong>p标签</strong><br>常出现在新闻段落,用p包含起来的文字会被自动换行，经过测试，发现不能包含div元素和ul，但是可以包含input这样的行内元素，同时也可以包含table这样的块元素。所以p不能包含块元素的结论是不完全对的<br><strong>img标签</strong><br><code>&lt;img src=&quot;juhua.jpg&quot; alt=&quot;菊花图&quot;  title=&quot;鼠标放上显示&quot; /&gt;</code>  #alt给引擎看，也给人看  img为自闭合 src引进网站的图片，将链接放上去<br>img到底是块状还是内联呢？<br>图片是内联替换元素，替换元素是可以设置宽和高，还有默认的margin border.如果去掉margin border 用display转为block</p>
+<h2 id="四-CSS控制"><a href="#四-CSS控制" class="headerlink" title="四.CSS控制"></a>四.CSS控制</h2><h3 id="1-CSS控制段落文本"><a href="#1-CSS控制段落文本" class="headerlink" title="1.CSS控制段落文本"></a>1.CSS控制段落文本</h3><p>（1）<code>text-indent:20px;</code>  段落首字缩进20px;<br>（2）<code>text-align:center;</code>  段落居中;<br>（3）<code>text-decoration:underline;</code> 段落加下划线；  line-through为删除线;<br>（4）<code>letter-spacing: 20px;</code>  字间距为20px;  </p>
+<h3 id="2-用CSS控制文字大小字体及颜色"><a href="#2-用CSS控制文字大小字体及颜色" class="headerlink" title="2.用CSS控制文字大小字体及颜色　　"></a>2.用CSS控制文字大小字体及颜色　　</h3><p>(1)<code>font-style:italic;</code>　控制文字为斜体;<br>(2)<code>font-weight:bold;</code>　控制文字为加粗;　　<br>(3)<code>font-size:23px;</code>   控制文字大小为23px;　　<br>(4)<code>line-height:20px;</code>　控制行高为20px;　　<br>(5)<code>font-family:&quot;SimHei&quot;;</code>  控制文字为黑体;　　<br>(6)<code>font:italic bold 23px/20px &quot;SimHei&quot;;</code>　   通过一行来控制注意顺序不能乱,且大小与行高之间用/;  </p>
+<h3 id="3-CSS字体设置技巧"><a href="#3-CSS字体设置技巧" class="headerlink" title="3.CSS字体设置技巧　　"></a>3.CSS字体设置技巧　　</h3><ul>
+<li>文字分为有衬线（serif常做正文）和无衬线（sans-serif常做标题）　　</li>
+<li>当你设置的字体用户没有时，将默认显示仿宋体。  </li>
+<li>假如无衬线字体的美观度由高到低为:微软雅不黑,微软雅黑，黑体.那么在控制时，你可以技巧性的用font-family:’微软雅不黑’,’微软雅黑’,’黑体’;　　</li>
+<li>如果连黑体都没有，可用font-family:’微软雅不黑’,’微软雅黑’,’黑体’,’sans-serif’;告诉浏览器自己选择一个无衬线字体  <h3 id="4-CSS设置背景图片"><a href="#4-CSS设置背景图片" class="headerlink" title="4.CSS设置背景图片　　"></a>4.CSS设置背景图片　　</h3>(1)<code>background-color:green;</code>　　背景色为绿色;　　<br>(2)<code>background-image:url(small.jpg);</code>　背景图片为small.jpg;默认重复多次至铺满(3)<code>background-repeat:repeat-x;</code>　横向铺满;只显示一张(no-repeat)<br>(4)<code>background-attachment:fixed;</code>　图片固定;  　　<br>(5)<code>background-position:center top;</code>  控制图片在上方最中央显示；<br>(6)<code>background－position:0px -120px;</code>　div不动，背景图往上移120px；<br>(7)一行控制时从上到下属性顺序不能变。　　　　　  <h3 id="5-CSS选择器"><a href="#5-CSS选择器" class="headerlink" title="5.CSS选择器"></a>5.CSS选择器</h3>id选择器,class选择器，标签选择器，派生选择器，伪类选择器，通配选择器。  <h3 id="6-CSS优先级"><a href="#6-CSS优先级" class="headerlink" title="6.CSS优先级"></a>6.CSS优先级</h3>控制的越精细优先级越高，优先级id&gt;class&gt;p&gt;div  <h3 id="7-CSS的4种引入方式"><a href="#7-CSS的4种引入方式" class="headerlink" title="7.CSS的4种引入方式"></a>7.CSS的4种引入方式</h3>(1)head部分写style<br>(2)div部分写style<br>(3)链接.css文件 在.html写<code>&lt;link  rel=&quot;stylesheet&quot; href=&quot;./23.css&quot; /&gt;</code><br>(4)在.css中再引入别的.css文件，在第一个css中第一行写<code>@import url(&quot;23-2.css&quot;);</code>    如果第二个css为上一级目录，应写”../23-2.css”  <h3 id="8-CSS初始化"><a href="#8-CSS初始化" class="headerlink" title="8.CSS初始化"></a>8.CSS初始化</h3>相同的元素在不同的浏览器中显示效果不同，为了避免这种情况，我们通过对css强制使所有元素一致，这个过程叫做CSS初始化  <h3 id="9-css画圆角"><a href="#9-css画圆角" class="headerlink" title="9.css画圆角"></a>9.css画圆角</h3>使用<code>border-radius</code>  <h2 id="五-替换元素"><a href="#五-替换元素" class="headerlink" title="五.替换元素"></a>五.替换元素</h2>替换元素显示的内容需要浏览器去进行判断。例如浏览器会根据<code>&lt;img&gt;</code>标签的src属性的值来读取图片信息并显示出来，而如果查看(x)html代码，则看不到图片的实际内容；又例如根据<code>&lt;input&gt;</code>标签的type属性来决定是显示输入框，还是单选按钮等。<br>(x)html中的<code>&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;</code>都是替换元素。这些元素往往没有实际的内容，即是一个空元素，例如：<br><code>&lt;img src=”cat.jpg” /&gt; &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;提交&quot; /&gt;</code><br>浏览器会根据元素的标签类型和属性来显示这些元素。可替换元素也在其显示中生成了框。<h2 id="六-列表"><a href="#六-列表" class="headerlink" title="六.列表"></a>六.列表</h2>有序列表<code>&lt;ol&gt;</code>   无序列表<code>&lt;ul&gt;</code> 更多属性见<a href="https://www.w3school.com.cn" target="_blank" rel="noopener">CSS参考手册</a><br>常让<code>line-stype-type: none;</code>即是列表前为空白，通过背景图来使其成为自己想要的图标  <h2 id="七-表格"><a href="#七-表格" class="headerlink" title="七.表格"></a>七.表格</h2></li>
+<li>table 表头  </li>
+<li>th 表头  </li>
+<li>tr 表行  </li>
+<li>td 单元格<br>新手在第一次写完代码在浏览器运行时，会发现一个问题，每一个都是独立的（seperate  ）小单元格，很不美观，那我们应该如何解决这个问题呢？<br>常对table进行CSS写border-collapse：collapsse;使其融合更加好看美观<br>行内写colspan:4 相当于合并4个单元格注意此处为横跨4列；rowspan: 2 合并单元格 竖跨2行  <h2 id="八-超链接及锚点，伪类，字符实体"><a href="#八-超链接及锚点，伪类，字符实体" class="headerlink" title="八.超链接及锚点，伪类，字符实体"></a>八.超链接及锚点，伪类，字符实体</h2></li>
+</ul>
+<p><strong>超链接</strong><code>&lt;a href=&quot;index.html&quot; target=&quot;_blank&quot;&gt;&lt;/a&gt;</code> 不写target属性时，点击链接是在本页面内显示。加了target实现跳转到另一个窗口页面显示。<br>链接远程地址也可访问。空链接<code>&lt;a href=&quot;#&quot;&gt;&lt;/a&gt;</code><br><strong>锚点</strong><code>&lt;a name=&quot;p1&quot;&gt;&lt;/a&gt;</code> 相当于一个标记<br>用锚点加超链接可以实现页面内跳转到指定位置的效果.<br><strong>伪类</strong><br>CSS允许我们对a标签的4种状态设置各自的CSS特性，叫做CSS伪类。<br>注意：<br>1.active一般不写，因为点击了但是鼠标还没放，在日常生活中属于瞬间动作。<br>2.一定注意顺序，L(link 点击前)V(visited 点击后)H(hover 鼠标经过) A(active 点击中)<br>3.a：link 可以简写为a<br><strong>字符实体</strong><br>在html开发中有一些字符不适宜直接显示如大于号，小于号<br>一般的格式（&amp;+实体名+；）<br>实体有很多，举几个例子：大于号<code>&amp;gt;</code>  小于号<code>&amp;lt;</code>  双引号<code>&amp;quot;</code><br><strong><code>&lt;pre&gt;</code>写的啥样 无论空格换行 在浏览器都可以显示出相应的效果。</strong>  </p>
+<h2 id="九-相对定位与绝对定位"><a href="#九-相对定位与绝对定位" class="headerlink" title="九.相对定位与绝对定位"></a>九.相对定位与绝对定位</h2><p>使用position属性。<br>p标签有默认的margin<br>相对定位：元素在其原本正常位置偏移某些像素；  </p>
+<pre><code class="html">position:relative;
+top:20px;
+left:20px;</code></pre>
+<p>距原来位置的上边偏移20px;距原来的左边偏移20px</p>
+<hr>
+<p>绝对定位：相对于父元素的top,rigth,left,bottom来定位;<code>position:absolute;</code><br>用绝对定位时，父元素要求具有position属性，否则将依据父父，父的父的父…一直往上找，如果都没有，将依据body;为此，父元素常写<code>position:relative;</code><br>效果跟从天上飘下来的一样，将覆盖父元素；  </p>
+<h2 id="十-overflow溢出处理"><a href="#十-overflow溢出处理" class="headerlink" title="十.overflow溢出处理"></a>十.overflow溢出处理</h2><ul>
+<li>overflow：visible;默认溢出显示 </li>
+<li>overflow：hidden;隐藏  </li>
+<li>overflow: scroll;滚动显示，旁边将出现滚动条  </li>
+<li>overflow: auto;在必要时才会内容被剪裁，会显示滚动条  </li>
+</ul>
+<p>当定义特别小元素时，加上<code>overflow:hidden;</code>效果最好  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/08/%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98/" rel="next" title="网页开发经典问题">
+                <i class="fa fa-chevron-left"></i> 网页开发经典问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/17/%E5%89%8D%E7%AB%AF%E6%80%8E%E4%B9%88%E5%AD%A6%E4%B9%A0/" rel="prev" title="前端怎么学习">
+                前端怎么学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">134</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-组成结构"><span class="nav-number">1.1.</span> <span class="nav-text">一.组成结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-布局"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-新手易犯错误"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.新手易犯错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-盒模型"><span class="nav-number">1.2.</span> <span class="nav-text">二.盒模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-margin"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.margin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-border"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.border</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-内联元素"><span class="nav-number">1.3.</span> <span class="nav-text">三.内联元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-CSS控制"><span class="nav-number">1.4.</span> <span class="nav-text">四.CSS控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CSS控制段落文本"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.CSS控制段落文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用CSS控制文字大小字体及颜色"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.用CSS控制文字大小字体及颜色　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-CSS字体设置技巧"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.CSS字体设置技巧　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-CSS设置背景图片"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.CSS设置背景图片　　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CSS选择器"><span class="nav-number">1.4.5.</span> <span class="nav-text">5.CSS选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-CSS优先级"><span class="nav-number">1.4.6.</span> <span class="nav-text">6.CSS优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-CSS的4种引入方式"><span class="nav-number">1.4.7.</span> <span class="nav-text">7.CSS的4种引入方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-CSS初始化"><span class="nav-number">1.4.8.</span> <span class="nav-text">8.CSS初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-css画圆角"><span class="nav-number">1.4.9.</span> <span class="nav-text">9.css画圆角</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-替换元素"><span class="nav-number">1.5.</span> <span class="nav-text">五.替换元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-列表"><span class="nav-number">1.6.</span> <span class="nav-text">六.列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七-表格"><span class="nav-number">1.7.</span> <span class="nav-text">七.表格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八-超链接及锚点，伪类，字符实体"><span class="nav-number">1.8.</span> <span class="nav-text">八.超链接及锚点，伪类，字符实体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九-相对定位与绝对定位"><span class="nav-number">1.9.</span> <span class="nav-text">九.相对定位与绝对定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十-overflow溢出处理"><span class="nav-number">1.10.</span> <span class="nav-text">十.overflow溢出处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共141k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

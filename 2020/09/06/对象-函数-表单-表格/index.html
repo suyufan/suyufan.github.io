@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.对象（Object） 对象是JS中的引用数据类型  对象是一种复合数据类型，在对象中可以保存多个不同数据类型的属性  使用typeof检查一个对象时，会返回object - 创建对象       - 方式一：  var obj &#x3D; new Object(); - 方式二：  var obj &#x3D; {};">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象 函数 表单 表格">
+<meta property="og:url" content="http://suyufan.github.io/2020/09/06/%E5%AF%B9%E8%B1%A1-%E5%87%BD%E6%95%B0-%E8%A1%A8%E5%8D%95-%E8%A1%A8%E6%A0%BC/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="1.对象（Object） 对象是JS中的引用数据类型  对象是一种复合数据类型，在对象中可以保存多个不同数据类型的属性  使用typeof检查一个对象时，会返回object - 创建对象       - 方式一：  var obj &#x3D; new Object(); - 方式二：  var obj &#x3D; {};">
+<meta property="article:published_time" content="2020-09-06T15:33:32.000Z">
+<meta property="article:modified_time" content="2021-02-20T14:03:23.610Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2020/09/06/对象-函数-表单-表格/"/>
+
+
+
+
+
+  <title>对象 函数 表单 表格 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2020/09/06/%E5%AF%B9%E8%B1%A1-%E5%87%BD%E6%95%B0-%E8%A1%A8%E5%8D%95-%E8%A1%A8%E6%A0%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对象 函数 表单 表格</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-06T23:33:32+08:00">
+                2020-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-对象（Object）"><a href="#1-对象（Object）" class="headerlink" title="1.对象（Object）"></a>1.对象（Object）</h1><ul>
+<li><p>对象是JS中的引用数据类型</p>
+</li>
+<li><p>对象是一种复合数据类型，在对象中可以保存多个不同数据类型的属性</p>
+</li>
+<li><p>使用typeof检查一个对象时，会返回object</p>
+<pre><code>- 创建对象
+      - 方式一：</code></pre><p>  <code>var obj = new Object();</code></p>
+<pre><code>- 方式二：</code></pre><p>  <code>var obj = {};</code></p>
+<a id="more"></a>
+<ul>
+<li><p>向对象中添加属性</p>
+<ul>
+<li><p>语法：<br>  对象.属性名 = 属性值;<br>  对象[“属性名”] = 属性值;</p>
+<ul>
+<li>对象的属性名没有任何要求，不需要遵守标识符的规范，<br>  但是在开发中，尽量按照标识符的要求去写。</li>
+<li>属性值也可以任意的数据类型。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>读取对象中的属性</p>
+<ul>
+<li>语法：<br>  对象.属性名<br>  对象[“属性名”]</li>
+<li>如果读取一个对象中没有的属性，它不会报错，而是返回一个undefined</li>
+</ul>
+</li>
+<li><p>删除对象中的属性</p>
+<ul>
+<li>语法：<br>  delete 对象.属性名<br>  delete 对象[“属性名”]</li>
+</ul>
+</li>
+<li><p>使用in检查对象中是否含有指定属性</p>
+<ul>
+<li>语法：”属性名” in 对象<ul>
+<li>如果在对象中含有该属性，则返回true<br>  如果没有则返回false</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>使用对象字面量，在创建对象时直接向对象中添加属性<br>  语法：</p>
+<pre><code>var obj = {
+                属性名:属性值,
+                属性名:属性值,
+                属性名:属性值,
+                属性名:属性值
+        }</code></pre></li>
+<li><p>基本数据类型和引用数据类型</p>
+<ul>
+<li>基本数据类型<br>  String Number Boolean Null Undefined</li>
+<li>引用数据类型<br>  Object</li>
+<li>基本数据类型的数据，变量是直接保存的它的值。<br>  变量与变量之间是互相独立的，修改一个变量不会影响其他的变量。</li>
+<li>引用数据类型的数据，变量是保存的对象的引用（内存地址）。<br>  如果多个变量指向的是同一个对象，此时修改一个变量的属性，会影响其他的变量。</li>
+<li>比较两个变量时，对于基本数据类型，比较的就是值，<br>  对于引用数据类型比较的是地址，地址相同才相同</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-函数（Function）"><a href="#2-函数（Function）" class="headerlink" title="2.函数（Function）"></a>2.函数（Function）</h1><ul>
+<li><p>函数也是一个对象，也具有普通对象的功能</p>
+</li>
+<li><p>函数中可以封装一些代码，在需要的时候可以去调用函数来执行这些代码</p>
+</li>
+<li><p>使用typeof检查一个函数时会返回function</p>
+</li>
+<li><p>创建函数</p>
+<ul>
+<li><p>函数声明<br>  function 函数名([形参1,形参2…形参N]){</p>
+<pre><code>语句...</code></pre><p>  }</p>
+</li>
+<li><p>函数表达式<br>  var 函数名 = function([形参1,形参2…形参N]){</p>
+<pre><code>语句...</code></pre><p>  };</p>
+</li>
+</ul>
+</li>
+<li><p>调用函数</p>
+<ul>
+<li>语法：函数对象([实参1,实参2…实参N]);<br>  fun() sum() alert() Number() parseInt()</li>
+<li>当我们调用函数时，函数中封装的代码会按照编写的顺序执行</li>
+</ul>
+</li>
+<li><p>形参和实参</p>
+<ul>
+<li><p>形参：形式参数</p>
+<ul>
+<li>定义函数时，可以在()中定义一个或多个形参，形参之间使用,隔开<br>  定义形参就相当于在函数内声明了对应的变量但是并不赋值，<br>  形参会在调用时才赋值。</li>
+</ul>
+</li>
+<li><p>实参：实际参数</p>
+<ul>
+<li>调用函数时，可以在()传递实参，传递的实参会赋值给对应的形参,<br>  调用函数时JS解析器不会检查实参的类型和个数，可以传递任意数据类型的值。<br>  如果实参的数量大于形参，多余实参将不会赋值，<br>  如果实参的数量小于形参，则没有对应实参的形参将会赋值undefined  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-表格"><a href="#3-表格" class="headerlink" title="3.表格"></a>3.表格</h1><ul>
+<li>在网页中可以通过表格来表示一些格式化的数据</li>
+<li>表格相关的标签<ul>
+<li><code>&lt;table&gt;</code>用来创建一个表格</li>
+<li><code>&lt;tr&gt;</code> 表示表格中的一行</li>
+<li><code>&lt;th&gt;</code> 表示表头中的单元格</li>
+<li><code>&lt;td&gt;</code> 表示表格中的单元格<ul>
+<li>属性：<br>  colspan 横向的合并单元格<br>  rowspan 纵向的合并单元格<br>例子：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>长表格<br>   <code>&lt;thead&gt;</code> 表格的头部<br>   <code>&lt;tbody&gt;</code> 表格的主体<br>  <em>注意：如果表格中没有写thead tbody tfoot，浏览器会自动向table中添加一个tbody并且将所有的tr都放到tbody中，tr是tbody的子元素，不是table的子元素</em><br>   <code>&lt;tfoot&gt;</code> 表格的底部  </li>
+</ul>
+<h1 id="4-表单"><a href="#4-表单" class="headerlink" title="4.表单"></a>4.表单</h1><ul>
+<li>表单可以将用户的信息提交到服务器中<br><code>&lt;form&gt;</code><ul>
+<li>用来创建一个表单</li>
+<li>属性：<br>  action:需要一个服务器地址，提交表单时表单中的内容将会被提交到该地址</li>
+</ul>
+</li>
+<li>表单项  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- <span class="tag">&lt;<span class="name">input</span> /&gt;</span></span><br><span class="line">    - 它可以根据不同的type属性值，生成不同的表单项</span><br><span class="line">    - type="text" 文本框 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">    - type="password" 密码框 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">    - type="radio" 单选按钮 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">checked</span>=<span class="string">"checked"</span> /&gt;</span></span><br><span class="line">    - type="checkbox" 多选框 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">checked</span>=<span class="string">"checked"</span> /&gt;</span></span><br><span class="line">    - type="submit"  提交按钮 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"按钮上的文字"</span> /&gt;</span></span><br><span class="line">    - type="reset"  重置按钮 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"reset"</span> <span class="attr">value</span>=<span class="string">"按钮上的文字"</span> /&gt;</span></span><br><span class="line">    - type="button" 普通按钮 <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"按钮上的文字"</span> /&gt;</span>   </span><br><span class="line"></span><br><span class="line">- <span class="tag">&lt;<span class="name">select</span>&gt;</span></span><br><span class="line">    - 下拉列表</span><br><span class="line">    - <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">selected</span>=<span class="string">"selected"</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span> <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- <span class="tag">&lt;<span class="name">button</span>&gt;</span></span><br><span class="line">    - 按钮功能input那几个按钮一样，但是它们要灵活一些</span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>按钮的文字<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"reset"</span>&gt;</span>按钮的文字<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span>&gt;</span>按钮的文字<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><ul>
+<li><p>JavaScript负责页面中的的行为。</p>
+</li>
+<li><p>它是一门运行在浏览器端的脚本语言。</p>
+</li>
+<li><p>JS的编写的位置<br>  1.可以编写到标签的指定属性中<br>  <code>&lt;button onclick=&quot;alert(&#39;hello&#39;);&quot;&gt;我是按钮&lt;/button&gt;  &lt;a href=&quot;javascript:alert(&#39;aaa&#39;);&quot;&gt;超链接&lt;/a&gt;</code></p>
+<p>  2.可以编写到script标签中  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">	<span class="comment">//编写js代码</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>  3.可以将代码编写到外部的js文件中，然后通过标签将其引入<br><code>&lt;script type=&quot;text/javascript&quot; src=&quot;文件路径&quot;&gt;&lt;/script&gt;</code></p>
+</li>
+<li><p>输出语句</p>
+<ul>
+<li><p>alert(“要输出的内容”);</p>
+<ul>
+<li>该语句会在浏览器窗口中弹出一个警告框</li>
+</ul>
+</li>
+<li><p>document.write(“要输出的内容”);</p>
+<ul>
+<li>该内容将会被写到body标签中，并在页面中显示</li>
+</ul>
+</li>
+<li><p>console.log(“要输出的内容”);</p>
+<ul>
+<li>该内容会被写到开发者工具的控制台中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>基本的语法</p>
+<ul>
+<li><p>注释</p>
+<ul>
+<li>单行注释<br>  //注释内容</li>
+<li>多行注释<br>  /*<pre><code>注释内容</code></pre>  */</li>
+</ul>
+</li>
+<li><p>JS严格区分大小写    </p>
+</li>
+<li><p>JS中每条语句以分号(;)结尾</p>
+</li>
+<li><p>JS中会自动忽略多个空格和换行，所以我们可以利用空格和换行对代码进行格式化。</p>
+</li>
+</ul>
+</li>
+<li><p>字面量和变量</p>
+<ul>
+<li><p>字面量</p>
+<ul>
+<li>字面量实际上就是一些固定的值，比如 1 2 3 4 true false null NaN “hello”<br>  字面量都是不可以改变的。</li>
+<li>由于字面量不是很方便使用，所以在JS中很少直接使用字面量</li>
+</ul>
+</li>
+<li><p>变量</p>
+<ul>
+<li><p>变量可以用来保存字面量，并且可以保存任意的字面量</p>
+</li>
+<li><p>一般都是通过变量来使用字面量，而不直接使用字面量，而且也可以通过变量来对字面量进行一个描述</p>
+</li>
+<li><p>声明变量</p>
+<ul>
+<li>使用var关键字来声明一个变量<br>var a;<br>var b;<br>var c;</li>
+</ul>
+</li>
+<li><p>为变量赋值<br>  a = 1;<br>  b = 2;<br>  c = 3;</p>
+</li>
+<li><p>声明和赋值同时进行 *****<br>  var d = 456;<br>  var e = 789;</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>标识符</p>
+<ul>
+<li>在JS中所有的可以自主命名的内容，都可以认为是一个标识符，<br>  是标识符就应该遵守标识符的规范。</li>
+<li>比如：变量名、函数名、属性名</li>
+<li>规范：<br>  1.标识符中可以含有字母、数字、_、$<br>  2.标识符不能以数字开头<br>  3.标识符不能是JS中的关键字和保留字<br>  4.标识符一般采用驼峰命名法<pre><code>xxxYyyZzz</code></pre></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/02/%E6%96%87%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AE%9A%E4%BD%8D%EF%BC%8C%E6%B5%AE%E5%8A%A8/" rel="next" title="文数据类型，定位，浮动">
+                <i class="fa fa-chevron-left"></i> 文数据类型，定位，浮动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/09/String%E7%AE%97%E6%B3%95%E9%A2%98/" rel="prev" title="String算法题">
+                String算法题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">134</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-对象（Object）"><span class="nav-number">1.</span> <span class="nav-text">1.对象（Object）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-函数（Function）"><span class="nav-number">2.</span> <span class="nav-text">2.函数（Function）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-表格"><span class="nav-number">3.</span> <span class="nav-text">3.表格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-表单"><span class="nav-number">4.</span> <span class="nav-text">4.表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript"><span class="nav-number">4.0.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共141k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
