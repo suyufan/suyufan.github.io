@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一.Linux目录结构 &#x2F;bin 存放最常用的命令  &#x2F;sbin  super user 系统管理员使用的系统管理程序  &#x2F;home  存放普通用户的主目录  &#x2F;root    系统管理员，超级权限的用户主目录  &#x2F;lib  系统开机所需要最基本的动态连接共享库，作用类似于windowx里的DLL文件。几乎所有的应用程序都需要这些共享库  &#x2F;lost+found  一般是空的 当系统非法关机，就存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习之基础理论">
+<meta property="og:url" content="http://suyufan.github.io/2021/06/06/Linux%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="一.Linux目录结构 &#x2F;bin 存放最常用的命令  &#x2F;sbin  super user 系统管理员使用的系统管理程序  &#x2F;home  存放普通用户的主目录  &#x2F;root    系统管理员，超级权限的用户主目录  &#x2F;lib  系统开机所需要最基本的动态连接共享库，作用类似于windowx里的DLL文件。几乎所有的应用程序都需要这些共享库  &#x2F;lost+found  一般是空的 当系统非法关机，就存">
+<meta property="og:image" content="http://suyufan.github.io/2021/06/06/Linux%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86.png">
+<meta property="article:published_time" content="2021-06-06T07:34:26.000Z">
+<meta property="article:modified_time" content="2021-06-11T07:18:52.292Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2021/06/06/Linux%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2021/06/06/Linux学习之基础理论/"/>
+
+
+
+
+
+  <title>Linux学习之基础理论 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2021/06/06/Linux%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习之基础理论</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-06T15:34:26+08:00">
+                2021-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一-Linux目录结构"><a href="#一-Linux目录结构" class="headerlink" title="一.Linux目录结构"></a>一.Linux目录结构</h3><ul>
+<li><p>/bin 存放最常用的命令</p>
+</li>
+<li><p>/sbin  super user 系统管理员使用的系统管理程序</p>
+</li>
+<li><p>/home  存放普通用户的主目录</p>
+</li>
+<li><p>/root    系统管理员，超级权限的用户主目录</p>
+</li>
+<li><p>/lib  系统开机所需要最基本的动态连接共享库，作用类似于windowx里的DLL文件。几乎所有的应用程序都需要这些共享库</p>
+</li>
+<li><p>/lost+found  一般是空的 当系统非法关机，就存放了一些文件</p>
+</li>
+<li><p>/etc  所有的系统管理所需要的配置文件和子目录</p>
+</li>
+<li><p>/user 用户很多应用程序和文件都存放在这个目录下，类似于windows下的program files</p>
+</li>
+<li><p>/boot  存放启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件</p>
+<a id="more"></a>
+</li>
+<li><p>/proc   虚拟的目录，是系统内存的映射，访问这个目录来获取系统信息</p>
+</li>
+<li><p>/srv  service缩写，存放一些服务启动之后需要提取的数据</p>
+</li>
+<li><p>/sys  内存中新出现的一个文件系统</p>
+</li>
+<li><p>/tmp  存放临时文件</p>
+</li>
+<li><p>/dev 类似windows的设备管理器，，把所有的硬件用文件的形式存储</p>
+</li>
+<li><p>/media   Linux会自动识别一些设备，例如U盘，当识别后，会把识别的设备挂载到这个目录下</p>
+</li>
+<li><p>/mnt  让用户临时挂载别的文件系统的，我们可以将外部的存储挂载在/mnt上，然后进入该目录就可以查看里面的内容了</p>
+</li>
+</ul>
+<p><strong>总结：</strong></p>
+<p>1.Linux的目录中有且只要一个根目录</p>
+<p>2.Linux的各个目录存放的内容是规划好的，不能随便放</p>
+<p>3.Linux是以文件的形式管理我们的设备，因此一切皆为文件</p>
+<h3 id="二-vim编辑器"><a href="#二-vim编辑器" class="headerlink" title="二.vim编辑器"></a>二.vim编辑器</h3><p>命令行模式：</p>
+<ul>
+<li>:q  没有做任何的修改，然后退出</li>
+<li>:q!  修改了，然后退出，并且不保存本次修改</li>
+<li>:wq  保存修改并退出</li>
+</ul>
+<h3 id="三-开机-amp-重启"><a href="#三-开机-amp-重启" class="headerlink" title="三. 开机&amp;重启"></a>三. 开机&amp;重启</h3><ul>
+<li>shutdown <ul>
+<li>shutdown -h now  立即关机</li>
+<li>shutdown -h 1    1分钟之后关机</li>
+<li>shutdown -r now   立即重启</li>
+</ul>
+</li>
+<li>halt   等价于关机</li>
+<li>reboot  重启</li>
+<li>sync  把内存的数据同步到磁盘上（关机之前记得执行，以防数据丢失）</li>
+</ul>
+<h3 id="四-用户管理"><a href="#四-用户管理" class="headerlink" title="四.用户管理"></a>四.用户管理</h3><h5 id="4-1-用户登陆-amp-注销"><a href="#4-1-用户登陆-amp-注销" class="headerlink" title="4.1 用户登陆&amp;注销"></a>4.1 用户登陆&amp;注销</h5><p>登录时少用root账号登录，可以利用普通用户登录，登录后再用<code>su-用户名</code>命令来切换成系统管理员身份</p>
+<p>logout 注销用户</p>
+<p>注意：logout注销指令在图形运行级别无效，在运行级别3下有效</p>
+<p>1.Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
+<p>2.Linux的用户需要至少属于一个组</p>
+<ul>
+<li><p>添加用户</p>
+<p>useradd 用户名</p>
+<p>当创建用户成功后，会自动的创建和用户名同名的家目录</p>
+<p>也可以通过useradd -d 指定目录 新的用户名，给新创建的用户指定家目录</p>
+</li>
+<li><p>指定/修改密码</p>
+<p>passwd 用户名</p>
+</li>
+<li><p>删除用户</p>
+<p>userdel 用户名</p>
+<ul>
+<li><p>userdel 用户名  </p>
+<p>删除用户，但是要保留家目录</p>
+</li>
+<li><p>userdel -r 用户名</p>
+<p>删除用户以及用户主目录</p>
+</li>
+</ul>
+</li>
+<li><p>查询用户信息</p>
+<p>id 用户名</p>
+<p>uid 用户id，  gid 所在组的id ， 组 组名</p>
+</li>
+<li><p>切换用户</p>
+<p>su - 用户名</p>
+<p>当高权限用户向低权限用户切换的时候，不需要输入密码</p>
+<p>exit 返回到原来的用户</p>
+</li>
+<li><p>查看当前用户/登录用户</p>
+<p>whoami/who am i</p>
+<p>用户组：系统对有共性的多个用户进行统一的管理</p>
+<p>新增组：groupadd 组名</p>
+<p>删除组：groupdel 组名</p>
+<p>添加用户时直接加上组：useradd -g 用户组 用户名</p>
+<p>更改组：usermod -g 新用户组 用户名</p>
+</li>
+</ul>
+<h5 id="4-2-用户和组的配置文件"><a href="#4-2-用户和组的配置文件" class="headerlink" title="4.2 用户和组的配置文件"></a>4.2 用户和组的配置文件</h5><ul>
+<li><p>用户配置文件（用户信息）</p>
+<p>/etc/passwd</p>
+</li>
+<li><p>组配置文件（组信息）</p>
+<p>/etc/group</p>
+</li>
+<li><p>口令配置文件（密码和登录信息，是加密的）</p>
+<p>/etc/shadow</p>
+</li>
+</ul>
+<h3 id="五-实用指令"><a href="#五-实用指令" class="headerlink" title="五.实用指令"></a>五.实用指令</h3><h5 id="5-1-运行级别和找回root密码"><a href="#5-1-运行级别和找回root密码" class="headerlink" title="5.1 运行级别和找回root密码"></a>5.1 运行级别和找回root密码</h5><p>运行级别：</p>
+<ul>
+<li>0  关机</li>
+<li>1  单用户【找回丢失密码】</li>
+<li>2  多用户状态没有网络服务</li>
+<li><strong>3   多用户状态有网络</strong></li>
+<li>4    系统未使用保留给用户</li>
+<li><strong>5      图形界面</strong></li>
+<li>6     系统重启</li>
+</ul>
+<p>常用的运行级别是3和5。要修改默认的运行级别可改文件/etc/inittab的id:5:initdefault：这一行中的数字（注意：这种方式在centos 7下不再使用，7里面等同于命令：<code>systemctl islate xxx.target</code>）</p>
+<p>切换命令：比如<code>init 3</code>，切换到3级别</p>
+<p>案例：如何找回root密码</p>
+<p>思路：进入到单用户模式，然后修改root密码。因为进入单用户模式，root不需要密码就可以登录</p>
+<p>总结：开机–&gt;在引导时输入 回车—》看到一个界面输入 e—&gt;看到一个新的界面，选中第二行（编辑内核）在输入e—》在这行最后输入 1，再输入 回车—》再次输入b,这时就会进入到单用户模式。</p>
+<p>这时就进入了单用户模式，使用passwd指令来修改root密码</p>
+<p>问题：<strong>安全</strong>怎么保证？此操作必须到机房去实机操作，不能远程</p>
+<h5 id="5-2-帮助指令"><a href="#5-2-帮助指令" class="headerlink" title="5.2 帮助指令"></a>5.2 帮助指令</h5><ul>
+<li>man  获取帮助信息<ul>
+<li>比如查看ls命令 输入man ls即可</li>
+</ul>
+</li>
+<li>help 获得shell内置命令的帮助信息<ul>
+<li>比如查看cd 输入 help cd</li>
+</ul>
+</li>
+<li>百度</li>
+</ul>
+<h5 id="5-3文件目录类指令"><a href="#5-3文件目录类指令" class="headerlink" title="5.3文件目录类指令"></a>5.3文件目录类指令</h5><ul>
+<li><p>pwd  显示当前工作目录的绝对路径</p>
+</li>
+<li><p>ls  [选项]</p>
+<ul>
+<li>-a  显示当前目录所有的文件和目录，包括隐藏的</li>
+<li>-l    以列表的方式显示信息</li>
+</ul>
+</li>
+<li><p>cd 切换目录</p>
+<ul>
+<li>cd~ 或者cd：回到自己的家目录</li>
+<li>cd.. 回到当前目录的上一级目录</li>
+</ul>
+</li>
+<li><p>mkdir  创建目录，默认只能一级一级创建</p>
+<ul>
+<li>-p  创建多级目录</li>
+</ul>
+</li>
+<li><p>rmdir   删除空目录</p>
+<ul>
+<li>如果目录下有内容时 无法删除 要删除用rm -rf</li>
+</ul>
+</li>
+<li><p>touch  创建空文件，可以一次性创建多个文件</p>
+</li>
+<li><p>cp   拷贝文件到指定目录</p>
+<ul>
+<li>cp [选项] source dest</li>
+<li>-r  递归复制整个文件夹</li>
+<li>\cp 强制覆盖 不会提示</li>
+</ul>
+</li>
+<li><p>rm  移除文件或目录</p>
+<ul>
+<li>-r  递归删除</li>
+<li>-f   强制删除不提示</li>
+</ul>
+</li>
+<li><p>mv  移动文件与目录 或重命名</p>
+<ul>
+<li><p>mv  oldname newname  重命名</p>
+</li>
+<li><p>移动文件 将 /home/pig.txt 移动到 /root 下</p>
+<p>mv pig.txt /root/</p>
+</li>
+</ul>
+</li>
+<li><p>cat   查看文件内容</p>
+<ul>
+<li>-n  显示行号</li>
+<li>只能浏览不能修改，为了浏览方便，一般会带上管道命令 | more</li>
+</ul>
+</li>
+<li><p>more 文本过滤器，以全屏的方式按页显示文本文件的内容。</p>
+<ul>
+<li>enter 一行一行走</li>
+<li>空格  一页一页走</li>
+<li>ctrl+B 返回上一屏</li>
+<li>crtl+F  向下滚动一屏</li>
+</ul>
+</li>
+<li><p>less  分屏查看文件内容，<strong>并不是一次将整个文件加载之后才显示，而是根据需要显示加载的内容，适用大型文件</strong></p>
+<ul>
+<li>同样有很多快捷键，比如pageup 向上翻动一页。空格 向下翻一页</li>
+</ul>
+</li>
+<li><p><code>&gt; 是输出重定向，覆盖写</code>与<code>&gt;&gt; 追加</code></p>
+</li>
+<li><p>echo  输出内容到控制台</p>
+</li>
+<li><p>head  显示文件的开头部分内容，默认情况下显示文件的前10行</p>
+<ul>
+<li>head -n 5 文件   查看文件头5行内容</li>
+</ul>
+</li>
+<li><p>tail   用于输出文件中尾部的内容  默认情况下tail指令显示 文件的后10行内容</p>
+<ul>
+<li>tail -n 5 文件  查看文件后5行内容</li>
+<li>tail -f 文件  实时追踪该文档的所有更新</li>
+</ul>
+</li>
+<li><p>ln  软链接又叫符号链接。<strong>类似windows里的快捷方式</strong>，主要存放了链接其他文件的路径</p>
+<ul>
+<li>ln -s [原文件或目录] [软链接名]   给原文件创建一个软链接</li>
+<li>当使用pwd查看目录时，仍然看到的是软链接所在目录</li>
+</ul>
+</li>
+<li><p>history  查看已经执行过历史命令，也可以执行历史指令</p>
+<ul>
+<li>执行历史指令的话 可以用<code>!指令行号</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="5-4-时间日期类"><a href="#5-4-时间日期类" class="headerlink" title="5.4 时间日期类"></a>5.4 时间日期类</h5><ul>
+<li>date  显示当前时间<ul>
+<li>date “+%Y-%m-%d %H:%M:%S”    2021-6-9 12:25:05</li>
+</ul>
+</li>
+<li>date -s 字符串   设置日期</li>
+<li>cal  显示日历</li>
+</ul>
+<h5 id="5-5-搜索查找类"><a href="#5-5-搜索查找类" class="headerlink" title="5.5 搜索查找类"></a>5.5 搜索查找类</h5><ul>
+<li><p>find 从指定目录向下递归遍历其各个子目录，将满足条件的<strong>文件或者目录</strong>输出</p>
+<ul>
+<li><p>find [搜索范围] [选项]</p>
+</li>
+<li><p>-user  文件的用户</p>
+</li>
+<li><p>-name 文件名</p>
+</li>
+<li><p>案例：查找整个Linux系统下大于20m的文件（+n 大于   -n 小于   n 等于）</p>
+<p><code>find / -size +20M</code></p>
+</li>
+</ul>
+</li>
+<li><p>locate  快速定位文件路径 无需遍历整个文件系统 查询速度较快 为了保证查询结果的准确性 管理员必须定期更新locate</p>
+<ul>
+<li><p>locate  搜索文件</p>
+<p>由于locate指令基于数据库查询，所以第一次运行前，必须使用update指令创建locate数据库</p>
+</li>
+</ul>
+</li>
+<li><p>grep 过滤查找 ， 管道符“|”表示将前一个命令的处理结果输出传递给后面的命令操作</p>
+<ul>
+<li><p>grep [选项] 查找内容 源文件</p>
+</li>
+<li><p>-n  显示匹配行及行号</p>
+</li>
+<li><p>-i 忽略大小写</p>
+</li>
+<li><p>案例：输出文件hello.txt中“yes”所在的行号</p>
+<p><code>cat hello.txt | grep yes</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-6-压缩和解压缩类"><a href="#5-6-压缩和解压缩类" class="headerlink" title="5.6 压缩和解压缩类"></a>5.6 压缩和解压缩类</h5><ul>
+<li><p>gzip 用于压缩文件   gunzip 用于解压缩的</p>
+</li>
+<li><p>zip与unzip</p>
+<ul>
+<li>zip压缩会保留原文件，gzip不会</li>
+</ul>
+</li>
+<li><p>tar  打包指令 既可以压缩，也可以解压</p>
+<ul>
+<li>-c  产生.tar打包文件</li>
+<li>-v 显示详细信息</li>
+<li>-f  指定压缩后的文件名</li>
+<li>-z   打包同时压缩</li>
+<li>-x    解压.tar文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="六-组管理"><a href="#六-组管理" class="headerlink" title="六.组管理"></a>六.组管理</h3><p>在Linux中的每个用户必须属于一个组，不能独立于组外。</p>
+<p>文件：</p>
+<p>1.所有者</p>
+<p>2.所在组</p>
+<p>3.其他组。除了文件的所有者和所在组的用户外，系统的其他用户都是文件的其他组。</p>
+<h5 id="6-1-文件-目录-所有者"><a href="#6-1-文件-目录-所有者" class="headerlink" title="6.1  文件/目录 所有者"></a>6.1  文件/目录 所有者</h5><ul>
+<li>ls -ahl   查看文件的所有者，所在组</li>
+<li>chown  用户名  文件名    修改文件所有者</li>
+<li>groupadd 组名   组的创建</li>
+</ul>
+<h5 id="6-2-文件-目录-所在组"><a href="#6-2-文件-目录-所在组" class="headerlink" title="6.2 文件/目录 所在组"></a>6.2 文件/目录 所在组</h5><ul>
+<li><p>chgrp 组名 文件名   修改文件所在组</p>
+<p><strong>所有者和所在组同时改变：</strong>chown newowner:newgroup file</p>
+</li>
+</ul>
+<h5 id="6-3-改变用户所在组"><a href="#6-3-改变用户所在组" class="headerlink" title="6.3 改变用户所在组"></a>6.3 改变用户所在组</h5><ul>
+<li>usermod -g 组名 用户名</li>
+<li>usermod -d 目录名 用户名   改变该用户登陆的初始目录</li>
+</ul>
+<h3 id="七-权限管理"><a href="#七-权限管理" class="headerlink" title="七.权限管理"></a>七.权限管理</h3><p><img src="/2021/06/06/Linux%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86.png" alt="权限管理"></p>
+<h5 id="7-1-rwx权限详解"><a href="#7-1-rwx权限详解" class="headerlink" title="7.1 rwx权限详解"></a>7.1 rwx权限详解</h5><p>（1）rwx作用到文件</p>
+<ul>
+<li>[r]  可以读取，查看</li>
+<li>[w]  可以修改，但是不代表可以删除该文件，删除一个文件的前提条件是对该文件所在的目录有写的权限，才能删除该文件。</li>
+<li><code>[x]</code>  可以被执行</li>
+</ul>
+<p>（2）rwx作用到目录</p>
+<ul>
+<li>[r]  可以读取，ls查看目录内容</li>
+<li>[w]  可以修改，目录内创建+删除+重命名目录</li>
+<li><code>[x]</code>  可以进入该目录</li>
+</ul>
+<h5 id="7-2-修改权限-chmod"><a href="#7-2-修改权限-chmod" class="headerlink" title="7.2 修改权限 chmod"></a>7.2 修改权限 chmod</h5><ul>
+<li><p>方式一：+,-,= 变更权限</p>
+<ul>
+<li><p>案例：给abc.txt的所有者rwx权限，给所在组rx权限，给其他组用户rx权限</p>
+<p>u:所有者  g:所在组  o:其他  a:所有人（u,g,o的总和）</p>
+<p><code>chmod u=rwx,g=rx,o=rx abc</code></p>
+</li>
+</ul>
+</li>
+<li><p>方式二：通过数字变更权限</p>
+<p>r=4 w=2 x=1    rwx=4+2+1=7</p>
+<p>chmod u=rwx,g=rx,o=x  文件目录名</p>
+<p>相当于 chmod 751 文件目录名</p>
+</li>
+</ul>
+<p>###　八.任务调度</p>
+<p>任务调度：是指系统在某个时间执行的特定的命令或程序</p>
+<p>分类：</p>
+<p>1.系统工作：有些重要的工作必须周而复始地执行。如病毒扫描</p>
+<p>2.个别用户工作：个别用户可能希望执行某些程序。比如对mysql数据库的备份</p>
+<h5 id="8-1-crond-任务调度"><a href="#8-1-crond-任务调度" class="headerlink" title="8.1 crond 任务调度"></a>8.1 crond 任务调度</h5><ul>
+<li><p>crontab [选项]</p>
+<ul>
+<li><p>-e  编辑crontab定时任务</p>
+</li>
+<li><p>-l   列出当前有哪些任务调度</p>
+</li>
+<li><p>-r   终止任务调度</p>
+</li>
+<li><p>service crond restar [重启任务调度]</p>
+</li>
+<li><p>参数说明：5个占位符</p>
+<p>第一个*  一小时当中的第几分钟   0-59</p>
+<p>第二个*   一天当中的第几个小时   0-23</p>
+<p>第三个*    一个月当中的第几天   1-31</p>
+<p>第四个*    一年当中的第几个月  1-12</p>
+<p>第五个*      一周当中的星期几    0-7</p>
+<ul>
+<li><p>案例1：设置任务调度文件：/etc/crontab，设置个人任务调度，执行crontab -e命令，接着输入任务到调度文件，如：<code>*/1****ls -l /etc/ &gt; /tmp/to.txt</code></p>
+<p>每分钟执行<code>ls -l /etc/ &gt; /tmp/to.txt</code></p>
+</li>
+<li><p>案例二 每隔一分钟，就将当前日期信息，追加到/tmp/mydate文件中</p>
+<p>①先编写一个文件 /home/mytask1.sh</p>
+<p>写入date&gt;&gt;/tmp/mydate</p>
+<p>②给mytask1.sh一个可以执行权限</p>
+<p>③crontab -e</p>
+<p>④<code>*/**** /home/mytask1.sh</code>  每间隔一分钟去执行mytask1.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home&#x2F;</span><br><span class="line">vim mytask1.sh</span><br><span class="line">写入 date &gt;&gt; &#x2F;tmp&#x2F;mydate</span><br><span class="line">ls -l</span><br><span class="line">chmod 744 mytask1.sh</span><br><span class="line">ls</span><br><span class="line">crontab -e</span><br><span class="line">写入 &#96;*&#x2F;**** &#x2F;home&#x2F;mytask1.sh&#96;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="九-磁盘分区及挂载"><a href="#九-磁盘分区及挂载" class="headerlink" title="九.磁盘分区及挂载"></a>九.磁盘分区及挂载</h3><ul>
+<li><p>lsblk -f  查看系统的分区和挂载情况 （老师不离开）</p>
+<p>分区情况 分区类型 唯一标识分区的40位不重复的字符串  挂载点</p>
+</li>
+<li><p>如何增加一块硬盘</p>
+<p>1.虚拟机添加硬盘</p>
+<p>2.分区  <code>fdisk/dev/sdb</code></p>
+<p>3.格式化  <code>mkfs -t ext4 /dev/sdb1</code></p>
+<p>4.挂载   先创建一个/home/newdisk ，挂载mount  /dev/sdb1  /home/newdisk</p>
+<p>5.设置可以自动挂载(永久挂载，当你重启系统，仍然可以)</p>
+</li>
+<li><p>df -lh   查询系统整体磁盘使用情况</p>
+</li>
+<li><p>du -h /目录   查看指定目录的磁盘占用情况</p>
+</li>
+</ul>
+<p>案例：</p>
+<p>1）统计/home 文件夹下文件的个数</p>
+<p><code>ls -l /home | grep &quot;^-&quot; | wc -l</code></p>
+<p>2）统计/home文件夹下目录的个数</p>
+<p><code>ls -l /home | grep &quot;^d&quot; | wc -l</code></p>
+<p>3）以树形结构显示文件</p>
+<p><code>yum install tree</code></p>
+<p><code>tree</code></p>
+<h3 id="十-进程管理"><a href="#十-进程管理" class="headerlink" title="十.进程管理"></a>十.进程管理</h3><ul>
+<li>ps -ef 查看父进程 为0表示没有父进程</li>
+<li>ps -aux 看到资源占有情况</li>
+<li>kill [选项] 进程号     终止进程</li>
+</ul>
+<p>案例：</p>
+<p>1.踢掉某个非法登录用户</p>
+<p>ps -aux | grep sshd    —–查看进程号</p>
+<p>kill 进程号</p>
+<p>2.强制杀掉一个终端</p>
+<p>kill -9 进程号</p>
+<ul>
+<li>pstree -p  以树形显示进程</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/04/Linux%E5%AD%A6%E4%B9%A0%E4%B9%8BShell/" rel="next" title="Linux学习之Shell">
+                <i class="fa fa-chevron-left"></i> Linux学习之Shell
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/10/Node-koa%E5%88%9D%E8%AF%86/" rel="prev" title="Node+koa初识">
+                Node+koa初识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-Linux目录结构"><span class="nav-number">1.</span> <span class="nav-text">一.Linux目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-vim编辑器"><span class="nav-number">2.</span> <span class="nav-text">二.vim编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-开机-amp-重启"><span class="nav-number">3.</span> <span class="nav-text">三. 开机&amp;重启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-用户管理"><span class="nav-number">4.</span> <span class="nav-text">四.用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-用户登陆-amp-注销"><span class="nav-number">4.0.1.</span> <span class="nav-text">4.1 用户登陆&amp;注销</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-用户和组的配置文件"><span class="nav-number">4.0.2.</span> <span class="nav-text">4.2 用户和组的配置文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-实用指令"><span class="nav-number">5.</span> <span class="nav-text">五.实用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-运行级别和找回root密码"><span class="nav-number">5.0.1.</span> <span class="nav-text">5.1 运行级别和找回root密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-帮助指令"><span class="nav-number">5.0.2.</span> <span class="nav-text">5.2 帮助指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3文件目录类指令"><span class="nav-number">5.0.3.</span> <span class="nav-text">5.3文件目录类指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-4-时间日期类"><span class="nav-number">5.0.4.</span> <span class="nav-text">5.4 时间日期类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-5-搜索查找类"><span class="nav-number">5.0.5.</span> <span class="nav-text">5.5 搜索查找类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-6-压缩和解压缩类"><span class="nav-number">5.0.6.</span> <span class="nav-text">5.6 压缩和解压缩类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六-组管理"><span class="nav-number">6.</span> <span class="nav-text">六.组管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-文件-目录-所有者"><span class="nav-number">6.0.1.</span> <span class="nav-text">6.1  文件&#x2F;目录 所有者</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-文件-目录-所在组"><span class="nav-number">6.0.2.</span> <span class="nav-text">6.2 文件&#x2F;目录 所在组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-改变用户所在组"><span class="nav-number">6.0.3.</span> <span class="nav-text">6.3 改变用户所在组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七-权限管理"><span class="nav-number">7.</span> <span class="nav-text">七.权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-rwx权限详解"><span class="nav-number">7.0.1.</span> <span class="nav-text">7.1 rwx权限详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-修改权限-chmod"><span class="nav-number">7.0.2.</span> <span class="nav-text">7.2 修改权限 chmod</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1-crond-任务调度"><span class="nav-number">7.0.3.</span> <span class="nav-text">8.1 crond 任务调度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九-磁盘分区及挂载"><span class="nav-number">8.</span> <span class="nav-text">九.磁盘分区及挂载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十-进程管理"><span class="nav-number">9.</span> <span class="nav-text">十.进程管理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共146.8k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

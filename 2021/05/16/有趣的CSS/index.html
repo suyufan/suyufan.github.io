@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="​        在经历几次面试之后，我发现了我的一个最大短板—CSS。只要是问到CSS相关的东西，我都不能说好，🔒所以周末抽空看了看《CSS权威指南》，《CSS揭秘》。收获还是很大的，同时发现了学习CSS的乐趣。还有感谢这周面我的所有面试官了，面试是真的会使人进步的（前提是自己每次结束之后，会去复盘，不断学习）。有的面试结束之后，结果已经不重要了，整个过程都已经学到了不少东西，你会感觉这场面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有趣的CSS">
+<meta property="og:url" content="http://suyufan.github.io/2021/05/16/%E6%9C%89%E8%B6%A3%E7%9A%84CSS/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="​        在经历几次面试之后，我发现了我的一个最大短板—CSS。只要是问到CSS相关的东西，我都不能说好，🔒所以周末抽空看了看《CSS权威指南》，《CSS揭秘》。收获还是很大的，同时发现了学习CSS的乐趣。还有感谢这周面我的所有面试官了，面试是真的会使人进步的（前提是自己每次结束之后，会去复盘，不断学习）。有的面试结束之后，结果已经不重要了，整个过程都已经学到了不少东西，你会感觉这场面试">
+<meta property="article:published_time" content="2021-05-16T08:40:22.000Z">
+<meta property="article:modified_time" content="2021-10-11T06:18:28.369Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2021/05/16/有趣的CSS/"/>
+
+
+
+
+
+  <title>有趣的CSS | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2021/05/16/%E6%9C%89%E8%B6%A3%E7%9A%84CSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">有趣的CSS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-16T16:40:22+08:00">
+                2021-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>​        在经历几次面试之后，我发现了我的一个最大短板—CSS。只要是问到CSS相关的东西，我都不能说好，🔒所以周末抽空看了看《CSS权威指南》，《CSS揭秘》。收获还是很大的，同时发现了学习CSS的乐趣。还有感谢这周面我的所有面试官了，面试是真的会使人进步的（前提是自己每次结束之后，会去复盘，不断学习）。有的面试结束之后，结果已经不重要了，整个过程都已经学到了不少东西，你会感觉这场面试非常有意义。</p>
+<p>​        进入正文，《CSS权威指南》里面的内容说的很细，会说到CSS的每一个属性以及取值（看起来可能会有点枯燥，动手敲敲，再来一瓶可乐，就会快乐很多）。《CSS揭秘》适合有基础的开发者。有趣的是《CSS揭秘》完全用H5写成，书中看到的全部东西都是由CSS渲染出来的HTML。图片是用SVG生成的 或者由SCSS函数生成的SVG data URI 。数学公式是用LaTeX中写成的，然后转化为MathML。书中的所有页码 章节号等都是纯粹的CSS计数器生成的。</p>
+<a id="more"></a>
+
+<ul>
+<li><a href="http://atlas.oreilly.com" target="_blank" rel="noopener">Atlas系统</a></li>
+<li><a href="http://macrabbit.com/espresso" target="_blank" rel="noopener">Espresso编辑器</a></li>
+<li>GodeKit将SCSS转化为CSS</li>
+<li><a href="http://dabblet.com" target="_blank" rel="noopener">Dabblet存在线演示</a></li>
+</ul>
+<h1 id="媒体查询与特性查询"><a href="#媒体查询与特性查询" class="headerlink" title="媒体查询与特性查询"></a>媒体查询与特性查询</h1><ul>
+<li><p>媒体查询：定义浏览器在何种媒体环境中使用指定的样式表</p>
+<ul>
+<li><p>用法：</p>
+<ul>
+<li>link,style元素的media属性</li>
+<li>@import，@media声明的媒体描述符部分</li>
+</ul>
+</li>
+<li><p>类型：all,print,screen</p>
+</li>
+<li><p>描述符：and,not,only</p>
+<ul>
+<li><p><strong>only</strong>: 保证向后兼容</p>
+<p><code>@import url(new.css) only all</code>在支持媒体查询的浏览器中，only会被忽略，样式表会应用到文档中。不支持媒体查询的浏览器中，为only all,这是无效的。</p>
+<p>262.ecma-international.org</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>特性查询：根据是否支持特定的CSS属性及其值来应用一段样式</p>
+<ul>
+<li><p>用法：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@supports</span> (<span class="attribute">color:</span> black)&#123;</span><br><span class="line">    <span class="selector-tag">body</span> &#123;<span class="attribute">color</span>: black;&#125;</span><br><span class="line">    <span class="selector-tag">h1</span> &#123;<span class="attribute">color</span>: purple&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*要是能识别处理color:black这样的属性和值组合，那就应用这段样式；否则跳过*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h1><p><strong>优先级</strong>：!important &gt; 内联 &gt; id &gt; class &gt; <strong>标签 &gt;  通配符 &gt;  继承</strong> &gt; 默认</p>
+<ul>
+<li><p>根据属性选择</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[foo |&#x3D; &quot;bar&quot;]  选择元素有foo属性，并且其值以bar-开头或者就是bar</span><br><span class="line">[foo ~&#x3D; &quot;bar&quot;]  选择元素有foo属性，并且其值是包含bar这个词的一组词。**以空白分割的词,比如：bar bb**</span><br><span class="line">[foo *&#x3D; &quot;bar&quot;]  选择元素有foo属性，并且其值包含子串bar。比如**bard**</span><br><span class="line">^开头 $结束</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>CSS Selectors Level 4 为属性选择符引入一个不区分大小写的选项。在结束方框前写i</p>
+<p>比如：一个执行PDF文档的链接，不知道后缀是.pdf还是.Pdf。。。。</p>
+<p><code>a[href$=&#39;.PDF&#39; i]</code></p>
+</li>
+</ul>
+</li>
+<li><p>根据DOM树关系选择</p>
+<ul>
+<li>选择子元素：<code>h1 &gt; strong</code> h1下的strong元素</li>
+<li><strong>紧邻</strong>同胞元素：<code>h1 + p</code> 选择紧跟h1后面的p  属于一个父级<ul>
+<li>注意：使用一个+只能选择紧邻同胞中的第二个元素。比如：一个ol下有3个li,用<code>li+li {font-weight: bold;}</code>只有第二个跟第三个项目会显示粗体。</li>
+</ul>
+</li>
+<li>选择后续同胞：使用<code>~</code>。不要求紧邻</li>
+</ul>
+</li>
+<li><p>伪类 <code>：</code></p>
+<p>为不一定存在的结构指定样式，或者为某些元素（甚至文档本身）的特定状态赋予幽灵类</p>
+<ul>
+<li><p>可以拼接：<code>a:link:hover:lang(de) {color: gray;}</code>   把鼠标悬停在德语下的未访问链接显示为灰</p>
+</li>
+<li><p>结构伪类：</p>
+<p>有趣的故事：第一个孩子出生，用<code>#my:first-child</code>  对吗 —-》 不对 ，这样选择的是自己，意思是自己是父母的第一个孩子。</p>
+<pre><code>应该写为`#my &gt; :first-child` 这样写 被选择的对象才是第一个孩子</code></pre><ul>
+<li>选择根元素用body 和 :root 的区别</li>
+<li>:empty是唯一一个在匹配时考虑文本节点的CSS选择符。Selectors Level 3 中其他选择符只考虑元素，完全忽略文本节点</li>
+<li>选择第一个或最后一个    :first-child        :last-child</li>
+<li>选择第一个或最后一个某种元素  td:first-of-type     表示不管前面有没有表头，选择一行中的第一个单元格</li>
+<li>第n个子元素  :nth-child(n)  如果更新了DOM,添加或删除了节点，仍可以匹配到更新后的DOM</li>
+<li>动态伪类   推荐顺序：<code>link - visited - focus - hover - active</code>   active:按下的过程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>伪元素 <code>::</code></p>
+<ul>
+<li>::first-letter和::first-line首字母和首行  只能应用到<strong>块级元素</strong>上，比如标题或段落，不能应用到行内元素上 比如超链接</li>
+<li>::before    ::after  前插和后插  比如：<code>body::after {content: &quot;The End.&quot;}</code>    文档末尾加上结束语</li>
+</ul>
+</li>
+</ul>
+<h1 id="特指度，继承，层叠"><a href="#特指度，继承，层叠" class="headerlink" title="特指度，继承，层叠"></a>特指度，继承，层叠</h1><ul>
+<li><p>特指度：优先级</p>
+<ul>
+<li>id: 0100</li>
+<li>类属性，伪类 ：0010</li>
+<li>元素，伪元素：0001</li>
+</ul>
+</li>
+<li><p>继承</p>
+<p>向下传播的过程，类似于事件委托。在HTML中向上传播规则有个例外，应用到body元素上的样式会传到html(只限于html没有设置)</p>
+<p>继承是CSS的根基之一，通常无需刻意考虑，但有例外</p>
+<pre><code>-  多数盒模型 border,padding,margin
+-  继承没有特指度</code></pre></li>
+<li><p>层叠</p>
+<ul>
+<li><p>权值相同时，渲染哪一个？看来源</p>
+<ul>
+<li>1.读者提供的样式中以!important标记的声明</li>
+<li>2.创作人员编写的样式中以!important标记的声明</li>
+<li>3.创作人员编写的常规声明</li>
+<li>4.读者提供的常规声明</li>
+<li>5.用户代理的默认声明</li>
+</ul>
+<p>权值来源都相同，看前后位置</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="值与单位"><a href="#值与单位" class="headerlink" title="值与单位"></a>值与单位</h1><ul>
+<li><p>全局关键字：</p>
+<ul>
+<li>inherit：将元素的某个属性的值设为与父元素一样</li>
+<li>initial：将属性值设为预定义的初始值</li>
+<li>unset：前两个的替身:smiley_cat: 对于继承属性来说，unset与inherit作用一样；对于不继承属性来说，与initial作用一样</li>
+<li>all：除了direction和unicode-bidi之外的所有属性。取值：inherit | initial | unset </li>
+</ul>
+</li>
+<li><p>图像</p>
+<p>在<strong>响应式布局</strong>中，通常会用相对于文本的尺寸标注图像的 大小，而不关心图像中究竟有多少像素。这就要去依赖用户代理的<strong>图像缩放技术</strong>。现在已经成熟，被矢量图像（如：SVG）严重依赖</p>
+<p>在高级的用户代理中，<code>&lt;image&gt;</code>表示下面三种值中的一个：</p>
+<ul>
+<li><p><code>&lt;url&gt;</code> 指向外部资源的URL标识符</p>
+</li>
+<li><p><code>&lt;image-set&gt;</code> 一系列图像，根据值中的条件选择</p>
+<p>image-set() 可以指定用于桌面布局的大图，以及用于移动布局的小图。类似picture元素的srcset属性，所有浏览器都支持srcset,只有Safari,Chrome,桌面Opera支持image-set</p>
+</li>
+<li><p><code>&lt;gradient&gt;</code>  线性渐变或径向渐变图像 可以是单个 也可以是重复</p>
+</li>
+</ul>
+</li>
+<li><p>绝对长度单位：in,cm,mm,pt(一个标准印刷度量单位),pc（1pc = 12pt）,px</p>
+</li>
+<li><p>相对长度单位：</p>
+<ul>
+<li>em: 1em = font-size  相对于父元素的字号而言</li>
+<li>rem: 对于根元素来说 相当于默认字号</li>
+<li>ch:   :zap:CSS3引入。表示近距，比如定义为所用字体字形本身的宽度加上侧边距（无论正负），也有高度的概念</li>
+<li>vw,vh,vmin,vmax</li>
+</ul>
+</li>
+<li><p>cal(): 计算</p>
+<ul>
+<li>+、- ： 两侧使用相同的单位类型,或者是<number>和<integer>。5em+20px是有效</integer></number></li>
+<li><code>*</code>：两个值必须有一个是<number></number></li>
+<li>/ :  右边为<number></number></li>
+</ul>
+</li>
+<li><p>attr(): 属性值</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">p</span><span class="selector-pseudo">::before</span> &#123;<span class="attribute">content</span>: <span class="string">"["</span><span class="built_in">attr</span>(id)<span class="string">"]"</span>;&#125;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"5"</span>&gt;</span></span><br><span class="line">    点16了</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">[5]点16了</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>颜色：具名，RGB，RGBa，十六进制，HSL, HSLa</p>
+<p><strong>2个特殊关键字</strong>允许在任何使用颜色值的地方使用：transparent（完全透明）和currentColor（当前元素color属性计算得到的值）</p>
+</li>
+<li><p>角度：deg(度数),grad(百分度),rad(弧度)，turn（圈数）</p>
+</li>
+<li><p>自定义标识符：常用于关于团队页面 用不同颜色表示人名的时候。以–开头，区分大小写，以val()调用，作用域在一定范围之内</p>
+</li>
+<li><p>字体：@font-face去引入要用的字体，惰性加载</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">"SwitzeraADF"</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">"SwitzeraADF-Regular.otf"</span>) <span class="built_in">format</span>(<span class="string">"opentype"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>format() 告诉用户代理所用字体是什么格式，:zap: 让用户代理跳过不支持的字体格式，减少带宽用量，提升加载速度</p>
+</li>
+</ul>
+<p>​    </p>
+<h1 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h1><p>7个横向属性之和始终等于父元素的width。当子元素有设负值 就会超出父元素，并没有违背规范，是利用了语义。</p>
+<p><strong>外边距重叠问题：</strong> 都是正值，取最大的值。一正一负，正负相加。都是负值，取绝对值最大的。</p>
+<p>​    </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/12/Vue2%E4%B8%8EVue3%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="next" title="Vue2与Vue3的区别">
+                <i class="fa fa-chevron-left"></i> Vue2与Vue3的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/16/%E4%BD%A0%E7%9F%A5%E9%81%93%E7%9A%84JS-%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%8C%E9%97%AD%E5%8C%85%EF%BC%8Cthis-%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/" rel="prev" title="你知道的JS-作用域，闭包，this,原型对象">
+                你知道的JS-作用域，闭包，this,原型对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#媒体查询与特性查询"><span class="nav-number">1.</span> <span class="nav-text">媒体查询与特性查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择器"><span class="nav-number">2.</span> <span class="nav-text">选择器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特指度，继承，层叠"><span class="nav-number">3.</span> <span class="nav-text">特指度，继承，层叠</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#值与单位"><span class="nav-number">4.</span> <span class="nav-text">值与单位</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#盒模型"><span class="nav-number">5.</span> <span class="nav-text">盒模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共146.8k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

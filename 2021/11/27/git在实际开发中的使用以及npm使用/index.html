@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git,腾讯云实习,Npm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="git在实际开发中的使用以及npm使用1.如何使项目在本地跑起来，修改bug或做需求 git clone XXXX  代码会下载到本地。（XXXX表示项目仓库的HTTPS或者SSH）  git status 或者 VScode 左下角也可以看到分支状态  git checkout 分支名。 切换到对应分支，分支上代码可以随便改，只要不去git上的Merge Requests上提出合分支的申请，就不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git在实际开发中的使用以及npm使用">
+<meta property="og:url" content="http://suyufan.github.io/2021/11/27/git%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Anpm%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="git在实际开发中的使用以及npm使用1.如何使项目在本地跑起来，修改bug或做需求 git clone XXXX  代码会下载到本地。（XXXX表示项目仓库的HTTPS或者SSH）  git status 或者 VScode 左下角也可以看到分支状态  git checkout 分支名。 切换到对应分支，分支上代码可以随便改，只要不去git上的Merge Requests上提出合分支的申请，就不">
+<meta property="article:published_time" content="2021-11-27T03:35:27.000Z">
+<meta property="article:modified_time" content="2022-05-02T03:28:39.499Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="腾讯云实习">
+<meta property="article:tag" content="Npm">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2021/11/27/git在实际开发中的使用以及npm使用/"/>
+
+
+
+
+
+  <title>git在实际开发中的使用以及npm使用 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2021/11/27/git%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8Anpm%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git在实际开发中的使用以及npm使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-27T11:35:27+08:00">
+                2021-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  950
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="git在实际开发中的使用以及npm使用"><a href="#git在实际开发中的使用以及npm使用" class="headerlink" title="git在实际开发中的使用以及npm使用"></a>git在实际开发中的使用以及npm使用</h1><h3 id="1-如何使项目在本地跑起来，修改bug或做需求"><a href="#1-如何使项目在本地跑起来，修改bug或做需求" class="headerlink" title="1.如何使项目在本地跑起来，修改bug或做需求"></a>1.如何使项目在本地跑起来，修改bug或做需求</h3><ul>
+<li><p>git clone XXXX </p>
+<p>代码会下载到本地。（XXXX表示项目仓库的HTTPS或者SSH）</p>
+</li>
+<li><p>git status 或者 VScode 左下角也可以看到分支状态</p>
+</li>
+<li><p>git checkout 分支名。</p>
+<p>切换到对应分支，分支上代码可以随便改，只要不去git上的Merge Requests上提出合分支的申请，就不会影响主体代码。 </p>
+<p>提出合分支的申请之后，处理人会去review，最后决定是否同意合并</p>
+</li>
+<li><p>git pull .切换到分支之后，去pull一下分支代码</p>
+</li>
+<li><p>npm/yarn install </p>
+<p>会自动检查安装项目中的所需依赖包</p>
+</li>
+<li><p>查看package.js或者README.md  查找项目的运行命令</p>
+<p>比如我的是tea dev 我就应该在项目根目录下打开终端 输入tea dev 项目就跑起来了</p>
+<p>如果输入运行命令之后，控制台输出了访问链接，就可以在本地localhost直接访问了看到页面</p>
+<p>如果没有得到访问链接，要看到页面，就需要再去做一些配置</p>
+</li>
+</ul>
+<ul>
+<li>让项目成功跑起来之后，修改bug的话 就先去复现理解问题，做需求的话 就去调试 进行修改   </li>
+</ul>
+<a id="more"></a>  
+
+<h3 id="2-修改完代码之后，如何进行提交"><a href="#2-修改完代码之后，如何进行提交" class="headerlink" title="2.修改完代码之后，如何进行提交"></a>2.修改完代码之后，如何进行提交</h3><ul>
+<li><p>git add 提交代码到暂存区</p>
+</li>
+<li><p>git commit -m “提交信息”。 将暂存区提交到本地仓库</p>
+<p>提交信息由type+message组成</p>
+<p>type可选的标识如下：</p>
+<ul>
+<li>feat: 新功能</li>
+<li>fix: 修补bug</li>
+<li>docs：文档</li>
+<li>style: 格式（不影响代码运行的变动）</li>
+<li>refactor: 重构（既不是新增功能，也不是修改bug的代码变动)</li>
+<li>test: 增加测试</li>
+<li>chore: 构建过程或辅助工具的变动</li>
+</ul>
+</li>
+<li><p>git push  上传</p>
+</li>
+<li><p>去new review。select commit 要选from 和 to</p>
+</li>
+</ul>
+<h3 id="3-发布前，看下最新的主分支提交，有没有合并到你的分支"><a href="#3-发布前，看下最新的主分支提交，有没有合并到你的分支" class="headerlink" title="3.发布前，看下最新的主分支提交，有没有合并到你的分支"></a>3.发布前，看下最新的主分支提交，有没有合并到你的分支</h3><ul>
+<li><p>看下（主分支）最新的提交，有没有合并到我的分支上</p>
+<p>到代码库，切换到主分支，看history，看看最新的commit是什么</p>
+<p>到本地VSCode 切换到主分支 git checkout master</p>
+<p>看主分支提交记录 git log.  这里看最新的commit是否在log里面</p>
+<p>if true 就是最新提交在我的分支上</p>
+<p>else 最新提交不在</p>
+</li>
+<li><p>将主分支上最新的提交 合并到我的分支上</p>
+<p>在主分支上git pull. 拉取最新的代码到本地</p>
+<p>git log 检查是否最新</p>
+<p>git checkout feature/m 切换到我的分支上</p>
+<p>git merge master  合并主分支到我的分支上  </p>
+</li>
+</ul>
+<h3 id="4-git回退版本"><a href="#4-git回退版本" class="headerlink" title="4.git回退版本"></a>4.git回退版本</h3><p>git log 查看提交记录</p>
+<p>git reset –soft 回退的提交哈希值</p>
+<pre><code>选项：--hard 抛弃当前工作区的修改。--soft 保留当前工作区的修改</code></pre><h3 id="5-临时需要去在本项目上修复紧急bug"><a href="#5-临时需要去在本项目上修复紧急bug" class="headerlink" title="5.临时需要去在本项目上修复紧急bug"></a>5.临时需要去在本项目上修复紧急bug</h3><p>git stash 保存当前分支上的代码修改</p>
+<p>切换到hotfix分支上 修复紧急bug</p>
+<p>修复完成之后，切换到之前的工作需求分支上</p>
+<p>git stash pop 恢复之前的工作区  </p>
+<p>git status 查看当前分支的状态</p>
+<h3 id="6-提交绕过eslint检查"><a href="#6-提交绕过eslint检查" class="headerlink" title="6.提交绕过eslint检查"></a>6.提交绕过eslint检查</h3><p>git commit -no-verify -m ‘提交信息’    </p>
+<h1 id="npm使用"><a href="#npm使用" class="headerlink" title="npm使用"></a>npm使用</h1><h3 id="1-如何进行包版本的升级"><a href="#1-如何进行包版本的升级" class="headerlink" title="1.如何进行包版本的升级"></a>1.如何进行包版本的升级</h3><p>package-lock.json 用来兜底，项目里包的最低版本</p>
+<ul>
+<li><p>查看包版本以及之间的依赖：npm ls @包名 </p>
+</li>
+<li><p>查看当前镜像：npm config get registry</p>
+</li>
+<li><p>nrm镜像管理工具：npm i nrm -g </p>
+</li>
+<li><p>查看所有镜像以及当前镜像：nrm ls</p>
+</li>
+<li><p>在<strong>package.json</strong>里的dependencies中，新增一行”@包名”: “^new版本号”</p>
+</li>
+<li><p>安装：npm i。 注意用yarn upgrade的方式，要写准确的升级包（否则会因为yarn整体升级 造成eslint规则变化）</p>
+</li>
+</ul>
+<p>这个时候npm ls @包名 看到的版本是new版本</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%AE%9E%E4%B9%A0/" rel="tag"># 腾讯云实习</a>
+          
+            <a href="/tags/Npm/" rel="tag"># Npm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/27/Mock%E6%95%B0%E6%8D%AE/" rel="next" title="Mock数据">
+                <i class="fa fa-chevron-left"></i> Mock数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/03/npm%E8%B8%A9%E5%9D%91%E4%B9%8Binstall%E6%8A%A5%E9%94%99code-ETARGET/" rel="prev" title="npm踩坑之install报错code-ETARGET">
+                npm踩坑之install报错code-ETARGET <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git在实际开发中的使用以及npm使用"><span class="nav-number">1.</span> <span class="nav-text">git在实际开发中的使用以及npm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-如何使项目在本地跑起来，修改bug或做需求"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.如何使项目在本地跑起来，修改bug或做需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-修改完代码之后，如何进行提交"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.修改完代码之后，如何进行提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-发布前，看下最新的主分支提交，有没有合并到你的分支"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.发布前，看下最新的主分支提交，有没有合并到你的分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-git回退版本"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.git回退版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-临时需要去在本项目上修复紧急bug"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.临时需要去在本项目上修复紧急bug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-提交绕过eslint检查"><span class="nav-number">1.0.6.</span> <span class="nav-text">6.提交绕过eslint检查</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#npm使用"><span class="nav-number">2.</span> <span class="nav-text">npm使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-如何进行包版本的升级"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.如何进行包版本的升级</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共146.8k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
