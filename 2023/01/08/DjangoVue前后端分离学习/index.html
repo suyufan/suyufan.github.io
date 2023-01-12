@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://suyufan.github.io/2023/01/08/DjangoVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%AD%A6%E4%B9%A0/%E8%BF%94%E5%9B%9EToken.png">
 <meta property="og:image" content="http://suyufan.github.io/2023/01/08/DjangoVue%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E5%AD%A6%E4%B9%A0/%E8%BF%94%E5%9B%9E%E6%AD%A3%E7%A1%AEToken.png">
 <meta property="article:published_time" content="2023-01-08T14:19:54.000Z">
-<meta property="article:modified_time" content="2023-01-08T14:36:16.325Z">
+<meta property="article:modified_time" content="2023-01-12T15:18:46.830Z">
 <meta property="article:author" content="苏玉璠">
 <meta property="article:tag" content="Vue">
 <meta property="article:tag" content="Djngo">
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  689
+                  1.2k
                 </span>
               
 
@@ -364,7 +364,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  5
                 </span>
               
             </div>
@@ -412,7 +412,7 @@
 </li>
 </ul>
 <h3 id="2-前后端分离-Ngnix"><a href="#2-前后端分离-Ngnix" class="headerlink" title="2.前后端分离-Ngnix"></a>2.前后端分离-Ngnix</h3><p>直接访问<a href="http://localhost:9528/#/dashboard" target="_blank" rel="noopener">Dashboard - Vue Admin Template</a>会报错跨域</p>
-<p>此时，我们需要使用nginx进行反向代理。</p>
+<p>此时，我们需要使用nginx进行反向代理。<strong>打通前后端</strong></p>
 <p><a href="https://blog.csdn.net/csnz123123/article/details/122928054" target="_blank" rel="noopener">安装Ngnix教程</a></p>
 <p>安装完成之后，访问<code>http://localhost:80</code>即可看到Nignx的欢迎页面</p>
 <ul>
@@ -475,6 +475,43 @@
 <p><code>新建用户：http://localhost/api/users/ POST 　{&#39;username&#39;: }</code></p>
 </li>
 <li><p>前端项目写vue进行展示，老本行了</p>
+</li>
+</ul>
+<h3 id="5-Rest-api"><a href="#5-Rest-api" class="headerlink" title="5.Rest api"></a>5.Rest api</h3><p><a href="http://ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="noopener">RESTful API 设计指南 - 阮一峰的网络日志 (ruanyifeng.com)</a></p>
+<p>在view.py中编写UserViewSet类的list、create、update等方法（直接copy viewsets.ModelViewSet中的 不用手动写）</p>
+<p>甚至，如果没有特殊要求（不重写），不需要复制过来。</p>
+<p>比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BookViewSet</span><span class="params">(viewsets.ModelViewSet)</span>:</span></span><br><span class="line">    queryset = Books.objects.all()</span><br><span class="line">    serializer_class = BookSerializer</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以进行GET、POST、CREATE、UPDATE等请求</p>
+<ul>
+<li><p>DELETE改写</p>
+<p>数据不能真的被删除，给个标识即可，方便以后找回</p>
+<p>原代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">destroy</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">    instance = self.get_object()</span><br><span class="line">    self.perform_destroy(instance)</span><br><span class="line">    <span class="keyword">return</span> Response(status=status.HTTP_204_NO_CONTENT)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">perform_destroy</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    instance.delete()</span><br></pre></td></tr></table></figure>
+
+<p>改写后：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">destroy</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">    instance = self.get_object()</span><br><span class="line">    self.perform_destroy(instance)</span><br><span class="line">    <span class="keyword">return</span> Response(status=status.HTTP_204_NO_CONTENT)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">perform_destroy</span><span class="params">(self, instance)</span>:</span></span><br><span class="line">    <span class="comment"># 改写后 数据并没有被真的删除 只是is_delete标识为1 进行标记</span></span><br><span class="line">    instance.is_delete = <span class="literal">True</span></span><br><span class="line">    print(<span class="string">'OK'</span>)</span><br><span class="line">    instance.save()</span><br><span class="line">    <span class="comment"># instance.delete()</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，注意，GET方法也需要重写</p>
+<p>加上已删除标识的筛选。<code>self.queryset = self.queryset.filter(~Q(is_delete=True))</code></p>
+</li>
+</ul>
+<h3 id="6-用户注册"><a href="#6-用户注册" class="headerlink" title="6.用户注册"></a>6.用户注册</h3><p>没有验证码页面验证，通过发送邮件到用户邮箱，用户邮箱校验。添加一个字段 is_activate 标识是否检验。</p>
+<ul>
+<li><p>导入UUID包 添加code字段 通过UUID自动生成唯一标识</p>
+<p>UUID(Universally Unique identifier) 通用唯一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在models.py中</span></span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line">code = models.UUIDField(verbose_name=<span class="string">'uuid'</span>, default=uuid.uuid4, editable=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将UUID拼接URL发送到用户邮箱，用户通过访问该链接进行激活</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在views.py中</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span><span class="params">()</span>:</span></span><br><span class="line">    user_info = self.perform_create(serializer)</span><br><span class="line">    user_info.set_password(request.data[<span class="string">'password'</span>]) <span class="comment"># 设置密码</span></span><br><span class="line">    user_info.is_active = <span class="literal">False</span></span><br><span class="line">    user_info.save()</span><br><span class="line">    code = user_info.code</span><br><span class="line">    url = <span class="string">'http://localhost:8000/api/user_activate/'</span> + str(code)</span><br><span class="line">    <span class="comment"># 更好的方式是request.build_absolute_url('/api/user_activate/' + str(code)) 这样的话 后端接口8000如果变了 不需要在这里改</span></span><br></pre></td></tr></table></figure>
+
+<p>url拼接好了，但是如果访问会报404，因为urls.py中并没有配置/users/activate接口。并且用户的is_active是False 即不是有效用户，需要激活。</p>
+</li>
+<li><p>设置urls接口，改写retrieve方法，在方法中将is_active设置为true</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">retrieve</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">    <span class="comment"># 默认是查询 id 的用户信息，比如/api/users/1</span></span><br><span class="line">    <span class="comment">#-------------------------</span></span><br><span class="line">    <span class="comment"># 重写为访问带UUID的URL 激活用户状态</span></span><br><span class="line">    instance = NewUser.objects.get(code=kwargs[<span class="string">'pk'</span>])</span><br><span class="line">    instance.is_active = <span class="literal">True</span></span><br><span class="line">    instance.save()</span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">'status'</span>: <span class="string">"success"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Response(data, status=status.HTTP_200_OK)</span><br></pre></td></tr></table></figure>
+
+<p><em>注意：retrieve应该绕过token验证，这里demo没有写</em></p>
 </li>
 </ul>
 
@@ -665,7 +702,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-项目初始化"><span class="nav-number">1.</span> <span class="nav-text">1.项目初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-前后端分离-Ngnix"><span class="nav-number">2.</span> <span class="nav-text">2.前后端分离-Ngnix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-登录功能"><span class="nav-number">3.</span> <span class="nav-text">3.登录功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-展示所有用户的页面"><span class="nav-number">4.</span> <span class="nav-text">4.展示所有用户的页面</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-项目初始化"><span class="nav-number">1.</span> <span class="nav-text">1.项目初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-前后端分离-Ngnix"><span class="nav-number">2.</span> <span class="nav-text">2.前后端分离-Ngnix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-登录功能"><span class="nav-number">3.</span> <span class="nav-text">3.登录功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-展示所有用户的页面"><span class="nav-number">4.</span> <span class="nav-text">4.展示所有用户的页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Rest-api"><span class="nav-number">5.</span> <span class="nav-text">5.Rest api</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-用户注册"><span class="nav-number">6.</span> <span class="nav-text">6.用户注册</span></a></li></ol></div>
             
 
           </div>
@@ -710,7 +747,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共146.8k字</span>
+  <span class="post-count">博客全站共147.3k字</span>
 </div>  
 
         
