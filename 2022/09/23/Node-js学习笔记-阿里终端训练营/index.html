@@ -88,7 +88,7 @@
 <meta property="og:image" content="http://suyufan.github.io/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/web%E8%AE%BF%E9%97%AEcdn.png">
 <meta property="og:image" content="http://suyufan.github.io/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/%E8%A7%86%E9%A2%91%E8%BD%AC%E7%A0%81.png">
 <meta property="article:published_time" content="2022-09-23T05:20:17.000Z">
-<meta property="article:modified_time" content="2022-09-23T09:42:06.809Z">
+<meta property="article:modified_time" content="2023-04-14T04:30:28.813Z">
 <meta property="article:author" content="苏玉璠">
 <meta property="article:tag" content="Node">
 <meta name="twitter:card" content="summary">
@@ -476,24 +476,20 @@
 </li>
 <li><p>Javascript在服务端的新进展</p>
 <ul>
-<li>更多全栈框架的出现<br>16，17年出现的Next.js（基于React） 和 Nuxt.js（基于Vue）<br>近期不久出现Remix(前端后端混在一起写)</li>
+<li><p>更多全栈框架的出现<br>16，17年出现的Next.js（基于React） 和 Nuxt.js（基于Vue）<br>近期不久出现Remix(前端后端混在一起写)</p>
+</li>
+<li><p>渲染容器从端到云再到边<br>用户访问cdn节点中存在loading,找到服务器之后拉取页面,返回的数据也需要去服务器拉取，中间也存在loading。因此在传统服务端渲染的情况下，会存在很多loading。</p>
+<p>出现在服务端做更多事情的思考 </p>
+<p>出现了<strong>SSR服务端渲染</strong>，像Java的JSP，Vue/React做的Server Side Rendering（SSR）原理都是类似的。将页面渲染的工作搬到服务端，实现了ssr服务渲染功能。</p>
+<p>出现问题，人服务器不在同地</p>
+<p>中间需要跨多个服务器，整个过程延时非常严重，ssr也有压力</p>
+<p>出现<strong>SSG静态页面生成</strong>，可以在服务端生成页面去推送到CDN</p>
+<p>出现<strong>Edge 边缘计算渲染</strong></p>
+</li>
 </ul>
 </li>
 </ul>
-<pre><code>- 渲染容器从端到云再到边
-  用户访问cdn节点中存在loading,找到服务器之后拉取页面,返回的数据也需要去服务器拉取，中间也存在loading。因此在传统服务端渲染的情况下，会存在很多loading。
 
-  出现在服务端做更多事情的思考 
-
-  出现了**SSR服务端渲染**，像Java的JSP，Vue/React做的Server Side Rendering（SSR）原理都是类似的。将页面渲染的工作搬到服务端，实现了ssr服务渲染功能。
-
-  出现问题，人服务器不在同地
-
-  中间需要跨多个服务器，整个过程延时非常严重，ssr也有压力
-
-  出现**SSG静态页面生成**，可以在服务端生成页面去推送到CDN
-
-  出现**Edge 边缘计算渲染**</code></pre>
       
     </div>
     
@@ -612,7 +608,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -722,7 +718,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共147.3k字</span>
+  <span class="post-count">博客全站共148.8k字</span>
 </div>  
 
         
