@@ -86,8 +86,9 @@
 <meta property="og:site_name" content="笑笑の博客">
 <meta property="og:description" content="前言： 使用Python的Django框架来完成后端接口 使用微信开发者工具来进行小程序编写 使用腾讯云进行发送短信的服务 使用django-redis进行验证码和手机号的存储，以进行验证码校验 使用Redis数据库进行存储(这里我用的是阿里云服务器，使用云服务器安装启动Redis)">
 <meta property="og:image" content="http://suyufan.github.io/2023/04/16/python-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0%E6%89%8B%E6%9C%BA%E5%8F%B7%E9%AA%8C%E8%AF%81/Redis%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/04/16/python-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0%E6%89%8B%E6%9C%BA%E5%8F%B7%E9%AA%8C%E8%AF%81/python+redis.png">
 <meta property="article:published_time" content="2023-04-16T07:30:43.000Z">
-<meta property="article:modified_time" content="2023-04-17T09:49:30.643Z">
+<meta property="article:modified_time" content="2023-04-18T07:32:21.298Z">
 <meta property="article:author" content="苏玉璠">
 <meta property="article:tag" content="Django">
 <meta property="article:tag" content="小程序">
@@ -344,7 +345,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k
+                  1.5k
                 </span>
               
 
@@ -462,10 +463,14 @@
 <h3 id="6-完善验证码-手机号存储（使用Redis）"><a href="#6-完善验证码-手机号存储（使用Redis）" class="headerlink" title="6.完善验证码+手机号存储（使用Redis）"></a>6.完善验证码+手机号存储（使用Redis）</h3><ul>
 <li><p>Redis安装，启动。<a href="https://www.cnblogs.com/wupeiqi/articles/5132791.html" target="_blank" rel="noopener">见链接</a></p>
 <ul>
-<li><code>cd redis</code></li>
-<li><code>ifconfig</code>，查看服务器地址</li>
-<li>运行，<code>src/redis-server redis.conf</code><ul>
-<li>如果出现端口占用的报错：<code>Creating Server TCP listening socket *:6379: bind: Address already in use</code></li>
+<li><p>运行，<code>redis-server /usr/local/redis/etc/redis.conf</code> 启动服务端 将daemonize no 改成daemonize yes 配置后台启动</p>
+</li>
+<li><p>之后redis-cli启动客户端，尝试了python连接，连接成功</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"></span><br><span class="line">conn = redis.Redis(host=<span class="string">'123.57.138.63'</span>, port=<span class="number">6379</span>, password=<span class="string">'123Suyufan^'</span>)</span><br><span class="line">conn.set(<span class="string">'foo'</span>,<span class="string">'Bar'</span>)</span><br><span class="line">result = conn.get(<span class="string">'foo'</span>)</span><br><span class="line">print(result)</span><br><span class="line">print(conn.keys())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置了setting.py</span></span><br><span class="line"><span class="comment"># 运行test-redis.py</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/04/16/python-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%9E%E7%8E%B0%E6%89%8B%E6%9C%BA%E5%8F%B7%E9%AA%8C%E8%AF%81/python+redis.png" alt></p>
+<ul>
+<li>如果出现端口占用的报错：<code>Creating Ser，ver TCP listening socket *:6379: bind: Address already in use</code></li>
 <li>运行<code>ps -ef | grep -i redis</code>，查看任务进程</li>
 <li>执行<code>kill -9 进程号</code>，终止进程</li>
 <li>重新启动</li>
@@ -732,7 +737,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共149.1k字</span>
+  <span class="post-count">博客全站共149.2k字</span>
 </div>  
 
         
