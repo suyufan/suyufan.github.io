@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="3.5号晚上投的简历，9号收到一面的邮件，10号晚上6点半进行一面。使用腾讯会议进行，先给了一套面试题，8个选择1个编程，以共享文档和共享屏幕的方式进行，代码题可以用自己的软件编写面试官友好，亲切，思维逻辑清晰。对于我在胡扯的问题，会指出来“你说的是啥啥啥，还是没说我问的问题” 哈哈哈哈哈哈哈哈哈哈，最后，面试官问，你项目的前端是用啥写的？我说 在网上找模板，然后改模板。面试官：改模板！好 我了解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一套腾讯前端实习的面试题以及JS异步">
+<meta property="og:url" content="http://suyufan.github.io/2021/03/10/%E4%B8%80%E5%A5%97%E8%85%BE%E8%AE%AF%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%9A%84%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BB%A5%E5%8F%8AJS%E5%BC%82%E6%AD%A5/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="3.5号晚上投的简历，9号收到一面的邮件，10号晚上6点半进行一面。使用腾讯会议进行，先给了一套面试题，8个选择1个编程，以共享文档和共享屏幕的方式进行，代码题可以用自己的软件编写面试官友好，亲切，思维逻辑清晰。对于我在胡扯的问题，会指出来“你说的是啥啥啥，还是没说我问的问题” 哈哈哈哈哈哈哈哈哈哈，最后，面试官问，你项目的前端是用啥写的？我说 在网上找模板，然后改模板。面试官：改模板！好 我了解">
+<meta property="article:published_time" content="2021-03-10T12:01:12.000Z">
+<meta property="article:modified_time" content="2021-05-10T13:44:30.267Z">
+<meta property="article:author" content="苏玉璠">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2021/03/10/一套腾讯前端实习的面试题以及JS异步/"/>
+
+
+
+
+
+  <title>一套腾讯前端实习的面试题以及JS异步 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2021/03/10/%E4%B8%80%E5%A5%97%E8%85%BE%E8%AE%AF%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%9A%84%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BB%A5%E5%8F%8AJS%E5%BC%82%E6%AD%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一套腾讯前端实习的面试题以及JS异步</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-10T20:01:12+08:00">
+                2021-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>3.5号晚上投的简历，9号收到一面的邮件，10号晚上6点半进行一面。<br>使用腾讯会议进行，先给了一套面试题，8个选择1个编程，以共享文档和共享屏幕的方式进行，代码题可以用自己的软件编写<br>面试官友好，亲切，思维逻辑清晰。对于我在胡扯的问题，会指出来“你说的是啥啥啥，还是没说我问的问题” 哈哈哈哈哈哈哈哈哈哈，最后，面试官问，你项目的前端是用啥写的？我说 在网上找模板，然后改模板。面试官：改模板！好 我了解了。<br>没有反问，等通知吧。  </p>
+<a id="more"></a>  
+<p><strong>一套腾讯前端实习的面试题：</strong><br>30分钟  </p>
+<p>Javascript基础试题 </p>
+<p>一、选择题</p>
+<ol>
+<li>请问以下程序的输出是?     A (√)<br>function Foo(){ var i=0;<br>return function(){ document.write(i++);<br>} }<br>var f1=Foo(), f2=Foo();<br>f1();<br>f1();<br>f2();</li>
+</ol>
+<p>A. 010<br>B. 012<br>C. 000<br>D. 011</p>
+<ol start="2">
+<li>以下 javascript 代码，在浏览器中运行的结果是    B (√)</li>
+</ol>
+<p>var a = 4399&lt;0||typeof(4399+’ ‘);<br>console.log(a);</p>
+<p>A. true<br>B. string<br>C. undefined<br>D. false</p>
+<ol start="3">
+<li>请问以下程序的输出是?    C (√)</li>
+</ol>
+<p>var myObject = {<br>foo: “bar”,<br>func: function() {<br>var self = this;<br>console.log(this.foo);<br>console.log(self.foo);<br>(function() {<br>         console.log(this.foo);<br>       console.log(self.foo);<br>    }());<br>}<br> };<br>myObject.func();</p>
+<p>A. bar<br>bar<br>bar<br>bar<br>B. bar<br>bar<br>bar<br>undefined<br>C. bar<br>bar<br>undefined<br>bar<br>D. undefined<br>bar<br>undefined<br>bar</p>
+<ol start="4">
+<li>关于这段代码正确的结论是    A (√)</li>
+</ol>
+<p>var    F=function(){};<br>Object.prototype.a=function(){};<br>Function.prototype.b=function(){};<br>var f=new F();        </p>
+<p>A. f能取到a，但取不到b<br>B. f能取到a,b<br>C. F能取到b，不能取到a<br>D. F能取到a，不能取到b</p>
+<ol start="5">
+<li>请问执行后弹出的值是:    D(X)—-&gt;C</li>
+</ol>
+<p>var name=”World!”;<br>(function(){<br>var name;<br>if(typeof name=== ‘undefined’){<br>name=’Jack’;<br>console.log(‘Goodbye’+name);<br>}<br>else<br>{<br>console.log(‘hello’+name);<br>}<br>})();</p>
+<p>A. Hello world!<br>B. Goodbye Jack<br>C. Hello Jack<br>D. Goodbye world!</p>
+<ol start="6">
+<li>下面求a中最大值正确的是 C(×)——&gt;D</li>
+</ol>
+<p>var a = [1,4,5,2,9];</p>
+<p>A. Math.max(a);<br>B. Array.max(a);<br>C. Math.max.call(null,a);<br>D. Math.max.apply(null,a);<br><strong>apply的参数要封装！！！！</strong></p>
+<ol start="7">
+<li>关于跨域问题下面说法正确的是?    B(√)</li>
+</ol>
+<p>A. 可以利用flash的http请求，来处理跨域问题<br>B. 通过iframe设置document.domain可以实现跨域<br>C. 一般情况下，m.toutiao.com可以ajax请求<a href="http://www.toutiao.com域名下的接口并获得响应" target="_blank" rel="noopener">www.toutiao.com域名下的接口并获得响应</a><br>D. 通过jsonp方式可以发出post请求其他域名下的接口</p>
+<ol start="8">
+<li>运行结果是    B(×)——&gt;C</li>
+</ol>
+<p>var obj ={<br>a:1,<br>b:function () {<br>alert(this.a)<br>}<br>};<br>var fun =obj.b;<br><strong>只有obj.b看不到obj全部，所以undefined</strong><br>fun();</p>
+<p>A. 弹出a<br>B. 弹出1<br>C. 弹出undefined<br>D. 什么也看不到</p>
+<p>二、编程题</p>
+<p>实现一个函数，将一个多层嵌套的数组扁平化（非递归实现 +分）；</p>
+<ol>
+<li>例 [1, 2, 5, [3, 7, [2, 4, 6], 10], 8, 12]  =&gt;  [1, 2, 5, 3, 7, 2, 4, 6, 10, 8, 12<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//reduce递归</span></span><br><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,[<span class="number">3</span>,<span class="number">7</span>,[<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>],<span class="number">10</span>],<span class="number">8</span>,<span class="number">12</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line"><span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">a,b</span>)=&gt;</span>&#123;</span><br><span class="line">a.concat(<span class="built_in">Array</span>.isArray(b)? fn(b):b)</span><br><span class="line">        &#125;,[])</span><br><span class="line">    &#125;</span><br><span class="line"><span class="built_in">console</span>.log(fn(a))</span><br><span class="line"></span><br><span class="line"><span class="comment">//some</span></span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,[<span class="number">3</span>,<span class="number">7</span>,[<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>],<span class="number">10</span>],<span class="number">8</span>,<span class="number">12</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line"><span class="keyword">let</span> newArr = []</span><br><span class="line"><span class="keyword">while</span>(arr.some(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">Array</span>.isArray(item)))&#123;</span><br><span class="line">arr = [].concat.apply([],arr)</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">return</span> arr</span><br><span class="line">    &#125;</span><br><span class="line"><span class="built_in">console</span>.log(fn2(b))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>跨域</li>
+<li>学前端多久了，学了哪些东西</li>
+<li>js掌握如何</li>
+<li>js的数据类型</li>
+<li>js的异步机制？  </li>
+</ul>
+<p><strong>promise与callback</strong><br>    - promise的状态<br>    - Promise的错误处理？<br>        应该是如下：.then().catch()</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">'products.json'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> response.json();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">json</span>) </span>&#123;</span><br><span class="line">  products = json;</span><br><span class="line">  initialize();</span><br><span class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Fetch problem: '</span> + err.message);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>promise与async的区别？</li>
+</ul>
+<p>Promise原来有规范的意义,最终确定的是promise a+规范</p>
+<p>Promise有很多并行神器，比如Promise.all\Promise.race等</p>
+<p>在进行捕获异常的时候，promise是通过.catch()；async是通过在函数内try…catch…</p>
+<ul>
+<li>async的底层是怎么实现的？</li>
+</ul>
+<p><code>Promise</code>是<code>async</code>函数内部的实现原理。如果<code>async</code>函数中有返回一个值 ,当调用该函数时，内部会调用<code>Promise.resolve()</code>方法把它转化成一个<code>promise</code>对象作为返回。</p>
+<ul>
+<li><p>Cookie如何防范XSS攻击？CSRF攻击？  </p>
+<ul>
+<li><p>csrf攻击<br>  跨站点伪装请求，盗用你的身份以你的名义发送恶意请求，是单向的。成功的前提是用户必须登录到目标站点，且浏览了攻击者控制的站点  </p>
+<ul>
+<li>防御  <ul>
+<li>验证http refever字段</li>
+<li>请求地址中添加token并验证  </li>
+<li>在HTTP头中自定义属性并验证  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>xss攻击<br>  跨站脚本攻击，攻击者在返回的HTML中嵌入js脚本  </p>
+<ul>
+<li>防御<br>  在http头部配上set-cookie  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>XSS深入问，嵌入js脚本，怎么嵌入  </p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/10/%E5%89%91%E6%8C%87offer-Day2/" rel="next" title="剑指offer-Day2">
+                <i class="fa fa-chevron-left"></i> 剑指offer-Day2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/15/%E5%AE%89%E5%AE%B6%E7%9A%84%E6%B3%A8%E5%86%8C%E7%99%BB%E5%BD%95%E4%BB%A5%E5%8F%8A2%E7%A7%8D%E6%94%BB%E5%87%BB%EF%BC%8C%E8%B7%A8%E5%9F%9F/" rel="prev" title="安家的注册登录以及2种攻击，跨域">
+                安家的注册登录以及2种攻击，跨域 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

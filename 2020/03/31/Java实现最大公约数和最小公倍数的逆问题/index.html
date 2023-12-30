@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一．题目名称“求N个数的最大公约数和最小公倍数” 二．题目内容用C&#x2F;C++&#x2F;Java&#x2F;Python实现程序解决问题。已知正整数a0,a1,b0,b1，设某未知正整数x满足：1、  x和a0的最大公约数是a1；2、  x和b0的最小公倍数是b1。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java实现最大公约数和最小公倍数的逆问题">
+<meta property="og:url" content="http://suyufan.github.io/2020/03/31/Java%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0%E7%9A%84%E9%80%86%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="一．题目名称“求N个数的最大公约数和最小公倍数” 二．题目内容用C&#x2F;C++&#x2F;Java&#x2F;Python实现程序解决问题。已知正整数a0,a1,b0,b1，设某未知正整数x满足：1、  x和a0的最大公约数是a1；2、  x和b0的最小公倍数是b1。">
+<meta property="article:published_time" content="2020-03-31T14:51:17.000Z">
+<meta property="article:modified_time" content="2021-02-20T14:16:17.609Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2020/03/31/Java实现最大公约数和最小公倍数的逆问题/"/>
+
+
+
+
+
+  <title>Java实现最大公约数和最小公倍数的逆问题 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2020/03/31/Java%E5%AE%9E%E7%8E%B0%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0%E7%9A%84%E9%80%86%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java实现最大公约数和最小公倍数的逆问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T22:51:17+08:00">
+                2020-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一．题目名称"><a href="#一．题目名称" class="headerlink" title="一．题目名称"></a>一．题目名称</h2><p>“求N个数的最大公约数和最小公倍数”</p>
+<h2 id="二．题目内容"><a href="#二．题目内容" class="headerlink" title="二．题目内容"></a>二．题目内容</h2><p>用C/C++/Java/Python实现程序解决问题。<br>已知正整数a0,a1,b0,b1，设某未知正整数x满足：<br>1、  x和a0的最大公约数是a1；<br>2、  x和b0的最小公倍数是b1。  </p>
+<a id="more"></a>  
+<p>输入第一行为一个正整数n，表示有n组输入数据。接下来的n行每行一组输入数据，为四个正整数a0，a1，b0，b1，每两个整数之间用一个空格隔开。输入数据保证a0能被a1整除，b1能被b0整除。<br>输出格式<br>输出共n行。每组输入数据的输出结果占一行，为一个整数。<br>对于每组数据：若不存在这样的x，请输出0；<br>若存在这样的x，请输出满足条件的x的个数；<br>样例输入  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2  </span><br><span class="line">41 1 96 288</span><br><span class="line">95 1 37 1776</span><br></pre></td></tr></table></figure>
+<p>样例输出  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<h2 id="三．算法设计"><a href="#三．算法设计" class="headerlink" title="三．算法设计"></a>三．算法设计</h2><p>1.输入n，以及利用对n循环输入a0,a1,b0,b1<br>2.求最大公因数，定义一个数组x，利用循环将符合条件的值存放在数组x中<br>3.求最小公倍数，定义一个数组y,利用循环将符合条件的值存放在数组y中<br>4.遍历比较数组x和y,存在相等数值时，count++  </p>
+<p>改进：2，3定义一个数组，将符合条件的值赋给数组<br>4.遍历数组，当其值不为0时进行count++    </p>
+<h2 id="四-代码"><a href="#四-代码" class="headerlink" title="四.代码"></a>四.代码</h2><blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hankson</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       System.out.println(<span class="string">"请输入一个正整数n,表示有n组输入数据"</span>);</span><br><span class="line">           Scanner A = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">           <span class="keyword">int</span> n = A.nextInt();</span><br><span class="line">           System.out.println(<span class="string">"接下来的n行每行一组输入数据，为四个正整数a0，a1，b0，b1，每两个整数之间用一个空格隔开。输入数据保证a0能被a1整除，b1能被b0整除。\n"</span>);</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) &#123;</span><br><span class="line">               Scanner B = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">               <span class="keyword">int</span> a0 = B.nextInt();</span><br><span class="line">               <span class="keyword">int</span> a1 = B.nextInt();</span><br><span class="line">               <span class="keyword">int</span> b0 = B.nextInt();</span><br><span class="line">               <span class="keyword">int</span> b1 = B.nextInt();</span><br><span class="line">               greatest(a0,a1,b0,b1);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">greatest</span><span class="params">(<span class="keyword">int</span> a0,<span class="keyword">int</span> a1,<span class="keyword">int</span> b0,<span class="keyword">int</span> b1)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> []x=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>];</span><br><span class="line">       <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">       <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> num=b1;num&gt;=<span class="number">1</span>;num--)&#123;</span><br><span class="line">           <span class="keyword">if</span>(a0%a1==num%a1&amp;&amp;b1%b0==b1%num&amp;&amp;b0%num!=<span class="number">0</span>)&#123;</span><br><span class="line">               x[i]=num;</span><br><span class="line">               i++;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   </span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;x.length;j++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(x[j]!=<span class="number">0</span>)&#123;</span><br><span class="line">               count++;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       System.out.println(count);</span><br><span class="line">   &#125;</span><br><span class="line">   &#125; </span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="五．测试"><a href="#五．测试" class="headerlink" title="五．测试"></a>五．测试</h2><h4 id="1-符合条件的值输出测试"><a href="#1-符合条件的值输出测试" class="headerlink" title="1.符合条件的值输出测试"></a>1.符合条件的值输出测试</h4><p>失败<br>问题1：32，24等数字并不符合96与它的最小公倍数为288，这些数字与96的最小公倍数为96本身。<br>问题2：不能取到大于41而且满足条件的值<br>改进：加上条件b0%num!=0；更改for循环中的num初始值</p>
+<p>成功</p>
+<h4 id="2-符合条件的值个数测试"><a href="#2-符合条件的值个数测试" class="headerlink" title="2.符合条件的值个数测试"></a>2.符合条件的值个数测试</h4><p>由于java好像无法在不清楚数组长度的时候定义。要先声明数组长度，不然系统不会为他分配内存空间。所以符合条件的个数不能通过x.length返回。</p>
+<p>成功</p>
+<h4 id="3-输入另一组数据测试"><a href="#3-输入另一组数据测试" class="headerlink" title="3.输入另一组数据测试"></a>3.输入另一组数据测试</h4><p>出现错误，数组越界异常<br>更改数组长度为100</p>
+<p>成功</p>
+<h4 id="4-同时输入2组进行测试最开始输入n行的循环代码"><a href="#4-同时输入2组进行测试最开始输入n行的循环代码" class="headerlink" title="4.同时输入2组进行测试最开始输入n行的循环代码"></a>4.同时输入2组进行测试最开始输入n行的循环代码</h4><p>成功</p>
+<h2 id="六．调试"><a href="#六．调试" class="headerlink" title="六．调试"></a>六．调试</h2><h4 id="1-在进行最大公因数测试的时候出现问题，对此模块进行调试"><a href="#1-在进行最大公因数测试的时候出现问题，对此模块进行调试" class="headerlink" title="1.在进行最大公因数测试的时候出现问题，对此模块进行调试"></a>1.在进行最大公因数测试的时候出现问题，对此模块进行调试</h4><p>1.1发现低级错误，由于将int i=0写在循环里面，所以每次循环只改变x[0]的值<br>1.2发现定义2个数组太浪费了，于是改成定义数组，同时满足2个已知条件的时候，在进行赋值。<br>2.对输入2组数据进行调试</p>
+<p>由于执行到要从键盘输入数据的时候会跳出，显示没有变量<br>所以现在还不知道怎么实现先输入2行数据回车后，再输出每一行对应的结果  </p>
+<h2 id="七．总结"><a href="#七．总结" class="headerlink" title="七．总结"></a>七．总结</h2><p>1.利用循环操作的时候一定要细心书写循环的条件<br>2.进行算法设计的时候考虑空间时间问题<br>3.数组定义的必须得先定义一个长度<br>对于第二组数据，我感觉结果不止2个，好像测试输出的222，444，111等也可以</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/30/pytho%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%81%B5%E6%9C%BAXN-2%E5%91%BD%E4%BB%A4%E8%BF%87%E7%A8%8B/" rel="next" title="pytho实现图灵机XN*2命令过程">
+                <i class="fa fa-chevron-left"></i> pytho实现图灵机XN*2命令过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E5%85%A8%E6%80%A7/" rel="prev" title="数据库安全性">
+                数据库安全性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一．题目名称"><span class="nav-number">1.</span> <span class="nav-text">一．题目名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二．题目内容"><span class="nav-number">2.</span> <span class="nav-text">二．题目内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三．算法设计"><span class="nav-number">3.</span> <span class="nav-text">三．算法设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-代码"><span class="nav-number">4.</span> <span class="nav-text">四.代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五．测试"><span class="nav-number">5.</span> <span class="nav-text">五．测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-符合条件的值输出测试"><span class="nav-number">5.0.1.</span> <span class="nav-text">1.符合条件的值输出测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-符合条件的值个数测试"><span class="nav-number">5.0.2.</span> <span class="nav-text">2.符合条件的值个数测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-输入另一组数据测试"><span class="nav-number">5.0.3.</span> <span class="nav-text">3.输入另一组数据测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-同时输入2组进行测试最开始输入n行的循环代码"><span class="nav-number">5.0.4.</span> <span class="nav-text">4.同时输入2组进行测试最开始输入n行的循环代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六．调试"><span class="nav-number">6.</span> <span class="nav-text">六．调试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在进行最大公因数测试的时候出现问题，对此模块进行调试"><span class="nav-number">6.0.1.</span> <span class="nav-text">1.在进行最大公因数测试的时候出现问题，对此模块进行调试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七．总结"><span class="nav-number">7.</span> <span class="nav-text">七．总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="利用事件绑定，来实现拖拽。效果类似于电脑桌面上的快捷方式位置移动  鼠标按下 鼠标移动 鼠标松开重点在于鼠标的移动过程中，如何使鼠标点击div的位置在移动过程中，一直与div保持相对固定，不会出现鼠标跳点到div左上角的情况方式有2种：①控制鼠标②控制div显然只能控制div，因为鼠标的移动是用户通过外部硬件来进行控制的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS-拖拽实现">
+<meta property="og:url" content="http://suyufan.github.io/2020/10/01/JS-%E6%8B%96%E6%8B%BD%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="利用事件绑定，来实现拖拽。效果类似于电脑桌面上的快捷方式位置移动  鼠标按下 鼠标移动 鼠标松开重点在于鼠标的移动过程中，如何使鼠标点击div的位置在移动过程中，一直与div保持相对固定，不会出现鼠标跳点到div左上角的情况方式有2种：①控制鼠标②控制div显然只能控制div，因为鼠标的移动是用户通过外部硬件来进行控制的">
+<meta property="og:image" content="http://suyufan.github.io/2020/10/01/JS-%E6%8B%96%E6%8B%BD%E5%AE%9E%E7%8E%B0/%E7%AE%97%E6%B3%95.png">
+<meta property="article:published_time" content="2020-10-01T10:39:26.000Z">
+<meta property="article:modified_time" content="2020-10-02T01:25:24.101Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2020/10/01/JS-%E6%8B%96%E6%8B%BD%E5%AE%9E%E7%8E%B0/%E7%AE%97%E6%B3%95.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2020/10/01/JS-拖拽实现/"/>
+
+
+
+
+
+  <title>JS-拖拽实现 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2020/10/01/JS-%E6%8B%96%E6%8B%BD%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS-拖拽实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-01T18:39:26+08:00">
+                2020-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  514
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>利用事件绑定，来实现拖拽。效果类似于电脑桌面上的快捷方式位置移动</p>
+<ul>
+<li>鼠标按下</li>
+<li>鼠标移动</li>
+<li>鼠标松开<br>重点在于鼠标的移动过程中，如何使鼠标点击div的位置在移动过程中，一直与div保持相对固定，不会出现鼠标跳点到div左上角的情况<br>方式有2种：①控制鼠标②控制div<br>显然只能控制div，因为鼠标的移动是用户通过外部硬件来进行控制的  <a id="more"></a>  </li>
+</ul>
+<p><strong>解决坐标问题</strong><br><img src="/2020/10/01/JS-%E6%8B%96%E6%8B%BD%E5%AE%9E%E7%8E%B0/%E7%AE%97%E6%B3%95.png" alt="解决坐标问题"><br>代码：  </p>
+<pre><code class="html"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">style</span>&gt;</span>
+<span class="css">        <span class="selector-id">#box1</span>{</span>
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            background-color: green;
+        }
+<span class="css">        <span class="selector-id">#box2</span>{</span>
+            top: 200px;
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            background-color: hotpink;
+            overflow: auto;
+        }
+    <span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="javascript">        <span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span>
+<span class="actionscript">            <span class="comment">//获取box1的对象</span></span>
+<span class="javascript">            <span class="keyword">var</span> box1 = <span class="built_in">document</span>.getElementById(<span class="string">"box1"</span>);</span>
+
+<span class="actionscript">            box1.onmousedown=<span class="function"><span class="keyword">function</span><span class="params">(event)</span></span>{</span>
+<span class="actionscript">                 <span class="comment">//为box1提供事件捕获</span></span>
+                box1.setCapture&amp;&amp;box1.setCapture()
+<span class="actionscript">                <span class="comment">//鼠标按下，并触发事件</span></span>
+<span class="javascript">                event = event||<span class="built_in">window</span>.event</span>
+<span class="actionscript">                <span class="comment">//div的偏移量：鼠标.clientx - 元素.offleft  鼠标.clienty - 元素.offTop</span></span>
+<span class="actionscript">                <span class="keyword">var</span> le = event.clientX - box1.offsetLeft;</span>
+<span class="actionscript">                <span class="keyword">var</span> lt = event.clientY - box1.offsetTop;</span>
+<span class="actionscript">                <span class="comment">//鼠标移动，添加触发响应事件</span></span>
+<span class="javascript">                <span class="built_in">document</span>.onmousemove=<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>{</span>
+<span class="actionscript">                    <span class="comment">//触发响应事件兼容</span></span>
+<span class="javascript">                    event = event||<span class="built_in">window</span>.event; </span>
+<span class="actionscript">                    <span class="comment">//获取鼠标坐标</span></span>
+<span class="actionscript">                    <span class="keyword">var</span> top = event.clientY - lt;</span>
+<span class="actionscript">                    <span class="keyword">var</span> left = event.clientX - le;</span>
+<span class="actionscript">                    <span class="comment">//修改box1的位置</span></span>
+<span class="actionscript">                    box1.style.top = top+<span class="string">"px"</span>;</span>
+<span class="actionscript">                    box1.style.left = left+<span class="string">"px"</span>;</span>
+
+                };
+<span class="javascript">                <span class="built_in">document</span>.onmouseup=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span>
+<span class="actionscript">                    <span class="comment">//取消onmousemove事件</span></span>
+<span class="javascript">                    <span class="built_in">document</span>.onmousemove=<span class="literal">null</span>;</span>
+<span class="actionscript">                    <span class="comment">//取消onmouseup事件</span></span>
+<span class="javascript">                    <span class="built_in">document</span>.onmouseup = <span class="literal">null</span>;</span>
+<span class="actionscript">                    <span class="comment">//鼠标松开，取消捕获</span></span>
+                    box1.releaseCapture&amp;&amp;box1.releaseCapture()
+                };
+                /*当我们拖拽一个网页的内容时，浏览器会默认去搜索引擎中的搜索内容
+<span class="actionscript">                此时会导致拖拽异常，这是浏览器的默认行为，如果不希望发生使用<span class="keyword">return</span> <span class="literal">false</span>来取消</span>
+                但对IE8不起作用
+                */
+<span class="actionscript">                <span class="keyword">return</span> <span class="literal">false</span>;</span>
+            };
+
+        };
+    <span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"box1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"box2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+<ul>
+<li>要使box2也实现拖拽，只需将代码封装为一个函数，函数的参数为obj即可</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/11/IDEA%E8%BF%9E%E6%8E%A5Mysql-JDBC/" rel="next" title="IDEA连接Mysql-JDBC">
+                <i class="fa fa-chevron-left"></i> IDEA连接Mysql-JDBC
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/01/%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0%EF%BC%8C%E7%BB%9F%E8%AE%A1%E6%AF%8F%E4%B8%AA%E6%95%B0%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/" rel="prev" title="生成随机数，统计每个数出现的次数">
+                生成随机数，统计每个数出现的次数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

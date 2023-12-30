@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Flutter," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Flutter是谷歌推出的开源移动应用开发框架，只要一套代码就可以构建测试和发布，适用于移动Web桌面嵌入式平台应用，是一个跨端的平台开发框架。 原生的开发优势：速度快 用户体验好；缺点：开发成本高，不同平台上需要维护不同的代码，动态化（有新功能的话 就要发版） 移动端跨平台技术演进：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨端Flutter学习">
+<meta property="og:url" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="Flutter是谷歌推出的开源移动应用开发框架，只要一套代码就可以构建测试和发布，适用于移动Web桌面嵌入式平台应用，是一个跨端的平台开发框架。 原生的开发优势：速度快 用户体验好；缺点：开发成本高，不同平台上需要维护不同的代码，动态化（有新功能的话 就要发版） 移动端跨平台技术演进：">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E6%BC%94%E8%BF%9B.png">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E5%B8%B8%E7%94%A8Widget.png">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82.png">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E5%BA%8F%E5%88%97%E5%8C%96%E6%95%B0%E6%8D%AE.png">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E6%9B%B4%E6%96%B0UI.png">
+<meta property="article:published_time" content="2022-09-25T04:12:25.000Z">
+<meta property="article:modified_time" content="2022-09-25T08:52:02.783Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="Flutter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E6%BC%94%E8%BF%9B.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2022/09/25/跨端Flutter学习/"/>
+
+
+
+
+
+  <title>跨端Flutter学习 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">跨端Flutter学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-09-25T12:12:25+08:00">
+                2022-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Flutter是谷歌推出的开源移动应用开发框架，只要一套代码就可以构建测试和发布，适用于移动Web桌面嵌入式平台应用，是一个跨端的平台开发框架。</p>
+<p>原生的开发优势：速度快 用户体验好；缺点：开发成本高，不同平台上需要维护不同的代码，动态化（有新功能的话 就要发版）</p>
+<p>移动端跨平台技术演进：</p>
+<p><img src="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E6%BC%94%E8%BF%9B.png" alt></p>
+<a id="more"></a>
+
+<p>Flutter优势：</p>
+<ul>
+<li><p>跨平台</p>
+<p>一份代码多端运行，兼顾Android、iOS、Web、Windows、MacOS、Linux六个平台</p>
+</li>
+<li><p>高性能</p>
+<p>release模式下AOT编译Skia高性能自绘引擎，接近原生体验</p>
+</li>
+<li><p>高效</p>
+<p>热重载、快速构建开发效率高</p>
+</li>
+<li><p>开源协作</p>
+<p>google支持，开源、透明、可靠</p>
+</li>
+<li><p>Dart语言</p>
+<p>语法简洁，容易上手  </p>
+</li>
+</ul>
+<h3 id="1-Flutter基础"><a href="#1-Flutter基础" class="headerlink" title="1.Flutter基础"></a>1.Flutter基础</h3><h4 id="1-1-整体架构"><a href="#1-1-整体架构" class="headerlink" title="1.1 整体架构"></a>1.1 整体架构</h4><p>Flutter架构模式如下：</p>
+<p><img src="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E6%9E%B6%E6%9E%84.png" alt></p>
+<h4 id="1-2-线程模型"><a href="#1-2-线程模型" class="headerlink" title="1.2 线程模型"></a>1.2 线程模型</h4><p>Flutter engine不会自己创建和管理线程，线程的创建和管理全部都由嵌入层负责。</p>
+<ul>
+<li><p>Platform Task Runner</p>
+<p>运行在平台上的主线程.主要功能是处理和Engine层的交互，处理平台层的消息。</p>
+</li>
+<li><p>UI Task Runner</p>
+<p>执行Dart root isolate。主要功能是渲染与处理Vsync信号，将Widget转换成Layer Tree</p>
+</li>
+<li><p>GPU Task Runner</p>
+<p>执行设备的GPU命令</p>
+</li>
+<li><p>IO Task Runner</p>
+<p>文件读取和资源加载</p>
+</li>
+</ul>
+<p>每一个engine启动的时候，会为UI GPU IO Runner各自创建一个新的线程，但是所有的Engine实例共享同一个Platform Runner和线程</p>
+<h3 id="2-Widget"><a href="#2-Widget" class="headerlink" title="2.Widget"></a>2.Widget</h3><p>Flutter的理念是”万物皆Widget“，核心思想是用widget来构建UI界面。</p>
+<p>widget相当于一个配置文件，当widget的状态发生改变时，会重新构建UI。Flutter框架会对比前后变化的不同，重新渲染更新界面显示。</p>
+<h4 id="2-1-生命周期"><a href="#2-1-生命周期" class="headerlink" title="2.1 生命周期"></a>2.1 生命周期</h4><p>Flutter生命周期主要指的是<strong>StatefullWidget的生命周期</strong></p>
+<p><img src="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt></p>
+<ul>
+<li><p><strong>createState</strong>是StatefulWidget中创建的State的方法，当StatefulWidget被调用时会立即执行createState</p>
+</li>
+<li><p><strong>initState</strong>是初始化state的调用，与服务端进行交互，请求服务端的数据来设置state</p>
+</li>
+<li><p><strong>didChangeDependencies</strong>是state对象的依赖发生变化时进行调用</p>
+</li>
+<li><p><strong>build</strong>用来返回需要渲染的widget，build会被调用多次，在这个函数里只能返回widget的相关逻辑，避免因为多次执行导致状态异常</p>
+</li>
+<li><p>reassemble是在debug模式下，每次热重载调用的函数</p>
+</li>
+<li><p>在widget重新构建时，Flutter framework会调用Widget.canUpdate来检测widget树中同一位置的新旧节点，然后决定是否需要更新。如果Widget.canUpdate返回true的话，就会调用回调方法<strong>didUpdateWidget</strong>。父组件发生build的情况下，子组件的didUpdateWidget方法才会被调用，调用之后一定会调用build方法</p>
+</li>
+<li><p><strong>deactivate</strong>是在组件被移除节点后调用</p>
+</li>
+<li><p>如果组件被移除节点，并且没有被插入到其他节点时，则会调用<strong>dispose</strong> ，永久删除组件并且释放它的组件资源</p>
+</li>
+</ul>
+<p><strong>总结：生命周期的4个阶段。</strong></p>
+<ul>
+<li><p>初始化阶段：createState和initSate</p>
+</li>
+<li><p>组件创建阶段：didChangeDependencies和build</p>
+</li>
+<li><p>触发组件build：<br>didChangeDependencies、setState或者didUpdateWidget都会引发组件重新build</p>
+</li>
+<li><p>销毁阶段：deactivate和dispose</p>
+</li>
+</ul>
+<h4 id="2-2-常用Widget"><a href="#2-2-常用Widget" class="headerlink" title="2.2 常用Widget"></a>2.2 常用Widget</h4><p>常用的Widget如下：</p>
+<p><img src="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E5%B8%B8%E7%94%A8Widget.png" alt></p>
+<h3 id="3-Navigator"><a href="#3-Navigator" class="headerlink" title="3.Navigator"></a>3.Navigator</h3><p>用来实现Flutter中的页面跳转，即路由管理</p>
+<p>Flutter的路由管理与原生开发类似，栈存储，都是进栈和出栈。</p>
+<p>Navigator.push()进栈，打开一个新页面</p>
+<p>Navigator.pop()出栈，关闭页面，并且返回数据给到主屏界面。pop的第二个参数是可选的，如果传递了这个参数，数据会通过future的方法传递返回值</p>
+<h3 id="4-网络请求和序列化数据"><a href="#4-网络请求和序列化数据" class="headerlink" title="4.网络请求和序列化数据"></a>4.网络请求和序列化数据</h3><p><img src="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82.png" alt></p>
+<p><img src="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E5%BA%8F%E5%88%97%E5%8C%96%E6%95%B0%E6%8D%AE.png" alt></p>
+<p>练习请求接口（<a href="https://sanlittt.github.io/lianxisheng.github.io/test.json）" target="_blank" rel="noopener">https://sanlittt.github.io/lianxisheng.github.io/test.json）</a></p>
+<h3 id="5-通信"><a href="#5-通信" class="headerlink" title="5.通信"></a>5.通信</h3><p>Flutter的本质是一个UI框架，运行在宿主平台上，Flutter本身是无法提供一些系统能力的，比如蓝牙、相机、GPS等等。因此Flutter如果要调用这些能力，就必须和原生平台进行通信。</p>
+<p><strong>Platform Channel</strong>是一个异步的消息通道，消息在发送前被处理成二进制消息，接收到的二进制消息会解码成Dart的值。它传递的消息类型只能是对应的解码器支持的值，所有的解码器都支持空消息。</p>
+<p>Flutter中有3种Platform Channel</p>
+<ul>
+<li>BasicMessageChannel：用来传递数据</li>
+<li>MethodChannel：用来传递方法</li>
+<li>EventChannel：用来传递事件</li>
+</ul>
+<h3 id="6-渲染原理"><a href="#6-渲染原理" class="headerlink" title="6.渲染原理"></a>6.渲染原理</h3><p>Flutter渲染包含3棵树：Widget、Element、RenderObject</p>
+<ul>
+<li><p>Widget</p>
+<p>是存放渲染内容，只是一个配置的数据结构，非常轻量，在页面刷新的过程中随时会重建</p>
+</li>
+<li><p>Element</p>
+<p>同时持有Widget和RenderObject，存放上下文信息，通过它来遍历视图树 支撑UI结构</p>
+</li>
+<li><p>RenderObject</p>
+<p>根据Widget的 布局属性进行layout，paint。负责真正的渲染</p>
+</li>
+</ul>
+<p>从创建到渲染的大致流程：根据widget生成element，创建相应的RenderObject并关联到Element.renderObject属性上，最后通过RenderObject来完成布局排列和绘制。</p>
+<p>当需要更新UI时，framework通知engine，engine会等到下一个Vsync信号到达时，通知framework进行animate build layout和paint，最后生成layer提交给engine。engine会把layer进行组合，生成纹理，最后通过open GL接口提交数据给GPU，GPU经处理后在显示器上面显示。</p>
+<p>页面刷新的具体操作流程如下：</p>
+<p><img src="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/%E6%9B%B4%E6%96%B0UI.png" alt></p>
+<p><strong>常见的优化策略：</strong></p>
+<ul>
+<li><p>减少build中的逻辑处理</p>
+<p>因为widget在页面刷新的过程中，会通过build重建，应该只在build中处理跟UI相关的逻辑</p>
+</li>
+<li><p>提高build效率</p>
+<p>setState尽量下发到底层的节点</p>
+</li>
+<li><p>提高paint效率</p>
+<p>通过RepaintBoundry创建单独的layer减少重绘区域</p>
+</li>
+<li><p>减少ClipPath、saveLayer使用</p>
+<p>saveLayer会在GPU中分配一块新的绘图缓冲区，切换绘图目标，此操作非常耗时</p>
+<p>ClipPath会影响每个绘图指令，做一些相交操作，相交之外的部分会被剔除掉，也是非常耗时的</p>
+</li>
+<li><p>减少Opacity使用</p>
+<p>尤其在动画中，会导致widget的每一帧都被重建。可以使用AnimatedOpacity或FadeInImage进行代替。  </p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/" rel="next" title="Node.js学习笔记-阿里终端训练营">
+                <i class="fa fa-chevron-left"></i> Node.js学习笔记-阿里终端训练营
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/10/09/echarts-vue%E6%95%B0%E6%8D%AE%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/" rel="prev" title="echarts+vue数据渲染问题">
+                echarts+vue数据渲染问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Flutter基础"><span class="nav-number">1.</span> <span class="nav-text">1.Flutter基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-整体架构"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 整体架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-线程模型"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 线程模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Widget"><span class="nav-number">2.</span> <span class="nav-text">2.Widget</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-生命周期"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-常用Widget"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 常用Widget</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Navigator"><span class="nav-number">3.</span> <span class="nav-text">3.Navigator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-网络请求和序列化数据"><span class="nav-number">4.</span> <span class="nav-text">4.网络请求和序列化数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-通信"><span class="nav-number">5.</span> <span class="nav-text">5.通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-渲染原理"><span class="nav-number">6.</span> <span class="nav-text">6.渲染原理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

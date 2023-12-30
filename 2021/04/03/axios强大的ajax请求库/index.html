@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="axios," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言json-server用来搭建REST API的工具包   XHRXMLHttpRequest允许无需让整个页面刷新，更新局部内容   区别一般http请求与ajax请求ajax请求是一种特别的http请求对服务器端来说，没有区别。区别在浏览器端，浏览器端发请求：只有XHR或fetch发出的才是ajax请求，其他所有都是非ajax请求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="axios强大的ajax请求库">
+<meta property="og:url" content="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="前言json-server用来搭建REST API的工具包   XHRXMLHttpRequest允许无需让整个页面刷新，更新局部内容   区别一般http请求与ajax请求ajax请求是一种特别的http请求对服务器端来说，没有区别。区别在浏览器端，浏览器端发请求：只有XHR或fetch发出的才是ajax请求，其他所有都是非ajax请求">
+<meta property="og:image" content="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/%E6%8B%A6%E6%88%AA%E5%99%A8.png">
+<meta property="og:image" content="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/Image.png">
+<meta property="og:image" content="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/Promise%E9%93%BE.png">
+<meta property="og:image" content="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/Promise%E9%93%BE.png">
+<meta property="og:image" content="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="article:published_time" content="2021-04-03T15:32:52.000Z">
+<meta property="article:modified_time" content="2021-05-10T12:24:14.721Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="axios">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/%E6%8B%A6%E6%88%AA%E5%99%A8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2021/04/03/axios强大的ajax请求库/"/>
+
+
+
+
+
+  <title>axios强大的ajax请求库 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">axios强大的ajax请求库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-03T23:32:52+08:00">
+                2021-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h3 id="json-server"><a href="#json-server" class="headerlink" title="json-server"></a>json-server</h3><p>用来搭建REST API的工具包  </p>
+<h3 id="XHR"><a href="#XHR" class="headerlink" title="XHR"></a>XHR</h3><p>XMLHttpRequest允许无需让整个页面刷新，更新局部内容  </p>
+<h3 id="区别一般http请求与ajax请求"><a href="#区别一般http请求与ajax请求" class="headerlink" title="区别一般http请求与ajax请求"></a>区别一般http请求与ajax请求</h3><p>ajax请求是一种特别的http请求<br>对服务器端来说，没有区别。区别在浏览器端，<br>浏览器端发请求：只有XHR或fetch发出的才是ajax请求，其他所有都是非ajax请求</p>
+<a id="more"></a>
+<h1 id="一-认识axios"><a href="#一-认识axios" class="headerlink" title="一.认识axios"></a>一.认识axios</h1><p>axios<br>是前端最流行的ajax请求库<br>特点：<br>1.<strong>返回对象为promise,异步</strong><br>2.支持浏览器端，还支持node端<br>浏览器发的才有可能是ajax请求，服务器端发的叫http请求<br>3.<strong>支持请求/响应拦截器</strong><br>4.支持请求<strong>取消</strong><br>5.请求/响应数据转换<br>6.批量发送多个</p>
+<p><strong>axios的常见配置</strong><br>url,method,data(封装请求体)，params(封装query)</p>
+<p>请求出错或者被取消—yes—-rejected<br>                        —no—fulfilled，要打印出错信息用resolved</p>
+<p><strong>语法糖：</strong>进行包装的简洁语法</p>
+<p><em>注意：</em>如果对象是对象类型，axios默认json发</p>
+<p>可以作为对象，调用方法发请求axios.post     也可以作为函数发请求axios({})<br>配置对象：属性名固定，每个属性的作用也固定</p>
+<p><strong>axios原生拼接url</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//处理query参数（拼接到url上）</span></span><br><span class="line"><span class="keyword">let</span> queryString = <span class="string">''</span></span><br><span class="line"><span class="built_in">Object</span>.keys(params).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    queryString += <span class="string">`<span class="subst">$&#123;key&#125;</span>=<span class="subst">$&#123;params[key]&#125;</span>&amp;`</span> <span class="comment">//注意此处为反引号</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">if</span>(queryString) &#123;</span><br><span class="line">    <span class="comment">//没有参数的时候，去掉最后的&amp;  </span></span><br><span class="line">    <span class="comment">//subString会产生一个新的</span></span><br><span class="line">   queryString = queryString.substring(<span class="number">0</span>,queryString.length<span class="number">-1</span>)</span><br><span class="line">   <span class="comment">//拼接到url</span></span><br><span class="line">   url += <span class="string">'?'</span>+queryString</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>02.html注意观察,已经实现跨域了（除了get 因为get不修改），通过cors，跨域的请求浏览器会出于安全的考虑，会先发一个预检的请求</p>
+<p>发get请求，需要传params提交query参数，处理query参数进行url拼接，request.send()返回即可</p>
+<p>发送post请求，需要提交请求体参数data,设置请求头信息<br>request.setRequestHeader(‘Content-Type’,’application/json;charaset=utf-8’)<br>request.send(JSON.stringify(data))  //发送json格式请求体参数  </p>
+<h3 id="1-axios二次封装"><a href="#1-axios二次封装" class="headerlink" title="1.axios二次封装"></a>1.axios二次封装</h3><p>因为axios本身就是对ajax用xhr的封装<br>再对其进行封装就是二次<br>实质是对ajax请求的二次封装，axios只是一次封装</p>
+<h3 id="2-方法"><a href="#2-方法" class="headerlink" title="2.方法"></a>2.方法</h3><h4 id="axios-defaults-baseURL"><a href="#axios-defaults-baseURL" class="headerlink" title="axios.defaults.baseURL"></a>axios.defaults.baseURL</h4><p>指定基本路径</p>
+<h4 id="axios-create"><a href="#axios-create" class="headerlink" title="axios.create"></a>axios.create</h4><p>解决：<br>发多个不同端口，不同端口使用不同的配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line"> axios.defaults.baseURL = <span class="string">"http://localhost:3000"</span></span><br><span class="line"><span class="comment">//使用axios发</span></span><br><span class="line">axios(&#123;</span><br><span class="line">    url: <span class="string">'/posts'</span></span><br><span class="line">&#125;)  <span class="comment">//去请求3000</span></span><br><span class="line"><span class="comment">// axios(&#123;</span></span><br><span class="line"><span class="comment">//     url: '/xxx'</span></span><br><span class="line"><span class="comment">// &#125;)  //去请求4000</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">    baseURL: <span class="string">'http://localhost:4000'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//使用instance发</span></span><br><span class="line">instance(&#123;</span><br><span class="line">    url: <span class="string">'/xxx'</span> <span class="comment">//去请求4000</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//更简洁的方式</span></span><br><span class="line">instance.get(<span class="string">'/xxx'</span>)</span><br></pre></td></tr></table></figure>
+<p>如果有3个请求，至少创建2个create</p>
+<h3 id="3-拦截器"><a href="#3-拦截器" class="headerlink" title="3.拦截器"></a>3.拦截器</h3><p>拦截器本质是回调函数</p>
+<ul>
+<li>axios.interceptors.request.use()</li>
+<li>axios.interceptors.response.use()</li>
+</ul>
+<p>请求拦截器后添加先执行，响应拦截器先添加先执行<strong>为啥？去看源码</strong><br>因为请求插入用的是unshift前插，而响应用的是push后插</p>
+<p><img src="/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/%E6%8B%A6%E6%88%AA%E5%99%A8.png" alt="拦截器.png"></p>
+<p>执行顺序：<br>request2<br>request1<br>response1<br>response2<br>axios发的get请求</p>
+<h3 id="4-取消请求"><a href="#4-取消请求" class="headerlink" title="4.取消请求"></a>4.取消请求</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> cancel  <span class="comment">//用于保存取消请求的函数</span></span><br><span class="line"> axios(&#123;</span><br><span class="line">    url: <span class="string">'http://localhost:/posts'</span>,</span><br><span class="line">    cancelToken: <span class="keyword">new</span> axios.CancelToken(<span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//c是用于取消当前请求的函数</span></span><br><span class="line">        <span class="comment">//保存取消函数，用于之后可能需要取消当前请求</span></span><br><span class="line">        cancel = c</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;).then(</span><br><span class="line">    response =&gt; &#123;</span><br><span class="line">        cancel = <span class="literal">null</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"成功"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    error =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'请求1失败了'</span>,error.message,error);</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> cancel === <span class="string">'function'</span>)&#123;</span><br><span class="line">    <span class="comment">//执行取消请求的函数</span></span><br><span class="line">    cancel(<span class="string">'强制取消'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"没有可取消的请求"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击取消之后的执行顺序：<br>请求1失败了<br>强制取消<br>Cancel{}</p>
+<p>即取消之后先调用请求自身的error处理，然后执行cancel取消函数。并把cancel传给error,此时error是一个cancel函数</p>
+<p>axios.isCancel() 判断是否为cancel类型</p>
+<p>中断promise，可以用return new Promise(() =&gt; {})<br>将错误向下传递，可以用return Promise.reject(error)</p>
+<h1 id="二-源码分析–核心"><a href="#二-源码分析–核心" class="headerlink" title="二.源码分析–核心"></a>二.源码分析–核心</h1><h3 id="1-request-config"><a href="#1-request-config" class="headerlink" title="1.request(config)"></a>1.request(config)</h3><p>将请求拦截器/dispatchRequest()/响应拦截器   通过promise链串起来  返回promise<br>shift是取第一个<br><img src="/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/Image.png" alt="Image.png"></p>
+<p> 每一个回调函数就相当于一个任务，通过promise链将他们串联起来<br> <img src="/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/Promise%E9%93%BE.png" alt="Promise链.png"></p>
+<h3 id="2-dispatchRequest（config）"><a href="#2-dispatchRequest（config）" class="headerlink" title="2.dispatchRequest（config）"></a>2.dispatchRequest（config）</h3><p>用来转换请求数据–&gt;调用xhrAdapter（）发请求–》请求返回后转换响应数据，返回promise<br><img src="/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/Promise%E9%93%BE.png" alt="Promise链.png"></p>
+<ul>
+<li><p>请求转换器<br>  如果data是对象—-&gt;将指定请求参数格式设为json <code>setContentTypeIfUnset(headers,&#39;application/json;charaset=utf-8&#39;)</code>，并将参数的数据对象转换为json<code>return JSON.stringify(data)</code></p>
+<ul>
+<li>有些不支持json的服务器如何进行解决<br>如果data是对象，会将其转化为json格式，但是有些服务器不支持json,因此用到请求拦截器将其转化为urlencoded格式</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>响应转化器<br>  解析字符串类型的data数据<br>  （JSON.parse()是将json格式转化为js）<br>  不进行判断data是否为json格式，将data直接JSON.parse(),捕获异常，但是不进行处理</li>
+</ul>
+<h3 id="3-xhrAdapter-config"><a href="#3-xhrAdapter-config" class="headerlink" title="3.xhrAdapter(config)"></a>3.xhrAdapter(config)</h3><p>创建xhr对象，根据config进行配置，发送特定请求，并接收响应数据，返回promise</p>
+<h3 id="4-axios流程图"><a href="#4-axios流程图" class="headerlink" title="4.axios流程图"></a>4.axios流程图</h3><p><img src="/2021/04/03/axios%E5%BC%BA%E5%A4%A7%E7%9A%84ajax%E8%AF%B7%E6%B1%82%E5%BA%93/%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="流程图.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/axios/" rel="tag"># axios</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/03/Git%E5%BC%BA%E5%A4%A7%E7%9A%84%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E5%B7%A5%E5%85%B7/" rel="next" title="Git强大的版本控制工具">
+                <i class="fa fa-chevron-left"></i> Git强大的版本控制工具
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/03/Grunt-Gulp-Webpack%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" rel="prev" title="Grunt,Gulp,Webpack自动化构建工具">
+                Grunt,Gulp,Webpack自动化构建工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#json-server"><span class="nav-number">1.0.1.</span> <span class="nav-text">json-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XHR"><span class="nav-number">1.0.2.</span> <span class="nav-text">XHR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别一般http请求与ajax请求"><span class="nav-number">1.0.3.</span> <span class="nav-text">区别一般http请求与ajax请求</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一-认识axios"><span class="nav-number">2.</span> <span class="nav-text">一.认识axios</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-axios二次封装"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.axios二次封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-方法"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#axios-defaults-baseURL"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">axios.defaults.baseURL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#axios-create"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">axios.create</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-拦截器"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.拦截器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-取消请求"><span class="nav-number">2.0.4.</span> <span class="nav-text">4.取消请求</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-源码分析–核心"><span class="nav-number">3.</span> <span class="nav-text">二.源码分析–核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-request-config"><span class="nav-number">3.0.1.</span> <span class="nav-text">1.request(config)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-dispatchRequest（config）"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.dispatchRequest（config）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-xhrAdapter-config"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.xhrAdapter(config)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-axios流程图"><span class="nav-number">3.0.4.</span> <span class="nav-text">4.axios流程图</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

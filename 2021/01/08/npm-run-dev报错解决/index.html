@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue,npm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在进行webpack打包ts的时候，配置和下载完依赖包之后，运行npm run dev报错百度说是node_modules问题，卸载，重装还是不行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm run dev报错解决">
+<meta property="og:url" content="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="在进行webpack打包ts的时候，配置和下载完依赖包之后，运行npm run dev报错百度说是node_modules问题，卸载，重装还是不行">
+<meta property="og:image" content="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/%E6%8A%A5%E9%94%99%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/webpack.png">
+<meta property="og:image" content="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/webpack-cli.png">
+<meta property="og:image" content="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/webpack-dev-server">
+<meta property="og:image" content="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/npm-run-dev.png">
+<meta property="article:published_time" content="2021-01-08T05:58:14.000Z">
+<meta property="article:modified_time" content="2021-12-03T05:31:52.813Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="npm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/%E6%8A%A5%E9%94%99%E6%88%AA%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2021/01/08/npm-run-dev报错解决/"/>
+
+
+
+
+
+  <title>npm run dev报错解决 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">npm run dev报错解决</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-08T13:58:14+08:00">
+                2021-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E9%97%AE%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">学习问题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  362
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在进行webpack打包ts的时候，配置和下载完依赖包之后，运行npm run dev报错<br><img src="/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/%E6%8A%A5%E9%94%99%E6%88%AA%E5%9B%BE.png" alt><br>百度说是node_modules问题，卸载，重装还是不行  </p>
+<a id="more"></a>  
+<h3 id="全部重来"><a href="#全部重来" class="headerlink" title="全部重来"></a>全部重来</h3><ul>
+<li>建文件<br>public/index.html<br>src/main.ts<br>build/webpack.config.js  </li>
+<li>给build/webpack.config.js添加如下代码  <pre><code class="js"><span class="keyword">const</span> {CleanWebpackPlugin} = <span class="built_in">require</span>(<span class="string">'clean-webpack-plugin'</span>)<span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)<span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)
+</code></pre>
+</li>
+</ul>
+<p>const isProd = process.env.NODE_ENV === ‘production’ // 是否生产环境</p>
+<p>function resolve (dir) {<br>  return path.resolve(__dirname, ‘..’, dir)}</p>
+<p>module.exports = {<br>  mode: isProd ? ‘production’ : ‘development’,<br>  entry: {<br>    app: ‘./src/main.ts’<br>  },</p>
+<p>  output: {<br>    path: resolve(‘dist’),<br>    filename: ‘[name].[contenthash:8].js’<br>  },</p>
+<p>  module: {<br>    rules: [<br>      {<br>        test: /.tsx?$/,<br>        use: ‘ts-loader’,<br>        include: [resolve(‘src’)]<br>      }<br>    ]<br>  },</p>
+<p>  plugins: [<br>    new CleanWebpackPlugin({<br>    }),</p>
+<pre><code>new HtmlWebpackPlugin({
+  template: &apos;./public/index.html&apos;
+})</code></pre><p>  ],</p>
+<p>  resolve: {<br>    extensions: [‘.ts’, ‘.tsx’, ‘.js’]<br>  },</p>
+<p>  devtool: isProd ? ‘cheap-module-source-map’ : ‘cheap-module-eval-source-map’,</p>
+<p>  devServer: {<br>    host: ‘localhost’, // 主机名<br>    stats: ‘errors-only’, // 打包日志输出输出错误信息<br>    port: 8081,<br>    open: true<br>  },}  </p>
+<p>  ```  </p>
+<ul>
+<li>终端打开根文件夹，输入npm init -y,自动生成package.json<br>  输入tsc –init,自动生成tsconfig.json  </li>
+<li>下载依赖<br>  npm install -D typescript<br>  npm install -D <a href="mailto:webpack@4.41.5">webpack@4.41.5</a> webpack-cli@3.3.10<br>  报错—》我以为是版本问题，找了很多解决方案，unstall无数次，没用<br>  将webpack与webpack-cli分开安装—》竟然成功了<br>  <img src="/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/webpack.png" alt><br>  <img src="/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/webpack-cli.png" alt><br>  <img src="/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/webpack-dev-server" alt><br>  npm install -D html-webpack-plugin<br>  npm install -D clean-webpack-plugin<br>  npm install -D ts-loader<br>  npm install -D cross-env</li>
+<li>配置npm run dev<br>  <img src="/2021/01/08/npm-run-dev%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/npm-run-dev.png" alt="终于成功了！！！"><br>  终于不报错了，弹出一个浏览器页面<a href="http://localhost:8081/" target="_blank" rel="noopener">http://localhost:8081/</a><br>  运行的是main.ts文件内容</li>
+<li>关闭这个，重新终端打开输入npm run build<br>  ![](npm-run-dev报错解决/npm run build.png)<br>  webpack打包ts终于成功了！！！干饭  </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/npm/" rel="tag"># npm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/02/%E5%BC%95%E5%85%A5bootstrap%E6%8A%A5%E9%94%99404/" rel="next" title="引入bootstrap报错404">
+                <i class="fa fa-chevron-left"></i> 引入bootstrap报错404
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/01/10/%E5%88%9B%E5%BB%BAvue3%E9%A1%B9%E7%9B%AE/" rel="prev" title="创建vue3项目">
+                创建vue3项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#全部重来"><span class="nav-number">1.</span> <span class="nav-text">全部重来</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

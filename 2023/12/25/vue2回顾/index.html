@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MVVM M: 模型(Model)–对应data中的数据（就是Model Vue实例中的data） V：视图(View)–模板（就是DOM html写的东西，这里写双括号的时候，里面的变量可以是vm上的任何属性或方法，这也就是为什么可以拿到data） VM：视图模板(ViewModel)–Vue实例对象（整个script中的Vue实例，所以一般都用vm代表Vue实例）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue2回顾">
+<meta property="og:url" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="MVVM M: 模型(Model)–对应data中的数据（就是Model Vue实例中的data） V：视图(View)–模板（就是DOM html写的东西，这里写双括号的时候，里面的变量可以是vm上的任何属性或方法，这也就是为什么可以拿到data） VM：视图模板(ViewModel)–Vue实例对象（整个script中的Vue实例，所以一般都用vm代表Vue实例）">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/MVVM.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/index.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/diff.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F1.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F2.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/vuex.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E5%8A%A8%E7%94%BB.png">
+<meta property="article:published_time" content="2023-12-25T12:11:29.000Z">
+<meta property="article:modified_time" content="2023-12-30T08:41:38.364Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/MVVM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2023/12/25/vue2回顾/"/>
+
+
+
+
+
+  <title>vue2回顾 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue2回顾</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-12-25T20:11:29+08:00">
+                2023-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><ul>
+<li>M: 模型(Model)–对应data中的数据（就是Model Vue实例中的data）</li>
+<li>V：视图(View)–模板（就是DOM html写的东西，这里写双括号的时候，里面的变量可以是vm上的任何属性或方法，这也就是为什么可以拿到data）</li>
+<li>VM：视图模板(ViewModel)–Vue实例对象（整个script中的Vue实例，所以一般都用vm代表Vue实例）<br><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/MVVM.png" alt></li>
+</ul>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="1-模板语法"><a href="#1-模板语法" class="headerlink" title="1.模板语法"></a>1.模板语法</h3><ul>
+<li>插值语法 <code>&lt;h&gt;你好，&lt;/h&gt;</code></li>
+<li>指令语法 <code>&lt;a v-bind:href=&quot;url&quot;&gt;点击去学习&lt;/a&gt;</code>  <code>v-bind可以简写为:</code></li>
+</ul>
+<blockquote>
+<p>JS表达式可以读取到data中的所有一级属性</p>
+</blockquote>
+<h3 id="2-数据绑定"><a href="#2-数据绑定" class="headerlink" title="2.数据绑定"></a>2.数据绑定</h3><ul>
+<li><p>单向，通过<code>v-bind</code>，数据只能从data流向页面</p>
+</li>
+<li><p>双向，通过<code>v-model</code>，不仅能从data流向页面，还可以从页面流向data</p>
+<p><code>v-model</code>只能应用在表单类元素（输入类元素）上，因为<code>v-model</code>默认收集的就是value值</p>
+</li>
+</ul>
+<h3 id="3-数据代理"><a href="#3-数据代理" class="headerlink" title="3.数据代理"></a>3.数据代理</h3><ul>
+<li><p><code>Object.defineProperty</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">  name: <span class="string">'张三'</span>,</span><br><span class="line">  sex: <span class="string">'男'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这种方式绑定的age属性，是不可枚举（遍历）：即Object.keys(person)返回的没有age，for循环也拿不到。</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(person, <span class="string">'age'</span>, &#123;</span><br><span class="line">  value: <span class="number">18</span>,</span><br><span class="line">   <span class="comment">// enumerable: true,	//控制属性是否可枚举，默认是false</span></span><br><span class="line">  <span class="comment">// writable: true,	//控制属性是否可被修改，默认是false</span></span><br><span class="line">  <span class="comment">// configurable: true,	//控制属性是否可被删除，默认是false</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>何为数据代理？</p>
+<blockquote>
+<p>通过一个对象代理对另一个对象中属性的操作（读/写）</p>
+<p>vue：通过vm对象来代理data对象中的属性操作（读/写）</p>
+<p>【原理：通过<code>Object.definedProperty()</code>把data对象中所有属性添加到vm上；为每一个添加到vm上的属性，都指定一个getter/setter；在getter/setter内部去操作（读/写）data中对应的属性】</p>
+</blockquote>
+<p>比如：用obj2代理obj中的x</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">x</span>:<span class="number">100</span>&#125;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;<span class="attr">y</span>:<span class="number">200</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj2,<span class="string">'x'</span>,&#123;</span><br><span class="line">  <span class="keyword">get</span>() &#123; <span class="keyword">return</span> obj.x&#125;,</span><br><span class="line">  <span class="keyword">set</span>(value) &#123; obj.x = value&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只有配置在data中的属性和方法，才可以被数据代理和数据劫持</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4-事件处理"><a href="#4-事件处理" class="headerlink" title="4.事件处理"></a>4.事件处理</h3><ul>
+<li><p>使用：<code>v-on:xxx</code>或<code>@xxx</code></p>
+</li>
+<li><p><code>@click=&quot;demo&quot;</code>和<code>@click=&quot;demo($event)&quot;</code>效果一致，后者可以传参</p>
+</li>
+<li><p>事件修饰符</p>
+<p>prevent、stop、once、capture、self、passive</p>
+</li>
+</ul>
+<h3 id="5-computed"><a href="#5-computed" class="headerlink" title="5.computed"></a>5.computed</h3><blockquote>
+<p>底层用的其实就是Object.defineProperty方法提供的getter和setter</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当有人读取fullName时，get就会被调用，且返回值作为fullName的值</span></span><br><span class="line"><span class="comment">// get调用时机--》1.初次读取fullName时（有多次显示只读取一次，与methods实现相比，有缓存效率高） 2.所依赖数据发生变化时</span></span><br><span class="line">computed:&#123;</span><br><span class="line">    fullName:&#123;</span><br><span class="line">        <span class="keyword">get</span>()&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">'-'</span> + <span class="keyword">this</span>.lastName</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-watch"><a href="#6-watch" class="headerlink" title="6.watch"></a>6.watch</h3><blockquote>
+<p>当被监视的属性变化时，回调函数自动调用，进行相关操作</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">watch:&#123;</span><br><span class="line">    isHot:&#123;</span><br><span class="line">        immediate: <span class="literal">true</span>,	<span class="comment">//初始化时让handler调用一次</span></span><br><span class="line">        deep: <span class="literal">true</span>,	<span class="comment">//深度监视对象内部值的改变（多层）</span></span><br><span class="line">        handler(newValue, oldValue)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'isHot被修改了'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Vue可以监测对象内部值的改变，但Vue提供的watch默认不可以</li>
+<li>使用watch时根据数据的具体结构，决定是否采用深度监视</li>
+</ul>
+<p><strong>computed能完成的函数，watch都可以完成。优先computed</strong></p>
+<p><strong>watch可以进行异步操作，比如定时器等</strong></p>
+<h3 id="7-条件渲染"><a href="#7-条件渲染" class="headerlink" title="7.条件渲染"></a>7.条件渲染</h3><ul>
+<li><p>v-if</p>
+<p>切换频率较低的场景</p>
+<ul>
+<li>因为很暴力，不展示的DOM元素直接被移除</li>
+</ul>
+</li>
+<li><p>v-show</p>
+<p>切换频繁的场景</p>
+<ul>
+<li>不展示的DOM元素未被移除，用样式隐藏</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>template可以将元素包裹起来，并且不破坏结构，可以和<code>v-if</code>搭配使用。</p>
+</blockquote>
+<h3 id="8-列表渲染"><a href="#8-列表渲染" class="headerlink" title="8.列表渲染"></a>8.列表渲染</h3><p><code>v-for=&quot;(item, index) in xxx&quot; :key=&quot;yyy&quot;</code></p>
+<p><strong>diff对比过程</strong></p>
+<p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/index.png" alt></p>
+<p><strong>虚拟DOM</strong></p>
+<p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/diff.png" alt></p>
+<h3 id="9-Vue监测数据原理"><a href="#9-Vue监测数据原理" class="headerlink" title="9.Vue监测数据原理"></a>9.Vue监测数据原理</h3><ul>
+<li><p>对象</p>
+<p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E6%95%B0%E6%8D%AE%E4%BB%A3%E7%90%86.png" alt></p>
+<p>数据响应式：</p>
+<p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F.png" alt></p>
+<p>如果改变了data中的name值，Vue会进行如下操作:</p>
+<ul>
+<li>改变前，Vue进行<strong>数据代理</strong>，先加工data，然后把data赋值给<code>vm._data</code></li>
+<li>name改变后，Vue会通过<code>vm._data</code>中的<code>set name</code><strong>数据响应式</strong>，重新渲染模板</li>
+<li>渲染模板后生成虚拟DOM，再进行<strong>diff对比</strong>，name变化了，name这个节点需要使用新的DOM来进行渲染，其他节点不变继续用旧的DOM</li>
+</ul>
+<p>模拟数据监测过程（只监测一层）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * suyufan</span></span><br><span class="line"><span class="comment"> * 2023/12/29 16:47</span></span><br><span class="line"><span class="comment"> * 只能模拟监测一层，不能深层次监测</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    name: <span class="string">'su'</span>,</span><br><span class="line">    age: <span class="string">'18'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建一个监视的实例对象，用于监视data中属性的变化</span></span><br><span class="line"><span class="keyword">const</span> obs = <span class="keyword">new</span> Observer(data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Observer</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 汇总对象中所有属性 形成一个数组</span></span><br><span class="line">    <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(obj)</span><br><span class="line">    keys.forEach(<span class="function">(<span class="params">i</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">// 这里的this是function函数，不能往data中添，因为data中本身就有get/set会形成死循环</span></span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>,i,&#123;</span><br><span class="line">            <span class="keyword">get</span>()&#123;</span><br><span class="line">                <span class="keyword">return</span> obj[k]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="keyword">set</span>(val)&#123;</span><br><span class="line">                <span class="comment">// 除了进行赋值，还有进行模板渲染 diff比对。原生通过Vue.set(target,key,val)或者vm.$set(target,key,val)实现</span></span><br><span class="line">                obj[k] = val</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 准备一个vm实例对象</span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line">vm._data = obs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组</p>
+<blockquote>
+<p>对象是通过set方法响应式监测，数组属性没有set方法，那数组的监测是如何实现的呢？？？</p>
+</blockquote>
+<p>Vue对数组的监测，有两步</p>
+<p>1.调用数组原生的变更方法（<code>push()、pop()、shift()、unshift()、splice()、sort()、reserve()</code>）</p>
+<p>对于不变更原数组的方法，比如<code>filter()、concat()、slice()</code>，用新数组替换旧数组的方式监听</p>
+<p>2.模板渲染</p>
+<p>即Vue将被监听的数组的变更方法进行了包裹，所以它们也会触发视图更新</p>
+</li>
+</ul>
+<p><strong>Vue监测数据原理：</strong></p>
+<ul>
+<li><p>如何监测对象中的数据？</p>
+<p>通过setter实现监视，且要在new Vue时就传入要监测的数据</p>
+<ul>
+<li>对象中后追加的属性，Vue默认不做响应式处理</li>
+<li>如需给后添加的属性做响应式，可以使用<code>Vue.set(target,key,val)</code>或者<code>vm.$set(target,key,val)</code></li>
+</ul>
+</li>
+<li><p>如何让监测数组中的数据？</p>
+<p>通过包裹数组更新元素的方法实现，本质就是做了两件事</p>
+<ul>
+<li>调用原生对应的方法对数组进行更新</li>
+<li>重新解析模板，进而更新页面</li>
+</ul>
+</li>
+</ul>
+<p>注意：Vue.set()和vm.$set()不能给vm或vm的根数据对象 添加属性</p>
+<h3 id="10-生命周期"><a href="#10-生命周期" class="headerlink" title="10.生命周期"></a>10.生命周期</h3><p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F1.png" alt></p>
+<p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F2.png" alt></p>
+<blockquote>
+<p>还有3个生命周期钩子</p>
+<p>1个是<code>nextTick</code></p>
+<p>2个是路由组件特有的，在21节路由中介绍(<code>activated</code>，<code>deactivated</code>)</p>
+</blockquote>
+<h3 id="11-ref属性"><a href="#11-ref属性" class="headerlink" title="11.ref属性"></a>11.ref属性</h3><ol>
+<li><p>被用来给元素或子组件注册引用信息（id的替代者）</p>
+</li>
+<li><p>应用在html标签上获取的是真实DOM元素，应用在组件标签上是组件实例对象（vc）</p>
+</li>
+<li><p>使用方式：</p>
+<p>打标识：<code>&lt;h1 ref=&quot;xxx&quot;&gt;...&lt;/h1&gt;</code></p>
+<p>获取：<code>this.$refs.xxx</code></p>
+</li>
+</ol>
+<h3 id="12-props"><a href="#12-props" class="headerlink" title="12.props"></a>12.props</h3><p>让组件接收外部传过来的数据。父给子传 很方便使用。</p>
+<ul>
+<li><p>传递数据：<code>&lt;Demo age=&quot;xxx&quot;&gt;</code></p>
+</li>
+<li><p>接收数据：</p>
+<ul>
+<li><p>只接收：<code>props:[&#39;age&#39;]</code></p>
+</li>
+<li><p>限制类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    age: <span class="built_in">Number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>限制类型、限制必要性、指定默认值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        type: <span class="built_in">Number</span>,</span><br><span class="line">        required: <span class="literal">true</span>,	<span class="comment">//必要性</span></span><br><span class="line">        <span class="keyword">default</span>: <span class="string">"老王"</span>	<span class="comment">//默认值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<p>props是只读的，Vue底层会监测开发者对props的修改，如果进行修改，会警告。</p>
+<p>如果需要需要修改，复制props的内容到data中，修改data</p>
+<h3 id="13-事件总线"><a href="#13-事件总线" class="headerlink" title="13.事件总线"></a>13.事件总线</h3><p>任意组件间通信</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    ...</span><br><span class="line">    beforeCreate()&#123;</span><br><span class="line">        Vue.prototype.$bus = <span class="keyword">this</span>	<span class="comment">//安装全局事件总线，$bus就是当前应用的vm</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+<ul>
+<li><p>接收数据：A组件想接收数据，则在A组件中给$bus绑定自定义事件，事件的回调留在A组件自身</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">method()&#123;</span><br><span class="line">    demo(data)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.$bus.$on(<span class="string">'xxx'</span>, <span class="keyword">this</span>.demo)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提供数据：<code>this.$bus.$emit(&#39;xxx&#39;,数据)</code></p>
+</li>
+</ul>
+</li>
+<li><p>最好在beforeDestroy钩子中，用$off解绑当前组件所用到的事件</p>
+</li>
+</ul>
+<h3 id="14-消息订阅与发布"><a href="#14-消息订阅与发布" class="headerlink" title="14.消息订阅与发布"></a>14.消息订阅与发布</h3><p>需要数据的去订阅消息，发送数据的去发布消息。任意组件间通信</p>
+<ul>
+<li>订阅消息：<code>pubsub.subscribe(&#39;消息名&#39;，function(&#39;消息名&#39;, 接收到的数据))</code></li>
+<li>发布消息：<code>pubsub.publish(&#39;消息名&#39;，数据)</code></li>
+<li>最好在beforeDestroy钩子中，用<code>pubsub.unsubscribe(pid)</code>去取消订阅</li>
+</ul>
+<h3 id="15-Vuex"><a href="#15-Vuex" class="headerlink" title="15.Vuex"></a>15.Vuex</h3><p>也是一种组件通信方式，由store管理state、actions、mutations</p>
+<ul>
+<li>共享</li>
+</ul>
+<p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/vuex.png" alt></p>
+<ul>
+<li>actions：用于响应组件中的动作</li>
+<li>mutations：用于操作加工数据</li>
+<li>state：用于存储数据</li>
+</ul>
+<p>vc可以dispatch经action到mutations，还可以直接commit到mutations</p>
+<ul>
+<li>mapState：生成计算属性，从state中读取数据<ul>
+<li>对象写法：<code>computed:{...mapState({he:&#39;sum&#39;,xuexiao:&#39;school&#39;})}</code></li>
+<li>数组写法：<code>computed:{...mapState([&#39;sum&#39;,&#39;school&#39;])}</code></li>
+</ul>
+</li>
+<li>mapGetters：生成计算属性，从getters中读取数据</li>
+<li>mapMutations：生成对应方法，方法中调用commit去联系mutations<ul>
+<li>对象写法：<code>methods:{...mapMutations({he:&#39;sum&#39;,xuexiao:&#39;school&#39;})}</code></li>
+<li>数组写法：<code>methods:{...mapMutations([&#39;sum&#39;,&#39;school&#39;])}</code></li>
+</ul>
+</li>
+<li>mapActions：生成对应方法，方法中调用dispatch去联系actions</li>
+</ul>
+<h3 id="16-插槽"><a href="#16-插槽" class="headerlink" title="16.插槽"></a>16.插槽</h3><p>也是一种组件间通信的方式，适用于父组件==》子组件，让父组件可以向子组件指定位置插入html结构</p>
+<ul>
+<li>默认插槽</li>
+<li>具名插槽</li>
+<li>作用域插槽:anger:</li>
+</ul>
+<h3 id="17-webStorage"><a href="#17-webStorage" class="headerlink" title="17.webStorage"></a>17.webStorage</h3><p>浏览器通过<code>Window.sessionStorage</code>和<code>Window.localStorage</code>属性实现本地存储</p>
+<ul>
+<li><p>相关API</p>
+<ul>
+<li><p><code>xxxStorage.setItem(&#39;key&#39;,&#39;value&#39;)</code></p>
+<p>该方法接收一个键和值作为参数，会把键值对添加到存储中，如果键名存在，则更新其对应的值</p>
+</li>
+<li><p><code>xxxStorage.getItem(&#39;key&#39;)</code></p>
+</li>
+<li><p><code>xxxStorage.clear()</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="18-nextTick"><a href="#18-nextTick" class="headerlink" title="18.nextTick"></a>18.nextTick</h3><p><code>this.$nextTick(回调函数)</code></p>
+<ul>
+<li>在下一次DOM更新结束后执行其指定的回调</li>
+<li>当改变数据后，基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行</li>
+</ul>
+<h3 id="19-Vue动画"><a href="#19-Vue动画" class="headerlink" title="19.Vue动画"></a>19.Vue动画</h3><p>在插入、更新或移除DOM元素时，在合适的时候给元素添加样式类名</p>
+<p><img src="/2023/12/25/vue2%E5%9B%9E%E9%A1%BE/%E5%8A%A8%E7%94%BB.png" alt></p>
+<h3 id="20-跨域"><a href="#20-跨域" class="headerlink" title="20.跨域"></a>20.跨域</h3><p>数据交互的方式有：xhr、jQuery、axios、fetch、vue-resource</p>
+<p>vue-resource就是一个插件，现在不怎么用了。</p>
+<p>vue-resource使用方式：</p>
+<ul>
+<li>安装</li>
+<li>main.js中注册引用<code>vue.use(vueResource)</code></li>
+<li>引用之后在vue中this上就能看到<code>$http</code>，直接<code>this.$http.get(&#39;服务端地址&#39;).then()</code></li>
+</ul>
+<p>跨域解决方式：</p>
+<ol>
+<li><p>cors：通过后端人员配置响应头<code>Access-Control-Allow-Origin</code></p>
+</li>
+<li><p>jsonp：通过script的src不受同源策略限制，只能解决get请求的跨域，且需要后端配合</p>
+</li>
+<li><p>代理，代理服务器的端口号跟前端一致 </p>
+<ol>
+<li><p>Nginx反向代理</p>
+</li>
+<li><p>通过vue-cli脚手架，也就是devServer代理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在vue.config.js中配置代理</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        proxy: <span class="string">'http://localhost:5000'</span>	<span class="comment">//服务端地址</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue中调接口发请求时</span></span><br><span class="line">axios.get(<span class="string">'http://localhost:8080/student'</span>).then()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>缺点1：只能配置一个端口号的服务器，如果有多个端口不同的服务器，无法配置</p>
+</li>
+<li><p>缺点2：如果前端的public中有一个名为student的文件，则接口不会发送到后端，会从前端读取文件数据</p>
+</li>
+<li><p>解决方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在vue.config.js中配置代理</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        proxy: &#123;</span><br><span class="line">            <span class="string">'/api'</span>: &#123;</span><br><span class="line">                target: <span class="string">'http://localhost:5000'</span>,	<span class="comment">//服务端地址</span></span><br><span class="line">                pathRewrite: &#123;<span class="string">'^/api'</span>:<span class="string">''</span>&#125;, <span class="comment">//由于服务端接口就是/student,如果直接访问/api/student会报错404</span></span><br><span class="line">                ws: <span class="literal">true</span>,	<span class="comment">//用于支持websocket,默认就是true（React中默认是false）</span></span><br><span class="line">                changeOrigin: <span class="literal">true</span>	<span class="comment">//用于控制请求头中的host值,true的时候是真的请求头8080,false的时候是假的5000.默认值为true（React中默认是false）</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue中调接口发请求时</span></span><br><span class="line">axios.get(<span class="string">'http://localhost:8080/api/student'</span>).then()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="21-路由"><a href="#21-路由" class="headerlink" title="21.路由"></a>21.路由</h3><ul>
+<li>路由route：一组key-value的对应关系</li>
+<li>路由器router</li>
+</ul>
+<p><strong>SPA应用，局部刷新的原理实现过程：</strong></p>
+<p>工具就是<code>vue-router</code></p>
+<p>菜单栏中选中一个菜单项，比如班级管理，浏览器地址栏会在localhost:8080后匹配上一个<code>/class</code>，Vue中的路由器<code>router</code>实时监控着地址栏的变化，现在地址栏变成了<code>/class</code>，<code>router</code>会根据开发者写的<code>route规则</code>去匹配，有一条route规则是：<code>/class  ==&gt; 班级组件</code>，能匹配上，内容区展示班级组件。</p>
+<ul>
+<li><p>两个生命周期钩子：（用于捕获路由组件的激活状态）</p>
+<ul>
+<li>activated：路由组件被激活时触发</li>
+<li>deactivated：路由组件失活时触发</li>
+</ul>
+</li>
+<li><p>全局路由守卫</p>
+<ul>
+<li>前置守卫：初始化时执行、每次路由切换前执行<code>router.beforeEach((to,from,next)=&gt;{})</code></li>
+<li>后置守卫：初始化时执行、每次路由切换后执行<code>router.afterEach((to,from)=&gt;{})</code></li>
+</ul>
+</li>
+<li><p>router两种模式</p>
+<ul>
+<li><p>hash</p>
+<p>地址有<code>/#/</code></p>
+<p>如果将地址通过第三方手机app分享，若app校验严格，地址会被标记为不合法</p>
+<p>与服务端兼容性好</p>
+</li>
+<li><p>history</p>
+<p>打包到服务端，可能会有404问题</p>
+<p>也有解决404的方案：</p>
+<ul>
+<li>node端自己慢慢写正则匹配，哪个是前端的，哪个是服务端的</li>
+<li>推荐：node端下载<code>connect-history-api-fallbeck</code>，专门用来解决history模式404问题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>一些关于路由的细节点：</p>
+<p>路由传参（query、params、props）；</p>
+<p>router-link的两种模式（push、replace）；</p>
+<p>编程式路由导航(不借助<code>&lt;router-link&gt;</code>实现路由跳转，更灵活)；</p>
+<p>缓存路由<code>&lt;keep-alive&gt;</code>：让不展示的路由组件保持挂载，不被销毁；</p>
+<p>除了全局路由守卫，还有独享守卫和组件内守卫</p>
+<ul>
+<li>独享守卫：<code>beforeEnter</code><ul>
+<li>组件内守卫：<ul>
+<li><code>beforeRouteEnter</code>进入守卫：通过路由规则，进入该组件时被调用</li>
+<li><code>beforeRouteLeave</code>离开守卫：通过路由规则，离开该组件时被调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="22-打包部署步骤"><a href="#22-打包部署步骤" class="headerlink" title="22.打包部署步骤"></a>22.打包部署步骤</h3><p>npm run build 打成dist包</p>
+<p>node+express作后端：<code>npm init</code>创建项目，之后<code>npm i express</code>，之后在创建出来的项目文件中右击新建一个server.js</p>
+<p>测试服务端是否成功，终端<code>node server</code></p>
+<p>将打包的dist内，所有内容放到node项目的static下</p>
+<p>node端的server.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> history = <span class="built_in">require</span>(<span class="string">'connect-history-api-fallback'</span>)  <span class="comment">//用来解决history模式下的404问题</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line">app.use(history())</span><br><span class="line">app.use(express.static(__dirname+<span class="string">'/static'</span>))</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/person'</span>,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        name: <span class="string">'tom'</span>,</span><br><span class="line">        age: <span class="number">18</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">5005</span>,(err)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(!err) <span class="built_in">console</span>.log(<span class="string">"服务器启动了"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/04/16/hexo-d%E9%83%A8%E7%BD%B2%E4%B8%8A%E4%BC%A0bug%E8%A7%A3%E5%86%B3/" rel="next" title="hexo d部署上传bug解决">
+                <i class="fa fa-chevron-left"></i> hexo d部署上传bug解决
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/12/28/%E9%B8%BF%E8%92%99%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="鸿蒙学习笔记">
+                鸿蒙学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVVM"><span class="nav-number">1.</span> <span class="nav-text">MVVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-模板语法"><span class="nav-number">2.</span> <span class="nav-text">1.模板语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-数据绑定"><span class="nav-number">3.</span> <span class="nav-text">2.数据绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-数据代理"><span class="nav-number">4.</span> <span class="nav-text">3.数据代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-事件处理"><span class="nav-number">5.</span> <span class="nav-text">4.事件处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-computed"><span class="nav-number">6.</span> <span class="nav-text">5.computed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-watch"><span class="nav-number">7.</span> <span class="nav-text">6.watch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-条件渲染"><span class="nav-number">8.</span> <span class="nav-text">7.条件渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-列表渲染"><span class="nav-number">9.</span> <span class="nav-text">8.列表渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Vue监测数据原理"><span class="nav-number">10.</span> <span class="nav-text">9.Vue监测数据原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-生命周期"><span class="nav-number">11.</span> <span class="nav-text">10.生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-ref属性"><span class="nav-number">12.</span> <span class="nav-text">11.ref属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-props"><span class="nav-number">13.</span> <span class="nav-text">12.props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-事件总线"><span class="nav-number">14.</span> <span class="nav-text">13.事件总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-消息订阅与发布"><span class="nav-number">15.</span> <span class="nav-text">14.消息订阅与发布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-Vuex"><span class="nav-number">16.</span> <span class="nav-text">15.Vuex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-插槽"><span class="nav-number">17.</span> <span class="nav-text">16.插槽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-webStorage"><span class="nav-number">18.</span> <span class="nav-text">17.webStorage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-nextTick"><span class="nav-number">19.</span> <span class="nav-text">18.nextTick</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-Vue动画"><span class="nav-number">20.</span> <span class="nav-text">19.Vue动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-跨域"><span class="nav-number">21.</span> <span class="nav-text">20.跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-路由"><span class="nav-number">22.</span> <span class="nav-text">21.路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-打包部署步骤"><span class="nav-number">23.</span> <span class="nav-text">22.打包部署步骤</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

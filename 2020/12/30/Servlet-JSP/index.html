@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="servlet,JSP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="servlet servlet是Java EE规范之一   servlet是Javaweb三大组件之一。（servlet程序，filter过滤器，listener监听器） 运行在服务器上的一个java小程序，它通过HTTP接受客户端发送过来的请求，并响应数据给客户端  手动实现 编写一个类去实现servlet接口 实现service方法，处理请求，并响应数据 到web.xml中去配置servlet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet+JSP">
+<meta property="og:url" content="http://suyufan.github.io/2020/12/30/Servlet-JSP/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="servlet servlet是Java EE规范之一   servlet是Javaweb三大组件之一。（servlet程序，filter过滤器，listener监听器） 运行在服务器上的一个java小程序，它通过HTTP接受客户端发送过来的请求，并响应数据给客户端  手动实现 编写一个类去实现servlet接口 实现service方法，处理请求，并响应数据 到web.xml中去配置servlet">
+<meta property="article:published_time" content="2020-12-30T12:28:13.000Z">
+<meta property="article:modified_time" content="2020-12-30T13:02:22.391Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="servlet">
+<meta property="article:tag" content="JSP">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2020/12/30/Servlet-JSP/"/>
+
+
+
+
+
+  <title>Servlet+JSP | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2020/12/30/Servlet-JSP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servlet+JSP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-30T20:28:13+08:00">
+                2020-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.9k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="servlet"><a href="#servlet" class="headerlink" title="servlet"></a>servlet</h1><ul>
+<li>servlet是Java EE规范之一  </li>
+<li>servlet是Javaweb三大组件之一。<br>（servlet程序，filter过滤器，listener监听器）</li>
+<li>运行在服务器上的一个java小程序，它通过HTTP接受客户端发送过来的请求，并响应数据给客户端</li>
+</ul>
+<h3 id="手动实现"><a href="#手动实现" class="headerlink" title="手动实现"></a>手动实现</h3><ol>
+<li>编写一个类去实现servlet接口</li>
+<li>实现service方法，处理请求，并响应数据</li>
+<li>到web.xml中去配置servlet程序的访问</li>
+</ol>
+<p>servlet标签给tomcat配置servlet程序<br>    servlet-class是servlet程序的全类名<br>servlet-mapping给servlet程序配置访问地址<br>    servlet-name告诉服务器，我当前配置的地址是给哪个servlet用<br>    url-pattern配置访问地址  </p>
+<a id="more"></a>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>servlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.test.servlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span><span class="comment">&lt;!--servlet-mapping给servlet程序配置访问地址  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>servlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>   </span><br><span class="line"> <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>    <span class="comment">&lt;!--默认访问index.jsp,启动后在地址栏敲/hello就会访问到servlet这个文件--&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ol>
+<li>执行servlet构造器方法</li>
+<li>执行init初始化方法<br>12在第一次访问的时候创建servlet程序会调用</li>
+<li>执行service方法<br>3每次访问都会调用</li>
+<li>执行destroy销毁方法<br>4在web工程停止的时候调用</li>
+</ol>
+<h3 id="通过继承HttpServlet"><a href="#通过继承HttpServlet" class="headerlink" title="通过继承HttpServlet"></a>通过继承HttpServlet</h3><ol>
+<li>编写一个类去继承HttpServlet类</li>
+<li>根据需要去doGet或doPost</li>
+<li>到web.xml中的配置servlet程序的访问地址</li>
+</ol>
+<h3 id="ServletConfig类的三大作用"><a href="#ServletConfig类的三大作用" class="headerlink" title="ServletConfig类的三大作用"></a>ServletConfig类的三大作用</h3><ol>
+<li>获取servlet程序的别名servlet-name的值</li>
+<li>获取初始化参数init-param</li>
+<li>获取ServletContext对象</li>
+</ol>
+<h2 id="servlet程序默认是第一次访问的时候创建，ServletConfig是每个servlet程序创建时，就创建一个对应的ServletConfig对象"><a href="#servlet程序默认是第一次访问的时候创建，ServletConfig是每个servlet程序创建时，就创建一个对应的ServletConfig对象" class="headerlink" title="servlet程序默认是第一次访问的时候创建，ServletConfig是每个servlet程序创建时，就创建一个对应的ServletConfig对象  "></a>servlet程序默认是第一次访问的时候创建，ServletConfig是每个servlet程序创建时，就创建一个对应的ServletConfig对象  </h2><h1 id="JSP编程"><a href="#JSP编程" class="headerlink" title="JSP编程"></a>JSP编程</h1><h2 id="JSP基本语法"><a href="#JSP基本语法" class="headerlink" title="JSP基本语法"></a>JSP基本语法</h2><p>JSP（Java server pages）将动态代码嵌入到静态的HTML中，从而产生动态的输出<br>JSP运行于服务器<br>JSP属于动态页面  </p>
+<ul>
+<li>JSP与HTML有什么区别？  </li>
+</ul>
+<ol>
+<li><p>HTML静态页面，事先由用户写好放在服务器上，由web服务器向客户端发送</p>
+</li>
+<li><p>JSP页面由JSP容器执行该页面的Java部分，实时生成HTML页面</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3></li>
+<li><p>能够发送给客户端，可以在源代码文件中显示<!--注释--></p>
+</li>
+<li><p>不能发送给客户端，仅提供给程序员&lt;%–注释–%&gt;或//注释</p>
+</li>
+</ol>
+<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>&lt;%=变量/返回值/表达式%&gt;将其里面的内容所运算的结果输出到客户端  </p>
+<ul>
+<li>表达式不能以分号结束  </li>
+<li>不能出现多条语句  </li>
+<li>内容一定是字符串类型，或者能通过toString()函数转化为字符串  </li>
+</ul>
+<h3 id="程序段"><a href="#程序段" class="headerlink" title="程序段"></a>程序段</h3><p>JSP程序段是插入到JSP程序的Java代码<br>用法&lt;%Java代码%&gt;  </p>
+<ul>
+<li>不能在JSP程序段中定义函数  </li>
+<li>JSP程序可以放HTML也可以放JSP程序段和JSP表达式  </li>
+<li>凡是没有被写入&lt;%  %&gt;中的部分被解释为HTML  <h3 id="JSP声明"><a href="#JSP声明" class="headerlink" title="JSP声明"></a>JSP声明</h3>&lt;%! 代码 %&gt;</li>
+</ul>
+<ul>
+<li>JSP程序段中定义的变量只能先声明后使用  </li>
+<li>JSP声明中定义的变量是网页级别的，系统会优先执行，即JSP声明可以在任意地方定义变量  </li>
+<li>JSP声明只能作定义，不能实现控制逻辑  </li>
+</ul>
+<h3 id="URL传值"><a href="#URL传值" class="headerlink" title="URL传值"></a>URL传值</h3><p>缺点：</p>
+<ul>
+<li>传输数据只能是字符串  </li>
+<li>传输数据的值会在浏览器的地址栏中看到  </li>
+</ul>
+<h3 id="JSP指令和动作"><a href="#JSP指令和动作" class="headerlink" title="JSP指令和动作"></a>JSP指令和动作</h3><p>JSP指令告诉JSP引擎对JSP页面如何编译<br>&lt;% @ 指令类别 属性1 = “属性值1”… 属性n=”属性值n” %&gt;<br>包含3个指令，page,include,taglib<br>page指令用来设定页面的属性和相关功能</p>
+<h4 id="page指令的作用："><a href="#page指令的作用：" class="headerlink" title="page指令的作用："></a>page指令的作用：</h4><ol>
+<li>导入包&lt;% @ page import = “包名.类名” %&gt;  </li>
+<li>设定字符集&lt;% @ page pageEncoding = “编码类型” %&gt;，常见编码类型：GBK，gb2312….  </li>
+<li>设定错误页面&lt;% @ page errorPage = “处理异常.jsp” %&gt;抛出异常。处理异常.jsp中写&lt;% @ page isErrorPage = “true” %&gt;处理并将异常信息提示给用户</li>
+<li>设定MIME类型和字符编码&lt;% @ page contentType = “MIME类型；charset = 字符编码” %&gt;<h4 id="include指令的作用："><a href="#include指令的作用：" class="headerlink" title="include指令的作用："></a>include指令的作用：</h4></li>
+</ol>
+<p>插入多个外部的文件（JSP，HTML，Java程序，文本）<br>&lt;% @ include file=“文件名”%&gt;  </p>
+<ul>
+<li>常在网页底部用来引入公司的信息  </li>
+<li>引入文件和被引入文件，若由同名变量会报错 <h4 id="JSP动作"><a href="#JSP动作" class="headerlink" title="JSP动作"></a>JSP动作</h4>使用XML语法格式的标记来控制服务器行为<br>&lt;jsp:动作名 属性1=“属性值1”… 属性n = “属性值n” /&gt;  或<br>&lt;jsp:动作名 属性1=“属性值1”… 属性n = “属性值n” &gt;相关内容&lt;/jsp:动作名&gt;  </li>
+</ul>
+<ol>
+<li>jsp:include当前页面被请求的时候引入一个文件  </li>
+<li>jsp:forward将请求转到另外一个页面  </li>
+<li>jsp:useBean获得JavaBean的一个实例  </li>
+<li>jsp:setProperty设置JavaBean属性  </li>
+<li>jsp:getProperty获取JavaBean属性 </li>
+<li>jsp:plugin根据浏览器的类型为Java插件生成OBJECT或EMBED两种标记  </li>
+</ol>
+<ul>
+<li>include动作与include指令区别  </li>
+</ul>
+<p><code>&lt;jsp:include page=&quot;文件名&quot;/&gt;</code>或<code>&lt;jsp:include page=&quot;文件名&quot;&gt;相关标签&lt;/jsp:include&gt;</code></p>
+<ol>
+<li>include动作只会将文件中的输出包含到JSP页面，不会有变量重名问题。include指令是将文件包含到JSP页面</li>
+<li>动作会自动检查被包含文件的变化，指令不能  </li>
+</ol>
+<ul>
+<li>forward动作用来实现跳转<br><code>&lt;jap:forward page=“文件名”/&gt;</code></li>
+</ul>
+<hr>
+<h2 id="表单开发"><a href="#表单开发" class="headerlink" title="表单开发"></a>表单开发</h2><p><code>&lt;form action=&quot;page.jsp&quot;&gt;&lt;/form&gt;</code>action属性来确定表单提交给哪一个页面<br><code>&lt;% String str = request.getParameter(&quot;account&quot;); %&gt;</code>page.jsp页面用request对象来获取提交的值  </p>
+<ul>
+<li>表单无name=account的表单元素，str为null  </li>
+<li>account中没有输入，str为“”<br>表单提交后，信息会在地址栏显示，不安全—》加上method=”post”。将提交请求的方式由get改为post<br>获取单一表单元素：<code>&lt;% String str = request.getParameter(&quot;元素名&quot;); %&gt;</code><br>获取捆绑表单元素：<code>&lt;% String[] str = request.getParameterValues(&quot;元素名&quot;); %&gt;</code><h3 id="隐藏表单"><a href="#隐藏表单" class="headerlink" title="隐藏表单"></a>隐藏表单</h3>HTTP是无状态协议，在页面之间喜欢滴值时必须通过服务器。通过URL传值（不安全）<br>通过<code>&lt;input type=&quot;hidden&quot; &gt;</code>来隐藏传的值<br>缺点：</li>
+</ul>
+<ul>
+<li>数据类型只能是字符串  </li>
+<li>浏览器地址栏看不到，但是客户端源代码可以看到  </li>
+</ul>
+<h4 id="中文乱码问题"><a href="#中文乱码问题" class="headerlink" title="中文乱码问题"></a>中文乱码问题</h4><p>用户使用Tomcat服务器，在提交过程中会出现中文乱码问题<br>解决：  </p>
+<ol>
+<li>在JSP文件中，中文无法显示。<code>&lt;% @ page language = &quot;java&quot; contentType = &quot;text/html;charset = gb2312&quot; %&gt;</code> 或 <code>&lt;% @ page language = &quot;java&quot; pageEncoding = &quot;gb2312&quot; %&gt;</code>  </li>
+<li>提交过程中出现乱码<br>提交给服务器时服务器将其认成ISO-8859-1编码，而网页显示的是gb2312编码。<br>三种解决方式：<ul>
+<li>将其转化为gb2312格式<br><code>&lt;% String stu = request.getParameter(&quot;stu&quot;); stu = new String(stu.getBytes(&quot;ISO-8859-1&quot;),&quot;gb2312&quot;); %&gt;</code>此方法必须对每一个字符进行转化，麻烦  </li>
+<li>直接修改requset编码<br><code>&lt;% request.setCharacterEncoding(&quot;gb2312&quot;); String stu = request.getParameter(&quot;stu&quot;); %&gt;</code><br>该方法在取出值之前设置request的编码，并且表单的提交方式应该是post。</li>
+<li>利用过滤器，对整个web应用进行统一的编码过滤</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="JSP访问数据库"><a href="#JSP访问数据库" class="headerlink" title="JSP访问数据库"></a>JSP访问数据库</h2><p>JDBC-ODBC桥支持windows下的数据库连接，JDBC支持所有系统但是弹性差<br><strong>JDBC操作</strong>  </p>
+<ol>
+<li>导包</li>
+<li>Class.forName(“驱动名”)</li>
+<li>获取连接Connection con = DriverManager.getConnection(“URL”,”用户名”，“密码”)</li>
+<li>创建一个实例 Statement stat = conn.createStatement();或PreparedStatement stat = conn.prepareStatement(sql);</li>
+<li>处理sql语句。</li>
+</ol>
+<ul>
+<li>stat.executeQuery(SQL语句)//查询  </li>
+<li>stat.executeUpdate(SQL语句)//添加，修改，删除。返回这条sql语句执行受到影响的行数</li>
+</ul>
+<ol start="6">
+<li>关闭数据库 </li>
+</ol>
+<ul>
+<li>stat.close();</li>
+<li>conn.close();  </li>
+</ul>
+<p><strong>游标</strong>是一个可以移动的指针，它指向一行数据，初始时指向第一行的前一行<br>对于将用户的输入作为插入到表中的值时，使用sql语句较为复杂。–》用PreparedStatement<br>Connection来定义函数的提交和事务的回滚  </p>
+<hr>
+<h2 id="JSP内置对象"><a href="#JSP内置对象" class="headerlink" title="JSP内置对象"></a>JSP内置对象</h2><p>特点：</p>
+<ul>
+<li>自动载入</li>
+<li>通过Web容器来实现管理</li>
+<li>直接调用都是合法的</li>
+</ul>
+<p>9种内置对象</p>
+<ol>
+<li><p>out：向客户端输出；服务器输出缓冲区的管理</p>
+</li>
+<li><p>request：javax.servlet.http.HttpServletRequest；获取客户端的参数和流</p>
+</li>
+<li><p>response：javax.servlet.http.HttpServletResponse；响应  </p>
+<p> ① response.sendRedirect()与forward  </p>
+</li>
+</ol>
+<ul>
+<li><p>前者浏览器地址栏会变，后者不会</p>
+</li>
+<li><p>前者不能共享request中的数据，后者可以</p>
+</li>
+<li><p>forward效率更高，因为是服务器发请求，而response.sendRedirect()需要客户端重新去请求</p>
+</li>
+<li><p>forward只能在同一个web应用程序内的资源之间转发请求</p>
+<p>② <strong>Cookie</strong>是一个小的文本数据，由服务端生成，发送给客户端浏览器。</p>
+</li>
+<li><p>response.addCookie(Cookie c)写入客户端</p>
+</li>
+<li><p>Cookie.setMaxAge(int second)设置Cookie存活时间  </p>
+</li>
+<li><p>在地址栏看不到与传递参数有关的信息  </p>
+</li>
+<li><p>危险来源于Cookie被盗取—&gt;跨站脚本技术，通过软件窃取硬盘下的Cookie</p>
+</li>
+<li><p>优点—&gt;持久化，帮助服务器端保存多个状态信息，但是不用服务器端专门分配存储资源  </p>
+</li>
+</ul>
+<ol start="4">
+<li>session：javax.servlet.http.HttpSession；跨页面保持；每一个session服务器端都有一个sessionId来标识</li>
+<li>application：javax.servlet.ServletContext；对于一个web容器所有用户共同使用一个application对象，服务器启动后会自动创建application对象，这个对象会一直保存到服务器关闭</li>
+<li>page：java.lang.Object；指向当前JSP程序本身的对象</li>
+<li>exception：java.lang.Exception；</li>
+<li>config：javax.servlet.ServletConfig；JSP程序初始化时JSP引擎向它传递信息用的</li>
+<li>pageContext：javax.servlet.jsp.PageContext；pageContext对象提供了对JSP页面种所有对象及命名空间  <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1></li>
+<li>jsp<br>   jsp 是 java server pages，java的服务器页面。</li>
+</ol>
+<ul>
+<li><p>作用：     jsp的作用是为了代替Servlet程序回传html页面数据。</p>
+</li>
+<li><p>jsp的本质是：Servlet程序。</p>
+</li>
+<li><p>jsp有三种脚本：</p>
+</li>
+</ul>
+<p>1、声明脚本<br>     声明脚本它可以声明jsp页面中的代码。<br>     格式是：&lt;%!  %&gt;</p>
+<p>2、表达式脚本<br>     作用： 表达式脚本的作用是在jsp页面上输出数据。<br>     格式是：&lt;%=  %&gt;</p>
+<p>3、代码脚本<br>     作用：可以在jsp页面中定义自己需要的语句。<br>     格式是：&lt;%  %&gt;</p>
+<ul>
+<li><p>jsp中有三种注释：<br>   1、html注释</p>
+<pre><code>&lt;!--  html注释  --&gt;
+html注释翻译之后会在_jspService()方法以out.write输出到页面</code></pre><p>   2、java注释</p>
+<pre><code>// 单行注释
+/*  多行注释 */
+
+java的多行注释在翻译之后在翻译到servlet程序的源代码中</code></pre><p>   3、jsp注释</p>
+<pre><code>&lt;%-- jsp注释 --%&gt;
+jsp注释可以注掉jsp中所有内容，在jsp翻译的时候会被完全忽略掉</code></pre></li>
+</ul>
+<ul>
+<li>jsp中的九大内置对象：<br>   1、request<br>   2、response<br>   3、pageContext<br>   4、exception<br>   5、application<br>   6、out输出<br>   7、page 指向this对象，也就是jsp对象<br>   8、session<br>   9、servletConfig</li>
+</ul>
+<ul>
+<li>四个域对象<br>   pageContext<br>   request<br>   session<br>   application</li>
+</ul>
+<p>它们从小到大的顺序分别是：pageContext 、Request、Session 、application</p>
+<p>使用的优先顺序是从小到大：pageContext 、Request、Session 、application</p>
+<ul>
+<li><p>out和Response输出的区别。<br>   out输出都写到out缓冲区中<br>   response输出都写到Respnse的缓冲区中，</p>
+<p>   当jsp页面中所有代码都执行完成之后。全做以下两个操作<br>   1、执行out.flush()操作，把out缓冲区中的数据都追加到Response缓冲区中<br>   2、执行Response的flush()操作。把Response缓冲区中的数据，都写给客户端。</p>
+<p>   在jsp页面中，统一使用out来进行输出。</p>
+<p>   out.write()可以输出字符串<br>   out.print()可以输出任意数据</p>
+</li>
+</ul>
+<ul>
+<li><p>jsp的常用标签<br>   静态包含</p>
+<pre><code>格式: `&lt;%@ include file=&quot;&quot;&gt;`         </code></pre><p>   动态包含</p>
+<pre><code>格式是：`&lt;jsp:include page=&quot;&quot; &gt;`</code></pre><p>   请求转发</p>
+<pre><code>格式是：`&lt;jsp:forward page=&quot;&quot; &gt;`</code></pre></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/servlet/" rel="tag"># servlet</a>
+          
+            <a href="/tags/JSP/" rel="tag"># JSP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/19/v-model%E4%BD%BF%E7%94%A8/" rel="next" title="v-model使用">
+                <i class="fa fa-chevron-left"></i> v-model使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/30/jQuery%E7%AC%94%E8%AE%B0/" rel="prev" title="jQuery笔记--选择器">
+                jQuery笔记--选择器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#servlet"><span class="nav-number">1.</span> <span class="nav-text">servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手动实现"><span class="nav-number">1.0.1.</span> <span class="nav-text">手动实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期"><span class="nav-number">1.0.2.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过继承HttpServlet"><span class="nav-number">1.0.3.</span> <span class="nav-text">通过继承HttpServlet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ServletConfig类的三大作用"><span class="nav-number">1.0.4.</span> <span class="nav-text">ServletConfig类的三大作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet程序默认是第一次访问的时候创建，ServletConfig是每个servlet程序创建时，就创建一个对应的ServletConfig对象"><span class="nav-number">1.1.</span> <span class="nav-text">servlet程序默认是第一次访问的时候创建，ServletConfig是每个servlet程序创建时，就创建一个对应的ServletConfig对象  </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP编程"><span class="nav-number">2.</span> <span class="nav-text">JSP编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP基本语法"><span class="nav-number">2.1.</span> <span class="nav-text">JSP基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">2.1.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表达式"><span class="nav-number">2.1.2.</span> <span class="nav-text">表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序段"><span class="nav-number">2.1.3.</span> <span class="nav-text">程序段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP声明"><span class="nav-number">2.1.4.</span> <span class="nav-text">JSP声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL传值"><span class="nav-number">2.1.5.</span> <span class="nav-text">URL传值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP指令和动作"><span class="nav-number">2.1.6.</span> <span class="nav-text">JSP指令和动作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#page指令的作用："><span class="nav-number">2.1.6.1.</span> <span class="nav-text">page指令的作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include指令的作用："><span class="nav-number">2.1.6.2.</span> <span class="nav-text">include指令的作用：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP动作"><span class="nav-number">2.1.6.3.</span> <span class="nav-text">JSP动作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表单开发"><span class="nav-number">2.2.</span> <span class="nav-text">表单开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏表单"><span class="nav-number">2.2.1.</span> <span class="nav-text">隐藏表单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中文乱码问题"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">中文乱码问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP访问数据库"><span class="nav-number">2.3.</span> <span class="nav-text">JSP访问数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP内置对象"><span class="nav-number">2.4.</span> <span class="nav-text">JSP内置对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

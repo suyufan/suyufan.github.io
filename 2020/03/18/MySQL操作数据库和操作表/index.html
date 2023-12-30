@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL的语言是SQL语言SQL语言的特点    1.综合统一 2.​高度非过程化 3.面向过程的操作方式 4.以同一种语法结构提供多种使用方法 5.语言简洁，简单易学SQL的数据定义功能包括模式定义，表定义，视图和索引的定义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL操作数据库和操作表">
+<meta property="og:url" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="MySQL的语言是SQL语言SQL语言的特点    1.综合统一 2.​高度非过程化 3.面向过程的操作方式 4.以同一种语法结构提供多种使用方法 5.语言简洁，简单易学SQL的数据定义功能包括模式定义，表定义，视图和索引的定义">
+<meta property="og:image" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.1.png">
+<meta property="og:image" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.2.png">
+<meta property="og:image" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.3.png">
+<meta property="og:image" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.5.png">
+<meta property="og:image" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.6.1.png">
+<meta property="og:image" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.6.2.png">
+<meta property="article:published_time" content="2020-03-18T01:01:03.000Z">
+<meta property="article:modified_time" content="2021-02-20T14:07:00.058Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2020/03/18/MySQL操作数据库和操作表/"/>
+
+
+
+
+
+  <title>MySQL操作数据库和操作表 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL操作数据库和操作表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-18T09:01:03+08:00">
+                2020-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  966
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>MySQL的语言是SQL语言<br>SQL语言的特点  </p>
+<blockquote>
+<p>1.综合统一 2.​高度非过程化 3.面向过程的操作方式 4.以同一种语法结构提供多种使用方法 5.语言简洁，简单易学<br>SQL的数据定义功能包括模式定义，表定义，视图和索引的定义  </p>
+<a id="more"></a>    
+
+<h2 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1.创建数据库"></a>1.创建数据库</h2></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW DATABASES;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| student            |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line">5 rows in set (0.04 sec)</span><br></pre></td></tr></table></figure>
+<p>用来查看当前所有存在的数据库<code>SHOW DATABASES;</code><br>mysql为必需的，描述用户的访问权限。其他数据库在后面将介绍<br>创建数据库是在系统磁盘上划分一块区域用于数据库的存储和管理   </p>
+<h3 id="1-1创建基本数据库"><a href="#1-1创建基本数据库" class="headerlink" title="1.1创建基本数据库"></a>1.1创建基本数据库</h3><p><code>mysql&gt; CREATE DATABASE Student;//创建名为Student的数据库  Query OK, 1 row affected (0.03 sec)</code>    </p>
+<h3 id="1-2创建表"><a href="#1-2创建表" class="headerlink" title="1.2创建表"></a>1.2创建表</h3><p>分2行书写<br>1.说明在哪个基本库中创建,如：<code>USE test;</code><br>2.创建表，如创建S表：<code>CREATE TABLE S</code><br>在第2步的下面可以写创建的具体属性以及信息；  </p>
+<h3 id="1-3查看创建好的数据库"><a href="#1-3查看创建好的数据库" class="headerlink" title="1.3查看创建好的数据库"></a>1.3查看创建好的数据库</h3><p>查看基本数据库的信息：<code>SHOW DATABASES;</code><br>查看已经创建好的表test1:<code>DESCN test1;</code></p>
+<h2 id="2-删除数据库"><a href="#2-删除数据库" class="headerlink" title="2.删除数据库"></a>2.删除数据库</h2><p>将已经存在的数据库从磁盘空间上清除。<br><code>mysql&gt; DROP DATABASE Student;//删除创建的Student数据库  Query OK, 0 rows affected (0.03 sec)</code>  </p>
+<h2 id="3-修改"><a href="#3-修改" class="headerlink" title="3.修改"></a>3.修改</h2><h3 id="3-1修改表名"><a href="#3-1修改表名" class="headerlink" title="3.1修改表名"></a>3.1修改表名</h3><p>将表test1改名为testa:<code>ALTER TABLE test1 RENAME testa;</code>  </p>
+<h3 id="3-2修改字段数据类型"><a href="#3-2修改字段数据类型" class="headerlink" title="3.2修改字段数据类型"></a>3.2修改字段数据类型</h3><p>将表S中的Sname属性的数据类型改为CHAR(30)：<code>ALTER TABLE S MODIFY Sname CHAR(30);</code>  </p>
+<h3 id="3-3修改字段名"><a href="#3-3修改字段名" class="headerlink" title="3.3修改字段名"></a>3.3修改字段名</h3><p>将表S中的属性Sname改为name，name的数据类型为CHAR(30):<code>ALTER TABLE S CHANGE Sname name CHAR(30);</code>  </p>
+<h2 id="4-查"><a href="#4-查" class="headerlink" title="4.查"></a>4.查</h2><p><strong>select语句</strong>  </p>
+<blockquote>
+<p>（1）选择表中的若干列<br>指定列，全部列，查询经过计算的值<br>(2)选择表中的若干元组<br>消除取值重复的行；查询满足条件的元组（比较大小，确定范围，确定集合，字符匹配，涉及空值的查询，多重条件的查询）<br>(3)order by子句<br>(4)聚集函数<br>(5)group by子句<br>约束聚集函数的作用范围<br>having配套使用  </p>
+</blockquote>
+<h3 id="4-1查看表person"><a href="#4-1查看表person" class="headerlink" title="4.1查看表person"></a>4.1查看表person</h3><p><code>SELECT * FROM person;</code>  </p>
+<h3 id="4-2插入数据insert"><a href="#4-2插入数据insert" class="headerlink" title="4.2插入数据insert"></a>4.2插入数据insert</h3><p>在表person中插入数据   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO person（id，name,age,info)</span><br><span class="line">VALUES(1,&#39;MIKE,21,Lawyer);</span><br></pre></td></tr></table></figure>
+<p>一行数据插入成功<br>如果要插入多条数据，只需要在VALUSE后面写，数据对应属性写在括号里面，括号与括号之间用逗号隔开。  </p>
+<h3 id="4-3修改数据update"><a href="#4-3修改数据update" class="headerlink" title="4.3修改数据update"></a>4.3修改数据update</h3><h2 id="修改某一个或多个元组的值；带子查询的修改语句"><a href="#修改某一个或多个元组的值；带子查询的修改语句" class="headerlink" title="修改某一个或多个元组的值；带子查询的修改语句  "></a>修改某一个或多个元组的值；带子查询的修改语句  </h2><h1 id="数据更新与空值处理"><a href="#数据更新与空值处理" class="headerlink" title="数据更新与空值处理"></a>数据更新与空值处理</h1><p>(1)把全部红色零件的颜色改成蓝色<br><img src="/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.1.png" alt="update SET语句"><br>(2)由S5供给J4的零件P6改为由S3供应<br><img src="/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.2.png" alt="update set 语句"><br>(3)从供应商关系中删除供应号是S2的记录，并从供应情况关系中删除相应的记录<br><img src="/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.3.png" alt="delete语句"><br>(4)请将（S2,J6,P4,200)插入供应情况关系<br><img src="/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.5.5.png" alt="insert into values">  </p>
+<h1 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h1><p>视图是虚表，是从一个或几个基本表（或视图）导出来的表。数据库中只存放视图的定义，而不存放视图对应的数据，数据存放在基本表中。基本表中的数据发生变化，从视图中查询出的数据也就随之改变。<br><strong>视图的优点</strong><br>简化用户的操作；<br>使用户能以多种角度看待统一数据；<br>对重构数据库提供了一定程度的逻辑独立性；<br>能够对机密数据提供安全保护；<br>适当的利用视图可以更清晰的表达查询；<br>Q：请为三建工程项目建立一个供应情况的视图，包括供应商代码（SNO),零件代码(PNO)，供应数量（QTY).<br>(1)找出三建工程项目使用的各种零件代码及其数量<br><img src="/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.6.1.png" alt="create view"><br>(2)找出供应商S1的供应情况<br><img src="/2020/03/18/MySQL%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E6%93%8D%E4%BD%9C%E8%A1%A8/3.6.2.png" alt="select"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/15/PS%E7%B4%A0%E6%9D%90%E8%B5%84%E6%BA%90/" rel="next" title="PS素材资源">
+                <i class="fa fa-chevron-left"></i> PS素材资源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/22/JS%E7%89%B9%E6%95%88%E4%B9%8B%E5%8A%A8%E6%80%81%E5%8F%98%E6%8D%A2/" rel="prev" title="JS特效之动态变换">
+                JS特效之动态变换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建数据库"><span class="nav-number">1.</span> <span class="nav-text">1.创建数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1创建基本数据库"><span class="nav-number">1.1.</span> <span class="nav-text">1.1创建基本数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2创建表"><span class="nav-number">1.2.</span> <span class="nav-text">1.2创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3查看创建好的数据库"><span class="nav-number">1.3.</span> <span class="nav-text">1.3查看创建好的数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-删除数据库"><span class="nav-number">2.</span> <span class="nav-text">2.删除数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-修改"><span class="nav-number">3.</span> <span class="nav-text">3.修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1修改表名"><span class="nav-number">3.1.</span> <span class="nav-text">3.1修改表名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2修改字段数据类型"><span class="nav-number">3.2.</span> <span class="nav-text">3.2修改字段数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3修改字段名"><span class="nav-number">3.3.</span> <span class="nav-text">3.3修改字段名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-查"><span class="nav-number">4.</span> <span class="nav-text">4.查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1查看表person"><span class="nav-number">4.1.</span> <span class="nav-text">4.1查看表person</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2插入数据insert"><span class="nav-number">4.2.</span> <span class="nav-text">4.2插入数据insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3修改数据update"><span class="nav-number">4.3.</span> <span class="nav-text">4.3修改数据update</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改某一个或多个元组的值；带子查询的修改语句"><span class="nav-number">5.</span> <span class="nav-text">修改某一个或多个元组的值；带子查询的修改语句  </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据更新与空值处理"><span class="nav-number"></span> <span class="nav-text">数据更新与空值处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#视图"><span class="nav-number"></span> <span class="nav-text">视图</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Node," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基于事件驱动 非阻塞异步编程 同步&amp;异步解释：去邻居家敲门，人不在，一直在门口等待邻居回来，这就是同步的；去敲门，人不在，留下一个消息就走了，邻居回来看到消息，打电话给你，你再去，这就是异步。 运行结果与浏览器端的控制台一致，因为它与Chrome的底层都是基于V8 node中没有windows的全局变量，但是它有global，process，console，require()，module">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js学习笔记-阿里终端训练营">
+<meta property="og:url" content="http://suyufan.github.io/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="基于事件驱动 非阻塞异步编程 同步&amp;异步解释：去邻居家敲门，人不在，一直在门口等待邻居回来，这就是同步的；去敲门，人不在，留下一个消息就走了，邻居回来看到消息，打电话给你，你再去，这就是异步。 运行结果与浏览器端的控制台一致，因为它与Chrome的底层都是基于V8 node中没有windows的全局变量，但是它有global，process，console，require()，module">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/web%E8%AE%BF%E9%97%AEcdn.png">
+<meta property="og:image" content="http://suyufan.github.io/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/%E8%A7%86%E9%A2%91%E8%BD%AC%E7%A0%81.png">
+<meta property="article:published_time" content="2022-09-23T05:20:17.000Z">
+<meta property="article:modified_time" content="2023-04-14T04:30:28.813Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="Node">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/web%E8%AE%BF%E9%97%AEcdn.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2022/09/23/Node-js学习笔记-阿里终端训练营/"/>
+
+
+
+
+
+  <title>Node.js学习笔记-阿里终端训练营 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Node.js学习笔记-阿里终端训练营</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-09-23T13:20:17+08:00">
+                2022-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>基于事件驱动 非阻塞异步编程</strong></p>
+<p>同步&amp;异步解释：去邻居家敲门，人不在，一直在门口等待邻居回来，这就是同步的；去敲门，人不在，留下一个消息就走了，邻居回来看到消息，打电话给你，你再去，这就是异步。</p>
+<p>运行结果与浏览器端的控制台一致，因为它与Chrome的底层都是基于V8</p>
+<p>node中没有windows的全局变量，但是它有global，process，console，require()，module，exports，setTimeout，clearTimeout，setInterval，clearInterval  </p>
+<a id="more"></a>
+
+<h2 id="1-Node-js基础"><a href="#1-Node-js基础" class="headerlink" title="1.Node.js基础"></a>1.Node.js基础</h2><h5 id="1-1-内置模块"><a href="#1-1-内置模块" class="headerlink" title="1.1 内置模块"></a>1.1 内置模块</h5><p>即无需引入依赖，就可以使用的库。</p>
+<p>比如：fs，path, http/https, until</p>
+<p>例子：使用path模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用require加载模块</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myPath = <span class="string">'D:/研0暑假/ide-startup/src/node/hello.js'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dirname = path.dirname(myPath)</span><br><span class="line"><span class="keyword">const</span> basename = path.basename(myPath)</span><br><span class="line"><span class="keyword">const</span> extname = path.extname(myPath)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dirname); <span class="comment">// D:/研0暑假/ide-startup/src/node</span></span><br><span class="line"><span class="built_in">console</span>.log(basename); <span class="comment">// hello.js</span></span><br><span class="line"><span class="built_in">console</span>.log(extname); <span class="comment">// .js</span></span><br></pre></td></tr></table></figure>
+
+<p>例子：使用http模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用http内置模块</span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> hostname = <span class="string">'127.0.0.1'</span></span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.createServer(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.statusCode = <span class="number">200</span></span><br><span class="line">    res.setHeader(<span class="string">'Content-Type'</span>, <span class="string">'text/plain'</span>)</span><br><span class="line">    res.end(<span class="string">'Hello, World\n'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(port, hostname, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`Server running at http://<span class="subst">$&#123;hostname&#125;</span>:<span class="subst">$&#123;port&#125;</span>/`</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 访问http://127.0.0.1:3000/ 页面出现 Hello, World</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-常用第三方库"><a href="#1-2-常用第三方库" class="headerlink" title="1.2 常用第三方库"></a>1.2 常用第三方库</h5><p>非常非常丰富，每天都有几千万的下载量，可靠好用</p>
+<p>比如：lodash, express, koa，Moment，Day.js，DEBUG，request, axios</p>
+<p>express, koa是两个非常老牌的第三方http库，12年以前常用exress，12年以后逐步用koa</p>
+<p>Moment，Day.js是两个处理时间转化的库，开始用Moment，近期用Day.js</p>
+<h5 id="1-3-Npm"><a href="#1-3-Npm" class="headerlink" title="1.3 Npm"></a>1.3 Npm</h5><p>全称Node Package Manager，是标准的原生态包管理工具</p>
+<p><strong>yarn与npm</strong>是两个最好的模块安装工具，npm使用的人数更多，因为npm是node自带的，安装node后就同时安装了npm </p>
+<ul>
+<li>使用Common.js规范可以将多个文件运行起来</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./b.js'</span>)</span><br><span class="line"><span class="comment">//b.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello world'</span>)</span><br><span class="line"></span><br><span class="line">node a.js</span><br><span class="line"><span class="comment">//hello world</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="1-4-express-vs-koa"><a href="#1-4-express-vs-koa" class="headerlink" title="1.4 express vs koa"></a>1.4 express vs koa</h5><p>国内koa居多，世界范围内express居多</p>
+<ul>
+<li><p>koa优势</p>
+<p>支持ES6</p>
+<p>文件只有4个</p>
+</li>
+<li><p>koa使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// koa 使用</span></span><br><span class="line"><span class="keyword">const</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = koa()</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>koa本质：由core加上一堆中间件组成，路由就是其中一种中间件</p>
+</li>
+</ul>
+<p><strong>中间件（Web Middleware）：</strong>处理HTTP请求的函数，用来完成各种特定的任务，比如检查用户是否登录、分析数据。最大特点就是，一个中间件处理完，再传递给下一个中间件。</p>
+<p>koa最大的特点是在于它的中间件，是一个async中间件，而且跟传统的async不一样，不是A到B，B到C。它的执行过程是洋葱模型，当执行到最里面的时候，它的response执行完会回来，会从最后一个中间件返回到第一个中间件，类似退栈过程。比传统中间件更高效</p>
+<p>比如：计算执行时间</p>
+<p>传统中间件：在第一个路由里初始化时间，最后一个执行的路由里埋一个最终时间，两者相减，需要把数据从a带到最后。</p>
+<p>koa的话，就不需要，因为它进出都是自己。</p>
+<p>一个有意思的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 洋葱模型 进出都是自己</span></span><br><span class="line"><span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'before 1'</span>);</span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'after1'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'before 2'</span>);</span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'after2'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * before 1</span></span><br><span class="line"><span class="comment"> * before 2</span></span><br><span class="line"><span class="comment"> * after2</span></span><br><span class="line"><span class="comment"> * after1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="1-5-async"><a href="#1-5-async" class="headerlink" title="1.5 async"></a>1.5 async</h5><p>传统的异步编程手段：co，function *, thunk, async/await, promise</p>
+<p>(async/await是最新的，是promise的语法糖)</p>
+<p>之前Node.js被人诟病的就是回调地狱callback hell</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 回调地狱　callback hell</span></span><br><span class="line">doSomething(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">    doSomethingElse(result, <span class="function"><span class="keyword">function</span> (<span class="params">newResult</span>) </span>&#123;</span><br><span class="line">       <span class="comment">// ... </span></span><br><span class="line">    &#125;, failureCallback)    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>但是在ES6之后 ，出现 yield generator 还有co去包裹函数的形态，最终解决方案还是promise</p>
+<h5 id="1-6koa中间件"><a href="#1-6koa中间件" class="headerlink" title="1.6koa中间件"></a>1.6koa中间件</h5><p>常见中间件：koa-bodyparse, koa-ejs, koa-router</p>
+<h2 id="2-Node-js-Serverless-amp-拓展"><a href="#2-Node-js-Serverless-amp-拓展" class="headerlink" title="2. Node.js Serverless &amp; 拓展"></a>2. Node.js Serverless &amp; 拓展</h2><ul>
+<li><p>什么是Serverless</p>
+<p>几乎没人知道怎么落地Serverless;</p>
+<p>但是大家都觉得其他人在大力做Serverless;</p>
+<p>所以大家都宣称自己在做Serverless</p>
+</li>
+<li><p>发展角度</p>
+<p>为了保证开发环境的正确性，想出一系列的隔离方式。</p>
+<p>从最早的物理服务器（裸机）–&gt; 虚拟化 –&gt; 云计算 –&gt; 容器技术 –&gt; Serverless</p>
+<p>抽象程度越来越高，原因是如果要部署一个应用，我希望关心的是其本身，而不是运维。</p>
+</li>
+<li><p>Serverless特性</p>
+<ul>
+<li><p>Hostless</p>
+<p>不绑定一个主机，基于云服务器</p>
+</li>
+<li><p>Elastic</p>
+<p>弹性，自动扩容缩容</p>
+</li>
+<li><p>Stateless</p>
+<p>无状态，随时启动销毁</p>
+</li>
+<li><p>Event-driven</p>
+<p>事件驱动，不同事件对应不同函数，不同函数完成不同功能</p>
+</li>
+<li><p>Lego Blocks</p>
+<p>乐高组合</p>
+</li>
+<li><p>High Availability</p>
+<p>高可用</p>
+</li>
+<li><p>Usage-based Cost</p>
+<p>按量付费</p>
+</li>
+</ul>
+</li>
+<li><p>案例</p>
+<ul>
+<li>web应用访问CDN（内容分发网络）<br><img src="/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/web%E8%AE%BF%E9%97%AEcdn.png" alt="web过程图解"></li>
+<li>视频转码<br><img src="/2022/09/23/Node-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E9%98%BF%E9%87%8C%E7%BB%88%E7%AB%AF%E8%AE%AD%E7%BB%83%E8%90%A5/%E8%A7%86%E9%A2%91%E8%BD%AC%E7%A0%81.png" alt="视频转码"></li>
+</ul>
+</li>
+<li><p>Javascript在服务端的新进展</p>
+<ul>
+<li><p>更多全栈框架的出现<br>16，17年出现的Next.js（基于React） 和 Nuxt.js（基于Vue）<br>近期不久出现Remix(前端后端混在一起写)</p>
+</li>
+<li><p>渲染容器从端到云再到边<br>用户访问cdn节点中存在loading,找到服务器之后拉取页面,返回的数据也需要去服务器拉取，中间也存在loading。因此在传统服务端渲染的情况下，会存在很多loading。</p>
+<p>出现在服务端做更多事情的思考 </p>
+<p>出现了<strong>SSR服务端渲染</strong>，像Java的JSP，Vue/React做的Server Side Rendering（SSR）原理都是类似的。将页面渲染的工作搬到服务端，实现了ssr服务渲染功能。</p>
+<p>出现问题，人服务器不在同地</p>
+<p>中间需要跨多个服务器，整个过程延时非常严重，ssr也有压力</p>
+<p>出现<strong>SSG静态页面生成</strong>，可以在服务端生成页面去推送到CDN</p>
+<p>出现<strong>Edge 边缘计算渲染</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag"># Node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/08/17/Vue%E8%BF%9B%E8%A1%8C%E8%B7%A8%E5%9F%9F/" rel="next" title="Vue进行跨域">
+                <i class="fa fa-chevron-left"></i> Vue进行跨域
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/" rel="prev" title="跨端Flutter学习">
+                跨端Flutter学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Node-js基础"><span class="nav-number">1.</span> <span class="nav-text">1.Node.js基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-内置模块"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.1 内置模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-常用第三方库"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">1.2 常用第三方库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-Npm"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">1.3 Npm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-express-vs-koa"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">1.4 express vs koa</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-async"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">1.5 async</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6koa中间件"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">1.6koa中间件</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Node-js-Serverless-amp-拓展"><span class="nav-number">2.</span> <span class="nav-text">2. Node.js Serverless &amp; 拓展</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

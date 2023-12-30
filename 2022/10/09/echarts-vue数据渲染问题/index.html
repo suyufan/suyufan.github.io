@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,echarts," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.问题描述：在created中发送异步请求，拿到数据，之后传递给lineChart1。 在mounted中调用this.$echarts.init(document.getElementById(&#39;main&#39;)).setOption(this.lineChart1) 进行图表绘制。 页面展示发现，图表绘制的数据为在data中初始化的静态数据，并非从接口拿到的真实数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="echarts+vue数据渲染问题">
+<meta property="og:url" content="http://suyufan.github.io/2022/10/09/echarts-vue%E6%95%B0%E6%8D%AE%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="笑笑の博客">
+<meta property="og:description" content="1.问题描述：在created中发送异步请求，拿到数据，之后传递给lineChart1。 在mounted中调用this.$echarts.init(document.getElementById(&#39;main&#39;)).setOption(this.lineChart1) 进行图表绘制。 页面展示发现，图表绘制的数据为在data中初始化的静态数据，并非从接口拿到的真实数据。">
+<meta property="og:image" content="http://suyufan.github.io/2022/10/09/echarts-vue%E6%95%B0%E6%8D%AE%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+<meta property="article:published_time" content="2022-10-09T07:11:25.000Z">
+<meta property="article:modified_time" content="2022-10-09T08:03:12.090Z">
+<meta property="article:author" content="苏玉璠">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="echarts">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyufan.github.io/2022/10/09/echarts-vue%E6%95%B0%E6%8D%AE%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyufan.github.io/2022/10/09/echarts-vue数据渲染问题/"/>
+
+
+
+
+
+  <title>echarts+vue数据渲染问题 | 笑笑の博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">笑笑の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">有一种风雅 趁年华</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://suyufan.github.io/2022/10/09/echarts-vue%E6%95%B0%E6%8D%AE%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="苏玉璠">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="笑笑の博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">echarts+vue数据渲染问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-10-09T15:11:25+08:00">
+                2022-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  400
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-问题描述："><a href="#1-问题描述：" class="headerlink" title="1.问题描述："></a>1.问题描述：</h3><p>在created中发送异步请求，拿到数据，之后传递给lineChart1。</p>
+<p>在mounted中调用<code>this.$echarts.init(document.getElementById(&#39;main&#39;)).setOption(this.lineChart1)</code></p>
+<p>进行图表绘制。</p>
+<p>页面展示发现，图表绘制的数据为在data中初始化的静态数据，并非从接口拿到的真实数据。</p>
+<a id="more"></a>
+
+<h3 id="2-问题排查过程："><a href="#2-问题排查过程：" class="headerlink" title="2.问题排查过程："></a>2.问题排查过程：</h3><ul>
+<li><p>Vue生命周期</p>
+<p>确定页面渲染的过程中，created是在mounted之前，先执行</p>
+<p><img src="/2022/10/09/echarts-vue%E6%95%B0%E6%8D%AE%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" alt></p>
+</li>
+<li><p>考虑是否因为请求接口为异步<strong>await</strong>，导致在mounted执行图表绘制之后，才返回了真实数据。</p>
+<p>进行log打印，发现问题。</p>
+</li>
+</ul>
+<h3 id="3-问题解决方案："><a href="#3-问题解决方案：" class="headerlink" title="3.问题解决方案："></a>3.问题解决方案：</h3><ul>
+<li><p><strong>将请求放在mounted里</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正确代码</span></span><br><span class="line">  <span class="keyword">async</span> mounted() &#123;</span><br><span class="line">  	<span class="comment">//获取数据</span></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="keyword">this</span>.$http.get(<span class="string">'reports/type/1'</span>)</span><br><span class="line">    <span class="keyword">this</span>.option.legend.data = res.data.data.series.map(<span class="function">(<span class="params">item</span>) =&gt;</span> item.name)</span><br><span class="line">    <span class="keyword">this</span>.option.series = res.data.data.series</span><br><span class="line">	<span class="comment">//渲染</span></span><br><span class="line">    <span class="keyword">let</span> myChart = <span class="keyword">this</span>.$echarts.init(<span class="keyword">this</span>.$refs.myEchart)</span><br><span class="line">    <span class="keyword">this</span>.option &amp;&amp; myChart.setOption(<span class="keyword">this</span>.option)</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p>即先获取数据，之后进行渲染。</p>
+</li>
+</ul>
+<h3 id="4-项目背景："><a href="#4-项目背景：" class="headerlink" title="4.项目背景："></a>4.项目背景：</h3><p>通过日期选择器来控制图表数据，比如勾选了2022-09-13，则进行图表的重绘，展示对应日期的数据。</p>
+<p> 在mounted中初始化图表（此时为静态数据）</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        datatime1: <span class="string">''</span>，</span><br><span class="line">        lineChart1: &#123;&#125; <span class="comment">// 图表静态数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">mounted() &#123;</span><br><span class="line">           echartsInit() &#123;</span><br><span class="line">          <span class="keyword">this</span>.$echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">'main'</span>)).setOption(<span class="keyword">this</span>.lineChart1)</span><br><span class="line">          &#125;</span><br><span class="line">&#125;,</span><br><span class="line">watch: &#123;</span><br><span class="line">    <span class="comment">// 监听datatime1</span></span><br><span class="line">        datatime1() &#123;</span><br><span class="line">            <span class="keyword">this</span>.draw1()</span><br><span class="line">&#125;,</span><br><span class="line">methods: &#123;</span><br><span class="line">    <span class="keyword">async</span> draw1() &#123;</span><br><span class="line">        <span class="comment">// 获取数据</span></span><br><span class="line">            <span class="keyword">const</span> &#123;data&#125; = <span class="keyword">await</span> axios(&#123;</span><br><span class="line">                method: <span class="string">'get'</span>,</span><br><span class="line">                url: <span class="string">'/cpu_detecting'</span>,</span><br><span class="line">                params: &#123;  </span><br><span class="line">                    currentday: <span class="keyword">typeof</span> <span class="keyword">this</span>.datatime1 == <span class="built_in">String</span> ? <span class="keyword">this</span>.datatime1.slice(<span class="number">0</span>,<span class="number">10</span>) : dateFormat(<span class="keyword">this</span>.datatime1)</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        <span class="comment">// 渲染 展示 真实返回的data数据</span></span><br><span class="line">            <span class="keyword">this</span>.$echarts.init(<span class="built_in">document</span>.getElementById(<span class="string">'main'</span>)).setOption(&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/echarts/" rel="tag"># echarts</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/09/25/%E8%B7%A8%E7%AB%AFFlutter%E5%AD%A6%E4%B9%A0/" rel="next" title="跨端Flutter学习">
+                <i class="fa fa-chevron-left"></i> 跨端Flutter学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/11/14/Django%E5%AD%A6%E4%B9%A0/" rel="prev" title="Django学习">
+                Django学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">苏玉璠</p>
+              <p class="site-description motion-element" itemprop="description">人在旅途 风向八方 有人四处走动 是为了寻找一个温暖的地方留下 有人不断告别 是因为没有谁能挽留她的脚步 有人不断被超越 只因为梦想的无法止息</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1484114039@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-问题描述："><span class="nav-number">1.</span> <span class="nav-text">1.问题描述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-问题排查过程："><span class="nav-number">2.</span> <span class="nav-text">2.问题排查过程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-问题解决方案："><span class="nav-number">3.</span> <span class="nav-text">3.问题解决方案：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-项目背景："><span class="nav-number">4.</span> <span class="nav-text">4.项目背景：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏玉璠</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共153.1k字</span>
+</div>  
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
