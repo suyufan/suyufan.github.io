@@ -86,8 +86,9 @@
 <meta property="og:site_name" content="笑笑の博客">
 <meta property="og:description" content="核心：ref、reactive、computed、watch、生命周期… Vue3相比Vue2的区别：  性能的提升 源码的升级 使用Proxy代替defineProperty实现响应式 重写虚拟DOM的实现和Tree-Shaking   可以更好的支持TS">
 <meta property="og:image" content="http://suyufan.github.io/2023/12/30/vue3%E5%9B%9E%E9%A1%BE/pinia.png">
+<meta property="og:image" content="http://suyufan.github.io/2023/12/30/vue3%E5%9B%9E%E9%A1%BE/%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1.png">
 <meta property="article:published_time" content="2023-12-30T09:39:33.000Z">
-<meta property="article:modified_time" content="2023-12-31T05:43:16.944Z">
+<meta property="article:modified_time" content="2024-01-01T12:00:08.945Z">
 <meta property="article:author" content="苏玉璠">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
@@ -342,7 +343,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.8k
+                  3.4k
                 </span>
               
 
@@ -358,7 +359,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  12
+                  15
                 </span>
               
             </div>
@@ -446,9 +447,12 @@
 <li>引用类型的响应式数据，且层级深，推荐用<code>reactive</code></li>
 </ul>
 </li>
-<li><p>注意：如果从一个响应式的对象上，去直接解构属性，属性将丢失响应式</p>
+<li><p>注意：</p>
+<p>1.如果从一个响应式的对象上，去直接解构属性，属性将丢失响应式</p>
 <p>如:</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;reactive&#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">let</span> car = reactive(&#123;brand:<span class="string">'奔驰'</span>,price:<span class="number">100</span>&#125;)</span><br><span class="line"><span class="keyword">let</span> &#123;brand,price&#125; = car <span class="comment">//brand和price会丢失响应式</span></span><br></pre></td></tr></table></figure>
+<p>  2.reactive定义的对象,不能直接修改</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> car = reactive(&#123;brand:<span class="string">'奔驰'</span>,price: <span class="number">80</span>&#125;)</span><br><span class="line"><span class="comment">//要修改car,不能直接修改</span></span><br><span class="line">car = &#123;brand:<span class="string">"宝马"</span>,price:<span class="number">100</span>&#125;</span><br><span class="line"><span class="comment">//或</span></span><br><span class="line">car = reactive(&#123;brand:<span class="string">"宝马"</span>,price:<span class="number">100</span>&#125;)</span><br><span class="line"><span class="comment">//都不行</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//得这样修改</span></span><br><span class="line"><span class="built_in">Object</span>.assign(car, &#123;brand:<span class="string">"宝马"</span>,price:<span class="number">100</span>&#125;)</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -511,7 +515,8 @@
 
 <p>pinia中也有<code>getters</code>，对数据进行计算处理，像computed</p>
 <p>pinia中有<code>$subscribe</code>，像watch</p>
-<h3 id="13-组件通信"><a href="#13-组件通信" class="headerlink" title="13.组件通信"></a>13.组件通信</h3><ul>
+<h3 id="13-组件通信"><a href="#13-组件通信" class="headerlink" title="13.组件通信"></a>13.组件通信</h3><p><img src="/2023/12/30/vue3%E5%9B%9E%E9%A1%BE/%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1.png" alt></p>
+<ul>
 <li><p>1.props</p>
 <p>父给子传递car，子给父传递toy</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;h&gt;父组件&lt;&#x2F;h&gt;</span><br><span class="line">&lt;h4&gt;汽车：&#123;&#123;car&#125;&#125;&lt;&#x2F;h4&gt;</span><br><span class="line">&lt;Child :car&#x3D;&quot;car&quot; :sendToy&#x3D;&quot;getToy&quot; &#x2F;&gt;</span><br><span class="line">&lt;h4 v-show&#x3D;&quot;toy&quot;&gt;子给父的玩具：&#123;&#123;toy&#125;&#125;&lt;&#x2F;h4&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot; setup&gt;</span><br><span class="line">    import Child from &#39;.&#x2F;Child.vue&#39;</span><br><span class="line">    import &#123;ref&#125; from &#39;vue&#39;</span><br><span class="line">    &#x2F;&#x2F;数据</span><br><span class="line">    let car &#x3D; ref(&#39;奔驰&#39;)</span><br><span class="line">    &#x2F;&#x2F;方法</span><br><span class="line">    function getToy(value:string)&#123;</span><br><span class="line">        console.log(&#39;父拿到子传来的数据&#39;,value)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;h&gt;子组件&lt;&#x2F;h&gt;</span><br><span class="line">&lt;h4&gt;玩具：&#123;&#123;toy&#125;&#125;&lt;&#x2F;h4&gt;</span><br><span class="line">&lt;h4&gt;父给的汽车：&#123;&#123;car&#125;&#125;&lt;&#x2F;h4&gt;</span><br><span class="line">&lt;button @click&#x3D;&quot;sendToy(toy)&quot;&gt;把玩具toy传给父&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;script lang&#x3D;&quot;ts&quot; setup&gt;</span><br><span class="line">    import &#123;ref&#125; from &#39;vue&#39;</span><br><span class="line">    &#x2F;&#x2F;数据</span><br><span class="line">    let toy &#x3D; ref(&#39;奥特曼&#39;)</span><br><span class="line">    &#x2F;&#x2F;声明接收props</span><br><span class="line">    defineProps([&#39;car&#39;,&#39;sendToy&#39;])</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
@@ -554,13 +559,59 @@
 </ul>
 </li>
 <li><p>7.provide、inject</p>
+<p>任意组件的通信</p>
 <p><code>provide</code>向后代提供数据，<code>inject</code>拿到数据</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">provide(<span class="string">'qian'</span>, money) <span class="comment">//父 向后代提供数据</span></span><br><span class="line"><span class="keyword">let</span> x = inject(<span class="string">'qian'</span>)</span><br></pre></td></tr></table></figure>
-
-
-
+<p>子给父传递的时候通过触发事件，绑定事件的方式。父中定义一个事件并将该事件provide给子组件，子组件inject接收事件并在合适时机触发该事件</p>
 </li>
 </ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">provide(<span class="string">'qian'</span>, money) <span class="comment">//父 向后代提供数据</span></span><br><span class="line"><span class="keyword">let</span> money = inject(<span class="string">'qian'</span>,<span class="string">"我是默认值"</span>) <span class="comment">//子 拿到父传来的数据 且能设置默认值</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>pinia</p>
+</li>
+<li><p>slot</p>
+</li>
+</ul>
+<h3 id="14-其他API"><a href="#14-其他API" class="headerlink" title="14.其他API"></a>14.其他API</h3><ul>
+<li><p><code>shallowRef()</code>和<code>shallowReacrive()</code></p>
+<p>绕开深度响应，浅层式API创建的状态只在其<code>顶层是响应式</code>，对所有深层的对象不会做任何处理，避免了对每一个内部属性做响应式所带来的性能成本，这使得属性的访问变得更快，提升性能.</p>
+</li>
+<li><p><code>readonly</code>和<code>shallowReadonly</code></p>
+<p>readonly：创建一个对象的深只读副本</p>
+<p>shallowReadonly：只作用于对象的顶层属性</p>
+</li>
+<li><p><code>toRaw</code>和<code>markRaw</code></p>
+<p>toRaw：获取一个响应式对象的原始对象</p>
+<p>markRaw：标记一个对象，使其永远不会变成响应式</p>
+</li>
+<li><p><code>customRef</code></p>
+<p>自定义Ref</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;customRef&#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">let</span> initValue = <span class="string">'hello'</span></span><br><span class="line"><span class="keyword">let</span> timer:<span class="built_in">number</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// track(跟踪) trigger(触发)</span></span><br><span class="line"><span class="keyword">let</span> msg = customRef(<span class="function">(<span class="params">track,trigger</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="keyword">get</span>()&#123;</span><br><span class="line">            track()  <span class="comment">//告诉Vue数据msg很重要,你要对msg进行持续关注,一旦msg变化就去更新</span></span><br><span class="line">            <span class="keyword">return</span> initValue</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="keyword">set</span>()&#123;</span><br><span class="line">            clearTimeout(timer)</span><br><span class="line">            timer = setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                initValue = value</span><br><span class="line">                triggeer()  <span class="comment">//通知Vue,数据msg变化了</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Teleport</code></p>
+<p>将组件<code>html结构</code>移动到指定位置的技术</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;teleport to&#x3D;&#39;body&#39;&gt;</span><br><span class="line">	&lt;div class&#x3D;&quot;modal&quot; v-show&#x3D;&quot;isShow&quot;&gt;</span><br><span class="line">       &lt;h2&gt;弹窗标题&lt;&#x2F;h2&gt; </span><br><span class="line">        &lt;p&gt;弹窗内容&lt;&#x2F;p&gt;</span><br><span class="line">        &lt;button @click&#x3D;&quot;isShow &#x3D; false&quot;&gt;关闭弹窗&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;teleport&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Suspense</code></p>
+<p>等待异步组件时渲染一些额外的内容</p>
+<ul>
+<li>异步引入组件</li>
+<li>使用<code>Suspense</code>包裹组件,并配置好<code>default</code>与<code>fallback</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class &#x3D; &quot;app&quot;&gt;</span><br><span class="line">    &lt;h3&gt;我是APP组件&lt;&#x2F;h3&gt;</span><br><span class="line">    &lt;Suspense&gt;</span><br><span class="line">    	&lt;template v-slot:default&gt;</span><br><span class="line">        	&lt;Child&gt;&lt;&#x2F;Child&gt;</span><br><span class="line">        &lt;&#x2F;template&gt;</span><br><span class="line">        &lt;template v-slot:fallback&gt;</span><br><span class="line">        	&lt;h3&gt;加载中.....&lt;&#x2F;h3&gt;</span><br><span class="line">        &lt;&#x2F;template&gt;</span><br><span class="line">    &lt;&#x2F;Suspense&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    import &#123;defineAsyncComponent, Suspense&#125; from &#39;vue&#39;</span><br><span class="line">    const Child &#x3D; defineAsyncComponent(()&#x3D;&gt;import(&#39;.&#x2F;Child.vue&#39;))</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局API转移到应用对象</p>
+<ul>
+<li><code>app.component</code>：注册组件</li>
+<li><code>app.config</code>：注册配置属性</li>
+<li><code>app.directive</code>：注册指令</li>
+<li><code>app.mount</code>：挂载组件</li>
+<li><code>app.unmount</code>：卸载组件</li>
+<li><code>app.use</code>：使用组件</li>
+</ul>
+</li>
+</ul>
+<h3 id="15-与Vue2非兼容性改变"><a href="#15-与Vue2非兼容性改变" class="headerlink" title="15.与Vue2非兼容性改变"></a>15.与Vue2非兼容性改变</h3><p><a href="https://v3-migration.vuejs.org/zh/breaking-changes/" target="_blank" rel="noopener">官网文档</a></p>
 
       
     </div>
@@ -741,7 +792,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Options-API与Composition-API"><span class="nav-number">1.</span> <span class="nav-text">1.Options API与Composition API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ref与reactive"><span class="nav-number">2.</span> <span class="nav-text">2.ref与reactive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-toRefs与toRef，storeToRefs"><span class="nav-number">3.</span> <span class="nav-text">3.toRefs与toRef，storeToRefs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-computed"><span class="nav-number">4.</span> <span class="nav-text">4.computed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-watch"><span class="nav-number">5.</span> <span class="nav-text">5.watch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-watchEffect"><span class="nav-number">6.</span> <span class="nav-text">6.watchEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-标签的ref属性"><span class="nav-number">7.</span> <span class="nav-text">7.标签的ref属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-props"><span class="nav-number">8.</span> <span class="nav-text">8.props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-生命周期函数"><span class="nav-number">9.</span> <span class="nav-text">9.生命周期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-hooks"><span class="nav-number">10.</span> <span class="nav-text">10.hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-路由"><span class="nav-number">11.</span> <span class="nav-text">11.路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Pinia"><span class="nav-number">12.</span> <span class="nav-text">12.Pinia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-组件通信"><span class="nav-number">13.</span> <span class="nav-text">13.组件通信</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Options-API与Composition-API"><span class="nav-number">1.</span> <span class="nav-text">1.Options API与Composition API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ref与reactive"><span class="nav-number">2.</span> <span class="nav-text">2.ref与reactive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-toRefs与toRef，storeToRefs"><span class="nav-number">3.</span> <span class="nav-text">3.toRefs与toRef，storeToRefs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-computed"><span class="nav-number">4.</span> <span class="nav-text">4.computed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-watch"><span class="nav-number">5.</span> <span class="nav-text">5.watch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-watchEffect"><span class="nav-number">6.</span> <span class="nav-text">6.watchEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-标签的ref属性"><span class="nav-number">7.</span> <span class="nav-text">7.标签的ref属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-props"><span class="nav-number">8.</span> <span class="nav-text">8.props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-生命周期函数"><span class="nav-number">9.</span> <span class="nav-text">9.生命周期函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-hooks"><span class="nav-number">10.</span> <span class="nav-text">10.hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-路由"><span class="nav-number">11.</span> <span class="nav-text">11.路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Pinia"><span class="nav-number">12.</span> <span class="nav-text">12.Pinia</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-组件通信"><span class="nav-number">13.</span> <span class="nav-text">13.组件通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-其他API"><span class="nav-number">14.</span> <span class="nav-text">14.其他API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-与Vue2非兼容性改变"><span class="nav-number">15.</span> <span class="nav-text">15.与Vue2非兼容性改变</span></a></li></ol></div>
             
 
           </div>
@@ -762,7 +813,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
+<div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -786,7 +837,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共155.8k字</span>
+  <span class="post-count">博客全站共156.5k字</span>
 </div>  
 
         
